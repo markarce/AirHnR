@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import css from './styles/styles.css';
 // import 'typeface-roboto';
-import { BrowserRouter } from 'react-router-dom'
+// import { BrowserRouter } from 'react-router-dom'
 
 
 
