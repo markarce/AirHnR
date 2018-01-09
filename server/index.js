@@ -1,4 +1,5 @@
 const config = require('../config');
+const db = require('../database');
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser')
