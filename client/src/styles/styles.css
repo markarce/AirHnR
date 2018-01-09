@@ -1,0 +1,41 @@
+.listing-wrapper {
+    display: grid;
+    grid-template-columns: [first] 40px 10% 10% 10% 10% 10% 10% 10% 10% [last] 100px;
+    grid-template-rows: 10% 10% 10% 10% 10% 10% 10% 10% 10% 10%;
+    grid-gap: 0px;
+}
+
+.listing-img {
+    max-width: 100%; 
+    max-height: 350px; 
+    overflow: hidden; 
+    grid-column-start: first;
+    grid-column-end: 11;
+    grid-row-start: 2;
+    grid-row-end: 4;
+}
+
+.listing-img image {
+    display: block;
+    margin: auto;
+}
+
+.listing-nav {
+    grid-column-start: 2;
+    grid-column-end: last;
+    grid-row-start: 4;
+    justify-self: start;
+}
+
+.divider-nav {
+    grid-column-start: 2;
+    grid-column-end: last;
+    grid-row-start: 6;
+    justify-self: end;
+}
+
+.listing-title {
+    grid-column-start: 2;
+    grid-column-end: 5;
+    grid-row-start: 5;
+}
