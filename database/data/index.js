@@ -5,7 +5,7 @@ const nyll = require('./ny_lat_long.json')
 const sfll = require('./sf_lat_long.json')
 const home_types = ['Home', 'Aprtment', 'Abode', 'Townhouse', 'Mansion', 'Castle', 'Dump', 'Slum', 'House', 'Flat', 'Palace', 'Estate', 'Dwelling', 'Box', 'Co-Op', 'Lean-To', 'Cardboard Box', 'Shanty', 'Cairn', 'Alleyway', 'Flophouse', 'Couch', 'Basement'];
 
-const roomt_types = ['Couch', 'Room'];
+const room_types = ['Couch', 'Room', 'Studio', 'House'];
 const house_pics = require('./pics.json');
 const pickOne = (array) => {
   return array[Math.floor(Math.random() * array.length)]
@@ -54,10 +54,12 @@ const generateAmenity = () => {
 };
 
 const generateHouseRules = () => {
-  pets: pickOne([true, false, false]),
-  smoking: pickOne([false, false, false, false, false, true, false]),
-  checkIn: '12:00 PM',
-  checkOut: '12:00 PM'
+  return {
+    pets: pickOne([true, false, false]),
+    smoking: pickOne([false, false, false, false, false, true, false]),
+    checkIn: '12:00 PM',
+    checkOut: '12:00 PM'
+  }
 };
 
 const createUsers = () => {
@@ -69,7 +71,7 @@ const createUsers = () => {
       password: dp.password,
       first_name: dp.first_name,
       last_name: dp.last_name,
-      account_created: db.account_created,
+      account_created: dp.account_created,
       email: dp.email,
       about_me: dp.about_me,
       avatar_url: dp.avatar_url,
@@ -87,8 +89,8 @@ const createUsers = () => {
 const createLocations = () => {
   let address_info = [['NewYork', 'NY', '10001'], ['San Francisco', 'CA', '94117']]
   return locationdata.map((dp, idx) => {
-    let city = idx < locationdata.length ? 0 : 1;
-    let cityidx = idx < locationdata.length ? idx : idx - 100;
+    let city = idx < locationdata.length / 2 ? 0 : 1;
+    let cityidx = idx < locationdata.length - 1 ? idx : idx - 101;
     let cityll = city === 1 ? sfll : nyll;
     return {
       name: `${dp.adjective.toUpperCase()} ${address_info[city][0]} ${pickOne(home_types)}`,
@@ -155,7 +157,7 @@ const createFavorites = (num) => {
 const createLocationReviews = (num) => {
   return Array(num).fill(null).map((dp, idx) => {
     return {
-      tagline: pickOne(reviewData).buzzword.toUpperCase() + pickOne(reviewData).tagline,
+      tagline: pickOne(reviewdata).buzzword.toUpperCase() + pickOne(reviewdata).tagline,
       review_text: pickOne(reviewdata).review,
       stars: numberInRange(1, 5),
       location_id: numberInRange(1, locationdata.length),
@@ -168,7 +170,7 @@ const createLocationReviews = (num) => {
 const createHostReviews = (num) => {
   return Array(num).fill(null).map((dp, idx) => {
     return {
-      tagline: pickOne(reviewData).buzzword.toUpperCase() + pickOne(reviewData).tagline,
+      tagline: pickOne(reviewdata).buzzword.toUpperCase() + pickOne(reviewdata).tagline,
       review_text: pickOne(reviewdata).review,
       stars: numberInRange(1, 5),
       host_id: numberInRange(1, userdata.length),
@@ -181,7 +183,7 @@ const createHostReviews = (num) => {
 const createGuestReviews = (num) => {
   return Array(num).fill(null).map((dp, idx) => {
     return {
-      tagline: pickOne(reviewData).buzzword.toUpperCase() + pickOne(reviewData).tagline,
+      tagline: pickOne(reviewdata).buzzword.toUpperCase() + pickOne(reviewdata).tagline,
       review_text: pickOne(reviewdata).review,
       stars: numberInRange(1, 5),
       guest_id: numberInRange(1, userdata.length),
@@ -189,7 +191,6 @@ const createGuestReviews = (num) => {
     };
   });
 };
-
 
 const users = createUsers();
 const locations = createLocations();
@@ -199,7 +200,6 @@ const favorites = createFavorites(500);
 const location_reviews = createLocationReviews(800);
 const host_reviews = createHostReviews(600);
 const guest_reviews = createGuestReviews(500);
-
 
 module.exports = {
   users: users,
