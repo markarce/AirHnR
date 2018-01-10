@@ -3,7 +3,9 @@ import { render } from 'react-dom';
 import css from './styles/styles.css';
 // import 'typeface-roboto';
 import { BrowserRouter } from 'react-router-dom';
+
 import ListingDetails from './components/ListingDetails.jsx'
+
 
 
 import SearchResults from './components/SearchResults'
@@ -56,6 +58,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
+
       <NavBar/>
       <div>
         <Search onClick={this.handleClickFunction}/>

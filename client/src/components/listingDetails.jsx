@@ -8,14 +8,14 @@ let listingSampleData = {
     start_date: '01/01/2018',
     end_date: '04/04/2018',
     price: 300
-}
+};
 
 class ListingDetails extends React.Component {
     constructor (props) {
         super (props);
         this.state = {
             showDescription: false
-        }
+        };
     }
 
     renderDescription () {
