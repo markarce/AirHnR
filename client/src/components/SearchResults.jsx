@@ -13,22 +13,11 @@ class SearchResults extends React.Component {
     this.state = {
       fakeResults: data.testSearchResults
     }
-    this.handleClickFunction = this.handleClickFunction.bind(this);
+    this.handleListingClick = this.handleListingClick.bind(this);
   }
 
-  handleClickFunction(listingID) {
-    console.log(listingID + ' clicked!')
-    // const options = {
-    //   method: 'GET',
-    //   contentType: "application/json",
-    //   mode: 'cors',
-    //   cache: 'default'
-    // }
-    // fetch(`/api/listings?id=${listingID}`, options)
-    //   .then((response) => response.json())
-    //   .then((listings) => {
-    //     console.log(listings)
-    // })
+  handleListingClick(listingID) {
+    this.props.handleListingClick(listingID);
   }
 
   render() {
@@ -47,7 +36,7 @@ class SearchResults extends React.Component {
             price={listing.price}
             rating={listing.star_rating}
             image={listing.image_url}
-            handleClick={this.handleClickFunction}
+            handleClick={this.handleListingClick}
           />
         ))}
       </Grid>

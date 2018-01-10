@@ -41,7 +41,7 @@ function SearchResult (props) {
             ${props.price} per night
           </Typography>
           <Typography>
-            {props.rating}
+            {props.rating} / 5 star rating
           </Typography>
         </CardContent>
       </Card>
