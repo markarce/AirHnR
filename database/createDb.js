@@ -16,7 +16,7 @@ knex.schema
     table.string('email');
     table.string('about_me');
     table.string('password');
-    table.string('avatar_url');
+    table.string('avatar_url', 1000);
     table.string('credit_card_number');
     table.string('address_city');
     table.string('address_street');
@@ -33,9 +33,9 @@ knex.schema
     table.string('address_street');
     table.string('address_region');
     table.string('address_postal_code');
-    table.string('description');
+    table.string('description', 3000);
     table.string('room_type');
-    table.string('image_url');
+    table.string('image_url', 1000);
     table.string('tagline');
     table.timestamps(true, true);
     table.integer('max_guests')
@@ -93,7 +93,7 @@ knex.schema
 knex.schema
   .createTable('location_reviews', table => {
     table.increments('id').primary();
-    table.string('review_text');
+    table.string('review_text', 2000);
     table.timestamps(true, true);
     table.integer('location_id');
     table.integer('stars');
@@ -105,7 +105,7 @@ knex.schema
 knex.schema
   .createTable('host_reviews', table => {
     table.increments('id').primary();
-    table.string('review_text');
+    table.string('review_text', 2000);
     table.timestamps(true, true);
     table.integer('stars');
     table.integer('host_id');
@@ -117,7 +117,7 @@ knex.schema
 knex.schema
   .createTable('guest_reviews', table => {
     table.increments('id').primary();
-    table.string('review_text');
+    table.string('review_text', 2000);
     table.timestamps(true, true);
     table.integer('stars');
     table.integer('guest_id');
