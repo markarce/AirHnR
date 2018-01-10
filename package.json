@@ -12,6 +12,7 @@
     "webpack": "webpack -d --watch",
     "build": "webpack -p",
     "postinstall": "npm run build",
+    "recreate-db": "node database/recreateDb.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
