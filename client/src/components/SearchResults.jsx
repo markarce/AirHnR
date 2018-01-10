@@ -12,32 +12,26 @@ class SearchResults extends React.Component {
     this.state = {
       fakeResults: data.testSearchResults
     }
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleClick(event) {
-    console.log('clicked!')
-    //this.props.handleListingClick(event.target.value);
   }
 
   render() {
     console.log('state', this.state);
 
     return (
-      <ul>
+      <div>
         { this.state.fakeResults.map(listing => (
           <SearchResult 
             key={listing.id}
+            id={listing.id}
             roomtype={listing.room_type}
             beds={listing.beds}
             name={listing.name}
             price={listing.price}
             rating={listing.star_rating}
-            image="https://i.imgur.com/H84gX9M.jpg"
-            onClick={this.handleClick}
+            image={listing.image_url}
           />
         ))}
-      </ul>
+      </div>
     );
   }
 }

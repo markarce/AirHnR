@@ -7,46 +7,42 @@ import css from '../styles/styles.css';
 import { withStyles } from 'material-ui/styles';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
 
 const styles = {
   card: {
-    maxWidth: 345,
+    maxWidth: 300,
   },
   media: {
-    height: 200,
+    height: 170,
   },
 };
 
 function SearchResult (props) {
   const { classes } = props;
   return (
-    <div>
-      <Card className={classes.card}>
+      <Card component="div" className={classes.card} onClick={() => { console.log(props.id + ' clicked!') }}>
         <CardMedia
           className={classes.media}
           image={props.image}
           title="House Placeholder"
         />
         <CardContent>
-        <Typography type="caption">
-          {props.roomtype} - Beds: {props.beds}
+          <Typography type="caption">
+            {props.roomtype} - Beds: {props.beds}
           </Typography>
           <Typography type="title">
-          {props.name}
+            {props.name}
           </Typography>
-
           <Typography type="caption">
-          ${props.price} per night
+            ${props.price} per night
           </Typography>
           <Typography>
-          {props.rating}
+            {props.rating}
           </Typography>
-          </CardContent>
-            <CardActions>
-        </CardActions>
+        </CardContent>
       </Card>
-    </div>
   );
 }
 
@@ -55,20 +51,3 @@ SearchResult.propTypes = {
 };
 
 export default withStyles(styles)(SearchResult);
-
-// const SearchResult = (props) => (
-//     <li>
-//       <img src={props.image} />
-//       {props.roomtype}
-//       {props.beds}
-//       {props.name}
-//       {props.price} per night
-//       {props.star_rating}
-//     </li>
-//   )
-//   <Button dense color="primary">
-//   Share
-// </Button>
-// <Button dense color="primary">
-//   Learn More
-// </Button>
