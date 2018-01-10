@@ -21,18 +21,14 @@ class App extends React.Component {
   render() {
     return (
       <div>
-
-        <div>App is loaded </div>
-      <SearchResults />
-      <div>
-        <NavBar/>
-      </div>
-      <br/>
+      <NavBar/>
       <div>
         <Search onClick={this.handleClickFunction}/>
       </div>
-      <div>App is loaded</div>
-
+      <br/>
+      <div>
+        <SearchResults />
+      </div>
       </div>
     );
   }
