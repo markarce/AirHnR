@@ -16,7 +16,8 @@ class SearchResults extends React.Component {
   }
 
   handleClick(event) {
-    this.props.handleListingClick(event.target.value);
+    console.log('clicked!')
+    //this.props.handleListingClick(event.target.value);
   }
 
   render() {
@@ -33,6 +34,7 @@ class SearchResults extends React.Component {
             price={listing.price}
             rating={listing.star_rating}
             image="https://i.imgur.com/H84gX9M.jpg"
+            onClick={this.handleClick}
           />
         ))}
       </ul>
