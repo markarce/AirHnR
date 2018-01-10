@@ -4,6 +4,7 @@ import { render } from 'react-dom';
 import css from '../styles/styles.css';
 import { BrowserRouter } from 'react-router-dom';
 import data from '../../../lib/dummyData.js';
+import SearchResult from './SearchResult.jsx'
 
 class SearchResults extends React.Component {
   constructor(props) {
@@ -20,16 +21,22 @@ class SearchResults extends React.Component {
 
   render() {
     console.log('state', this.state);
-    var resultsList = this.state.fakeResults.map((listing) => <li>{listing.name}</li>);
 
     return (
-       <div>
-        <ul>
-          {resultsList}
-       </ul>
-      
-      </div>
-    )
+      <ul>
+        { this.state.fakeResults.map(listing => (
+          <SearchResult 
+            key={listing.id}
+            roomtype={listing.room_type}
+            beds={listing.beds}
+            name={listing.name}
+            price={listing.price}
+            rating={listing.star_rating}
+            image="https://i.imgur.com/H84gX9M.jpg"
+          />
+        ))}
+      </ul>
+    );
   }
 }
 
