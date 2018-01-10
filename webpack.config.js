@@ -1,10 +1,10 @@
 var path = require('path');
 var __src = path.join(__dirname, '/client/src');
 var __dist = path.join(__dirname, '/client/dist');
-// const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-// const HtmlWebpackPlugin = require('html-webpack-plugin');
-// const CleanWebpackPlugin = require('clean-webpack-plugin');
-// const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
 module.exports = {
   entry: `${__src}/index.jsx`,
@@ -12,12 +12,12 @@ module.exports = {
     filename: 'bundle.js',
     path: __dist
   },
-  // plugins: [
-  //   new UglifyJSPlugin(),
-  //   new HtmlWebpackPlugin({ template: __src+ '/index.html' }),
-  //   new CleanWebpackPlugin([__dist], {watch: true}),
-  //   new FaviconsWebpackPlugin(__src + '/assets/logo.png')
-  // ],
+  plugins: [
+    new UglifyJSPlugin(),
+    new HtmlWebpackPlugin({ template: __src+ '/index.html' }),
+    new CleanWebpackPlugin([__dist], {watch: true}),
+    new FaviconsWebpackPlugin(__src + '/assets/logo.png')
+  ],
   module: {
     rules: [
       {
