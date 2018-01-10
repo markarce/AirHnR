@@ -104,6 +104,7 @@ knex.schema
 knex.schema
   .createTable('location_reviews', table => {
     table.increments('id').primary();
+    table.string('tagline');    
     table.string('review_text', 2000);
     table.timestamps(true, true);
     table.integer('stars');
@@ -116,6 +117,7 @@ knex.schema
 knex.schema
   .createTable('host_reviews', table => {
     table.increments('id').primary();
+    table.string('tagline');    
     table.string('review_text', 2000);
     table.timestamps(true, true);
     table.integer('stars');
@@ -128,6 +130,7 @@ knex.schema
 knex.schema
   .createTable('guest_reviews', table => {
     table.increments('id').primary();
+    table.string('tagline');
     table.string('review_text', 2000);
     table.timestamps(true, true);
     table.integer('stars');
