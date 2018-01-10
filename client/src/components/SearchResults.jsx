@@ -17,17 +17,18 @@ class SearchResults extends React.Component {
   }
 
   handleClickFunction(listingID) {
-  const options = {
-    method: 'GET',
-    contentType: "application/json",
-    mode: 'cors',
-    cache: 'default'
-  }
-  fetch(`/api/listings?id=${listingID}`, options)
-    .then((response) => response.json())
-    .then((listings) => {
-      console.log(listings)
-    })
+    console.log(listingID + ' clicked!')
+    // const options = {
+    //   method: 'GET',
+    //   contentType: "application/json",
+    //   mode: 'cors',
+    //   cache: 'default'
+    // }
+    // fetch(`/api/listings?id=${listingID}`, options)
+    //   .then((response) => response.json())
+    //   .then((listings) => {
+    //     console.log(listings)
+    // })
   }
 
   render() {
@@ -46,6 +47,7 @@ class SearchResults extends React.Component {
             price={listing.price}
             rating={listing.star_rating}
             image={listing.image_url}
+            handleClick={this.handleClickFunction}
           />
         ))}
       </Grid>

@@ -5,7 +5,6 @@ import { render } from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import css from '../styles/styles.css';
 import { withStyles } from 'material-ui/styles';
-import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
@@ -22,7 +21,10 @@ const styles = {
 function SearchResult (props) {
   const { classes } = props;
   return (
-      <Card component="div" className={classes.card} onClick={() => { console.log(props.id + ' clicked!') }}>
+      <Card 
+        component="div" 
+        className={classes.card} 
+        onClick={() => { props.handleClick(props.id) }}>
         <CardMedia
           className={classes.media}
           image={props.image}
