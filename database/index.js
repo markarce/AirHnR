@@ -1,7 +1,7 @@
 const config = require('../config');
 const knex = require('knex')({
   client: 'pg',
-  connection: config.database_url + '/airhnr'
+  connection: config.database_url + config.database_name
 });
 const bookshelf = require('bookshelf')(knex);
 

@@ -3,9 +3,9 @@ const data = require('./data');
 const fs = require('fs');
 const knex = require('knex')({
   client: 'pg',
-  connection: config.database_url + '/airhnr'
+  connection: config.database_url + config.database_name
 });
-// const bookshelf = require('bookshelf')(knex);
+const bookshelf = require('bookshelf')(knex);
 
 knex.schema
   .createTable('users', table => {
@@ -19,13 +19,16 @@ knex.schema
     table.string('email');
     table.string('about_me', 1000);
     table.string('avatar_url', 1000);
+    table.string('phone_number');
     table.string('credit_card_number');
     table.string('address_street');
     table.string('address_city');
     table.string('address_region');
     table.string('address_postal_code');
     table.boolean('is_host');
-  }).then(() => { });
+  }).then(() => { 
+    knex('users').insert(data.users);
+  });
 
 knex.schema
   .createTable('locations', table => {
@@ -133,30 +136,3 @@ knex.schema
     table.integer('reviewer_id');
     table.foreign('reviewer_id').references('users.id');
   }).then(() => {});
-
-
-// knex('listings').insert([
-//   {
-//     beds: 18,
-//     address: "1600 Pennsylvania Avenue NW, Washington, DC 20500, USA",
-//     name: "Really, really white house",
-//     room_type: "Single Room",
-//     image_url: "https://timedotcom.files.wordpress.com/2016/08/whitehousevalue-re-97765250.jpg",
-//     latitude: 38.896158,
-//     longitude: -77.037139,
-//     bathrooms: 1,
-//     max_guests: 2,
-//     tagline: "The summer white house",
-//     // description: "It's no Mar-a-lago, but it's pretty great. The White House is the official residence and workplace of the President of the United States. It is located at 1600 Pennsylvania Avenue NW in Washington, D.C., and has been the residence of every U.S. president since John Adams in 1800. ",
-//     amenities: {
-//       "wifi": true,
-//       "kitchen": true,
-//       "hotTub": true,
-//       "pool": true,
-
-//     },
-//     house_rules: {
-//       "pets": true,
-//       "smoking": false,
-//       "checkIn": "01/20/2017",
-//       "checkOut": "01/19/2021"
