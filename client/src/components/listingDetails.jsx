@@ -1,9 +1,14 @@
 import React from 'react';
-import ListingNav from './listingNav.jsx';
+import ListingNav from './ListingNav.jsx';
 import Button from 'material-ui/Button';
 import _ from 'lodash';
-// import Divider from 'material-ui/Divider';
-// import ListDividers from './listingDivider.jsx';
+import Booking from './Booking.jsx'
+
+let listingSampleData = {
+    start_date: '01/01/2018',
+    end_date: '04/04/2018',
+    price: 300
+}
 
 class ListingDetails extends React.Component {
     constructor (props) {
@@ -116,7 +121,7 @@ class ListingDetails extends React.Component {
         return (
             <div className='listing-wrapper'>
                 <div className='listing-img' >
-                    <img src={this.props.listing.image_url} style={{width: `100%`, 'maxheight': `350px`}}/> 
+                    <img src={this.props.listing.image_url}/> 
                 </div>
                 {/* <div className='listing-nav'>
                     <a href='#'>Overview</a>
@@ -125,6 +130,7 @@ class ListingDetails extends React.Component {
                     <a href='#'>Location</a>
                 </div> */}
                 <ListingNav />
+                <Booking listing={listingSampleData}/>
                 <div className='line-break1'></div>
                 <div className='listing-title'>
                     <h1>{this.props.listing.name}</h1>

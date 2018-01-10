@@ -212,4 +212,16 @@ p {
     line-height: 25px;
 }
 
+/* .booking-price {
+
+} */
+
+.price-perNight {
+    font-size: 3rem;
+    margin-right: 20px;
+}
+
+.perNight-text {
+    font-size: 1.5rem;
+}
 
