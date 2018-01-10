@@ -1,5 +1,5 @@
 import React from 'react';
-import ListingNav from './ListingNav.jsx';
+import ListingNav from './listingNav.jsx';
 import Button from 'material-ui/Button';
 import _ from 'lodash';
 import Booking from './Booking.jsx'
