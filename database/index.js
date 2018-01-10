@@ -10,7 +10,7 @@ const getLocationsNear = (lat, long, radius) => {
   //returns a promise of data
   query = `SELECT * FROM locations WHERE ST_Distance(ST_SetSRID(ST_MakePoint(${long}, ${lat})::GEOGRAPHY, 4326), ST_SetSRID(ST_MakePoint(longitude, latitude), 4326)::GEOGRAPHY) <= ${radius}`;
   // return bookshelf.knex.raw(query);
-  return [{ listing: "I'm a listing!" },{ listing: "I'm a listing!" },{ listing: "Me too!" }];
+  return new Promise(res => res([{ listing: "I'm a listing!" },{ listing: "I'm a listing!" },{ listing: "Me too!" }]));
 };
 
 module.exports = {
