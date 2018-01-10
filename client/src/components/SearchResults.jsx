@@ -5,6 +5,7 @@ import css from '../styles/styles.css';
 import { BrowserRouter } from 'react-router-dom';
 import data from '../../../lib/dummyData.js';
 import SearchResult from './SearchResult.jsx'
+import Grid from 'material-ui/Grid';
 
 class SearchResults extends React.Component {
   constructor(props) {
@@ -12,15 +13,31 @@ class SearchResults extends React.Component {
     this.state = {
       fakeResults: data.testSearchResults
     }
+    this.handleClickFunction = this.handleClickFunction.bind(this);
+  }
+
+  handleClickFunction(listingID) {
+  const options = {
+    method: 'GET',
+    contentType: "application/json",
+    mode: 'cors',
+    cache: 'default'
+  }
+  fetch(`/api/listings?id=${listingID}`, options)
+    .then((response) => response.json())
+    .then((listings) => {
+      console.log(listings)
+    })
   }
 
   render() {
     console.log('state', this.state);
 
     return (
-      <div>
+      <Grid container={true} spacing={8}>
         { this.state.fakeResults.map(listing => (
           <SearchResult 
+            item={true}
             key={listing.id}
             id={listing.id}
             roomtype={listing.room_type}
@@ -31,7 +48,7 @@ class SearchResults extends React.Component {
             image={listing.image_url}
           />
         ))}
-      </div>
+      </Grid>
     );
   }
 }

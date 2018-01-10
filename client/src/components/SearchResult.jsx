@@ -12,7 +12,7 @@ import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
 
 const styles = {
   card: {
-    maxWidth: 300,
+    width: 300,
   },
   media: {
     height: 170,
@@ -26,7 +26,7 @@ function SearchResult (props) {
         <CardMedia
           className={classes.media}
           image={props.image}
-          title="House Placeholder"
+          title={props.name}
         />
         <CardContent>
           <Typography type="caption">
