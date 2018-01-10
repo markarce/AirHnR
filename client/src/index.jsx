@@ -3,6 +3,7 @@ import { render } from 'react-dom';
 import css from './styles/styles.css';
 // import 'typeface-roboto';
 import { BrowserRouter } from 'react-router-dom';
+import SearchResults from './components/SearchResults'
 
 
 
@@ -15,7 +16,10 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>App is loaded </div>
+      <div>
+        <div>App is loaded </div>
+      <SearchResults />
+      </div>
     );
   }
 
