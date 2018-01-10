@@ -7,7 +7,7 @@ import Booking from './Booking.jsx'
 let listingSampleData = {
     start_date: '01/01/2018',
     end_date: '04/04/2018',
-    price: 300
+    price: 299
 };
 
 class ListingDetails extends React.Component {
