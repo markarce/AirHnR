@@ -12,8 +12,10 @@ import NavBar from './components/NavBar.jsx'
 import $ from 'jquery'
 
 var sampleData = {
+  //added city and pool
   beds: 1,
   address: 'Jalan Pantai Kuta, Banjar Pande Mas, Kuta, Kabupaten Badung, Bali 80361, Indonesia',
+  city: 'San Francisco',
   id: Number,
   name: 'Beautiful SOMA Condo/Moscone/Downtown',
   price: 300,
@@ -29,7 +31,8 @@ var sampleData = {
   amenities: {
     wifi: true,
     kitchen: true,
-    hotTub: false
+    hotTub: false,
+    pool: true
   },
   houseRules: {
     pets: false,
