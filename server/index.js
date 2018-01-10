@@ -21,7 +21,10 @@ app.get('/api/listings',function(req, res){
 
 })
 
-
+app.post('/api/bookings', (req, res) => {
+  console.log(req.body);
+  res.send('ok');
+});
 app.listen(config.serverPort, () => {
   console.log(`Server listening on port ${config.serverPort}`)
 });
