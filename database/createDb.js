@@ -57,19 +57,21 @@ knex.schema
     table.date('start_date');
     table.date('end_date');
     table.float('price');
-    table.integer('num_guests');
     table.foreign('location_id').references('locations.id');
     table.integer('host_id');
     table.foreign('host_id').references('users.id');
   }).then(() => { });
-
-knex.schema
+  
+  knex.schema
   .createTable('bookings', table => {
     table.increments('id').primary();
     table.timestamps(true, true);
     table.date('start_date');
     table.date('end_date');
     table.float('price');
+    table.integer('num_guests');
+    table.integer('listing_id');
+    table.foreign('listing_id').references('listings.id');
     table.integer('location_id');
     table.foreign('location_id').references('locations.id');
     table.integer('guest_id');
