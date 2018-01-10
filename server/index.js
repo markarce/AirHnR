@@ -5,6 +5,8 @@ const app = express();
 const bodyParser = require('body-parser')
 const googleMaps = require('../lib/index.js')
 
+
+
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
@@ -30,3 +32,5 @@ app.post('/api/bookings', (req, res) => {
 app.listen(config.serverPort, () => {
   console.log(`Server listening on port ${config.serverPort}`)
 });
+
+//db.getLocationsNear(lat,long,radius).then(data => {res.json(data)}).catch(res.statusCode(500).end())
