@@ -225,3 +225,24 @@ p {
     font-size: 1.5rem;
 }
 
+/* CHECKOUT STYLES */
+.checkout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas: "details overview";
+  -webkit-padding-start: 3em;
+}
+
+.overview {
+  grid-area: "overview";
+}
+
+.details {
+  grid-area: "details";
+  margin: 3em 0;
+}
+
+header {
+  margin: 3em 0;
+}

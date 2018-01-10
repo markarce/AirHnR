@@ -12,6 +12,7 @@ import SearchResults from './components/SearchResults'
 import Search from './components/Search.jsx'
 import NavBar from './components/NavBar.jsx'
 import $ from 'jquery'
+import Checkout from './components/Checkout.jsx';
 
 var sampleData = {
   //added city and pool
@@ -68,6 +69,7 @@ class App extends React.Component {
         <SearchResults />
       </div>
         <ListingDetails listing={sampleData}/>
+        <Checkout/>
       </div>
     );
   }
