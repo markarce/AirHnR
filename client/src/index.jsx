@@ -52,7 +52,26 @@ var sampleData = {
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      view: 'default',
+      query: '',
+      results: []
+    };
+  }
+
+  handleListingClick(listingID) {
+    console.log(listingID + ' clicked in App');
+    const options = {
+      method: 'GET',
+      contentType: "application/json",
+      mode: 'cors',
+      cache: 'default'
+    }
+    fetch(`/api/listing?id=${listingID}`, options)
+      .then((response) => response.json())
+      .then((listing) => {
+        console.log(listing)
+    })
   }
 
   render() {
@@ -65,7 +84,7 @@ class App extends React.Component {
       </div>
       <br/>
       <div>
-        <SearchResults />
+        <SearchResults handleListingClick={this.handleListingClick}/>
       </div>
         <ListingDetails listing={sampleData}/>
       </div>

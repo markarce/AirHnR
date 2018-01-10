@@ -15,7 +15,13 @@ app.post('/search', function(req, res){
   res.send(req.body)
 })
 
-app.get('/api/listings',function(req, res){
+app.get('/api/listings', function(req, res){
+    console.log(req.query)
+    res.json("Hello")
+
+})
+
+app.get('/api/listing', function(req, res){
     console.log(req.query)
     res.json("Hello")
 
