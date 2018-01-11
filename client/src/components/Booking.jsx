@@ -40,6 +40,7 @@ class Booking extends React.Component {
       )
     } 
   }
+<<<<<<< HEAD
 
   renderBookingButton () {
     if (this.props.button) {
@@ -50,6 +51,8 @@ class Booking extends React.Component {
       )
     }
   }
+=======
+>>>>>>> completed booking feature
               
   render () {
     return (
@@ -91,8 +94,15 @@ class Booking extends React.Component {
           <span className='booking-item'>Total</span>
           <span className='booking-item-price'>{`$${Math.round(1.085 * this.props.listing.price * this.props.listing.nights + this.props.listing.service_fee)}`}</span>
         </div>
+<<<<<<< HEAD
         
         {this.renderBookingButton()}
+=======
+
+        <div className='booking-button'>
+          <button>Book</button>
+        </div>
+>>>>>>> completed booking feature
 
       </div>
     )

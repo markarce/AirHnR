@@ -127,7 +127,11 @@ class ListingDetails extends React.Component {
     return (
       <div className='listing-wrapper'>
         <div className='listing-booking'>
+<<<<<<< HEAD
           <Booking listing={listingSampleData} button={true}/>
+=======
+          <Booking listing={listingSampleData}/>
+>>>>>>> completed booking feature
         </div>
         <div className='listing-img' >
           <img src={this.props.listing.image_url}/> 
