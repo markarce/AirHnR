@@ -6,6 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 import data from '../../../lib/dummyData.js';
 import SearchResult from './SearchResult.jsx'
 import Grid from 'material-ui/Grid';
+import { withStyles } from 'material-ui/styles';
 
 class SearchResults extends React.Component {
   constructor(props) {
@@ -23,12 +24,19 @@ class SearchResults extends React.Component {
   render() {
     console.log('state', this.state);
 
+    // const styles = theme => ({
+    //   SearchResult: {
+    //   },
+    //   SearchResults: {
+    //     paddingLeft: '8',
+    //   },
+    // });
+
     return (
       <Grid container={true} spacing={16}>
         { this.state.fakeResults.map(listing => (
           <Grid item>
             <SearchResult 
-              // item={true}
               key={listing.id}
               id={listing.id}
               roomtype={listing.room_type}
@@ -46,4 +54,4 @@ class SearchResults extends React.Component {
   }
 }
 
-export default SearchResults;
+export default /*withStyles(styles)(*/SearchResults/*)*/;

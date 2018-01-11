@@ -99,23 +99,6 @@ class App extends React.Component {
     this.setState({view: 'listingDetails'})
   }
 
-// render() {
-//     const isLoggedIn = this.state.isLoggedIn;
-//     let button = null;
-//     if (isLoggedIn) {
-//       button = <LogoutButton onClick={this.handleLogoutClick} />;
-//     } else {
-//       button = <LoginButton onClick={this.handleLoginClick} />;
-//     }
-
-//     return (
-//       <div>
-//         <Greeting isLoggedIn={isLoggedIn} />
-//         {button}
-//       </div>
-//     );
-//   }
-
   render() {
     const currentView = this.state.view;
     let showPage = null;
@@ -142,21 +125,3 @@ class App extends React.Component {
 
 }
 render(<App />, document.getElementById('app'));
-
-  // Original render method for posterity. Replacing with conditionals.
-  // render() {
-  //   return (
-  //     <div>
-  //       <NavBar/>
-  //       <div>
-  //         <Search searchTerm={this.searchTerm} handleSearchClick={this.handleSearchClick}/>
-  //       </div>
-  //       <br/>
-  //       <div>
-  //         <SearchResults handleListingClick={this.handleListingClick}/>
-  //       </div>
-  //       <ListingDetails listing={sampleData}/>
-  //       <Checkout/>
-  //     </div>
-  //   );
-  // }
