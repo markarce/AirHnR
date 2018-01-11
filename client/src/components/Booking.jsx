@@ -40,6 +40,16 @@ class Booking extends React.Component {
       )
     } 
   }
+
+  renderBookingButton () {
+    if (this.props.button) {
+      return (
+        <div className='booking-button'>
+          <button>Book</button>
+        </div>
+      )
+    }
+  }
               
   render () {
     return (
@@ -81,10 +91,8 @@ class Booking extends React.Component {
           <span className='booking-item'>Total</span>
           <span className='booking-item-price'>{`$${Math.round(1.085 * this.props.listing.price * this.props.listing.nights + this.props.listing.service_fee)}`}</span>
         </div>
-
-        <div className='booking-button'>
-          <button>Book</button>
-        </div>
+        
+        {this.renderBookingButton()}
 
       </div>
     )
