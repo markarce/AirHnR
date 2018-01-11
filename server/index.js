@@ -12,9 +12,6 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static(__dirname + '/../client/dist'));
 app.use(express.json());
 
-
-
-
 app.get('/api/listings',function(req, res){
     console.log(req.query.q)
     var location = req.query.q;
@@ -24,6 +21,10 @@ app.get('/api/listings',function(req, res){
     })
 })
 
+app.get('/api/listings/:listingId', (req, res) => {
+  console.log(req.params);
+  res.json(req.params);
+});
 
 
 app.get('/api/listing/', function(req, res){
