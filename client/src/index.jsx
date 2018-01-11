@@ -1,13 +1,10 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { render } from 'react-dom';
 import css from './styles/styles.css';
 // import 'typeface-roboto';
 import { BrowserRouter } from 'react-router-dom';
-
 import ListingDetails from './components/listingDetails.jsx'
-
-
-
 import SearchResults from './components/SearchResults'
 import Search from './components/Search.jsx'
 import NavBar from './components/NavBar.jsx'
@@ -57,43 +54,109 @@ class App extends React.Component {
       view: 'default',
       query: '',
       results: []
-    };
+    }
+    this.searchTerm = this.searchTerm.bind(this);
+    this.handleSearchClick = this.handleSearchClick.bind(this);
+    this.handleListingClick = this.handleListingClick.bind(this);
   }
 
-  handleListingClick(listingID) {
-     console.log(listingID + ' clicked in App');
+  searchTerm(term) {
+    console.log('value: ', term);
+    this.setState({
+      query: term 
+    });
+  }
+
+  handleSearchClick() {
     const options = {
       method: 'GET',
       contentType: "application/json",
       mode: 'cors',
       cache: 'default'
     }
-    fetch(`/api/listing?id=${listingID}`, options)
-      .then((response) => response.json())
-      .then((listing) => {
-        console.log(listing)
-       //this.setState({})
+    fetch(`/api/listings?q=${this.state.query}`, options)
+    .then((response) => response.json())
+    .then((listings) => {
+      console.log(listings)
     })
+    this.setState({view: 'searchResults'})
   }
+
+  handleListingClick(listingID) {
+    // console.log(listingID + ' clicked in App');
+    // const options = {
+    //   method: 'GET',
+    //   contentType: "application/json",
+    //   mode: 'cors',
+    //   cache: 'default'
+    // }
+    // fetch(`/api/listing?id=${listingID}`, options)
+    //   .then((response) => response.json())
+    //   .then((listing) => {
+    //     console.log(listing)
+    //    this.setState({view: 'listingDetails'})
+    // })
+    this.setState({view: 'listingDetails'})
+  }
+
+// render() {
+//     const isLoggedIn = this.state.isLoggedIn;
+//     let button = null;
+//     if (isLoggedIn) {
+//       button = <LogoutButton onClick={this.handleLogoutClick} />;
+//     } else {
+//       button = <LoginButton onClick={this.handleLoginClick} />;
+//     }
+
+//     return (
+//       <div>
+//         <Greeting isLoggedIn={isLoggedIn} />
+//         {button}
+//       </div>
+//     );
+//   }
 
   render() {
+    const currentView = this.state.view;
+    let showPage = null;
+    if (currentView === 'searchResults') {
+      showPage = <SearchResults handleListingClick={this.handleListingClick} />;
+    } else if (currentView === 'listingDetails') {
+      showPage = <ListingDetails listing={sampleData} />;
+    } else if (currentView === 'checkout') {
+      showPage = <Checkout />;
+    }
+
     return (
       <div>
-
-      <NavBar/>
-      <div>
-        <Search onClick={this.handleClickFunction}/>
+        <NavBar/>
+        <Search searchTerm={this.searchTerm} handleSearchClick={this.handleSearchClick}/>
+        <br/>
+        <div>
+          {showPage}
+        </div>
       </div>
-      <br/>
-      <div>
-        <SearchResults handleListingClick={this.handleListingClick}/>
-      </div>
-        <ListingDetails listing={sampleData}/>
-        <Checkout/>
-      </div>
-    );
+    )
   }
 
-}
 
+}
 render(<App />, document.getElementById('app'));
+
+  // Original render method for posterity. Replacing with conditionals.
+  // render() {
+  //   return (
+  //     <div>
+  //       <NavBar/>
+  //       <div>
+  //         <Search searchTerm={this.searchTerm} handleSearchClick={this.handleSearchClick}/>
+  //       </div>
+  //       <br/>
+  //       <div>
+  //         <SearchResults handleListingClick={this.handleListingClick}/>
+  //       </div>
+  //       <ListingDetails listing={sampleData}/>
+  //       <Checkout/>
+  //     </div>
+  //   );
+  // }
