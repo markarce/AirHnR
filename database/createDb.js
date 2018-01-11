@@ -53,7 +53,9 @@ knex.schema
     table.json('house_rules');
     table.integer('host_id');
     table.foreign('host_id').references('users.id');
-  }).then(() => { });
+  }).then(() => { 
+    knex('users').insert(data.locations);
+  });
 
 knex.schema
   .createTable('listings', table => {
@@ -66,7 +68,9 @@ knex.schema
     table.foreign('location_id').references('locations.id');
     table.integer('host_id');
     table.foreign('host_id').references('users.id');
-  }).then(() => { });
+  }).then(() => {
+    knex('users').insert(data.listings);
+  });
   
   knex.schema
   .createTable('bookings', table => {
@@ -89,7 +93,9 @@ knex.schema
     table.foreign('guest_id').references('users.id');
     table.integer('host_id');
     table.foreign('host_id').references('users.id');
-  }).then(() => { });
+  }).then(() => { 
+    knex('users').insert(data.bookings);
+  });
 
 knex.schema
   .createTable('favorites', table => {
@@ -99,7 +105,9 @@ knex.schema
     table.foreign('location_id').references('locations.id');
     table.integer('user_id');
     table.foreign('user_id').references('users.id');
-  }).then(() => { });
+  }).then(() => {
+    knex('users').insert(data.favorites);
+  });
 
 knex.schema
   .createTable('location_reviews', table => {
@@ -112,7 +120,9 @@ knex.schema
     table.foreign('location_id').references('locations.id');
     table.integer('reviewer_id');
     table.foreign('reviewer_id').references('users.id');
-  }).then(() => { });
+  }).then(() => {
+    knex('users').insert(data.location_reviews);
+  });
 
 knex.schema
   .createTable('host_reviews', table => {
@@ -125,7 +135,9 @@ knex.schema
     table.foreign('host_id').references('users.id');
     table.integer('reviewer_id');
     table.foreign('reviewer_id').references('users.id');
-  }).then(() => { });
+  }).then(() => {
+    knex('users').insert(data.host_reviews);    
+  });
 
 knex.schema
   .createTable('guest_reviews', table => {
@@ -138,4 +150,6 @@ knex.schema
     table.foreign('guest_id').references('users.id');
     table.integer('reviewer_id');
     table.foreign('reviewer_id').references('users.id');
-  }).then(() => {});
+  }).then(() => {
+    knex('users').insert(data.guest_reviews);    
+  });

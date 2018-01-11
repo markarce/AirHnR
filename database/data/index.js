@@ -21,16 +21,6 @@ const numberInRange = (start, stop) => {
   }
 };
 
-const generateStay = () => {
-  let nights = numberInRange(1, 7);
-  let startDay = numberInRange(1, 21);
-  let endDay = startDay + nights;
-  let month = numberInRange(1, 12);
-  return {
-    start: new Date(`${month}/${startDay}/2018`), 
-    end: new Date(`${month}/${endDay}/2018`)
-  };
-};
 
 const listingRange = () => {
   let startDay = numberInRange(1, 28);
@@ -132,13 +122,27 @@ const createListings = (num) => {
 //300
 const createBookings = (num) => {
   return Array(num).fill(null).map((dp, idx) => {
-    let range = generateStay();
+    let nights = numberInRange(1, 7);
+    let startDay = numberInRange(1, 21);
+    let endDay = startDay + nights;
+    let month = numberInRange(1, 12);
+    let price = numberInRange(40, 350);
+    let fee_service = 0.1 * price * nights;
+    let fee_cleaning = pickOne([0, 0, 0, 15, 15, 25, 25, 50]);
+    let tax = nights * price * 0.085;
+    let total = (nights * price * 1.085) + fee_service + fee_service;
     return {
-      start_date: range.start,
-      end_date: range.end,
-      price: numberInRange(40, 350),
+      start_date: new Date(`${month}/${startDay}/2018`),
+      end_date: new Date(`${month}/${endDay}/2018`),
+      price: price,
       location_id: numberInRange(1, locationdata.length),
-      host_id: (idx % userdata.length) + 1
+      host_id: (idx % userdata.length) + 1,
+      fee_service: fee_service,
+      fee_cleaning: fee_cleaning,
+      tax: tax,
+      total: total,
+      number_of_nights: nights,
+      guest_id: numberInRange(1, userdata.length)
     };
   });
 };
@@ -210,4 +214,4 @@ module.exports = {
   location_reviews: location_reviews,
   host_reviews: host_reviews,
   guest_reviews: guest_reviews
-}
+};
