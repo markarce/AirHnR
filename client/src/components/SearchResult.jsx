@@ -12,6 +12,7 @@ import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
 const styles = {
   card: {
     width: 300,
+    height: 300,
   },
   media: {
     height: 170,

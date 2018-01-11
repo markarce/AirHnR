@@ -24,20 +24,22 @@ class SearchResults extends React.Component {
     console.log('state', this.state);
 
     return (
-      <Grid container={true} spacing={8}>
+      <Grid container={true} spacing={16}>
         { this.state.fakeResults.map(listing => (
-          <SearchResult 
-            item={true}
-            key={listing.id}
-            id={listing.id}
-            roomtype={listing.room_type}
-            beds={listing.beds}
-            name={listing.name}
-            price={listing.price}
-            rating={listing.star_rating}
-            image={listing.image_url}
-            handleClick={this.handleListingClick}
-          />
+          <Grid item>
+            <SearchResult 
+              // item={true}
+              key={listing.id}
+              id={listing.id}
+              roomtype={listing.room_type}
+              beds={listing.beds}
+              name={listing.name}
+              price={listing.price}
+              rating={listing.star_rating}
+              image={listing.image_url}
+              handleClick={this.handleListingClick}
+            />
+          </Grid>
         ))}
       </Grid>
     );
