@@ -127,7 +127,7 @@ class ListingDetails extends React.Component {
     return (
       <div className='listing-wrapper'>
         <div className='listing-booking'>
-          <Booking listing={listingSampleData}/>
+          <Booking listing={listingSampleData} button={true}/>
         </div>
         <div className='listing-img' >
           <img src={this.props.listing.image_url}/> 
