@@ -10,6 +10,7 @@ const styles = theme => ({
   container: {
     display: 'flex',
     flexWrap: 'wrap',
+<<<<<<< HEAD
     autoWidth: false,
   },
   formControl: {
@@ -21,6 +22,15 @@ const styles = theme => ({
     // marginTop: theme.spacing.unit * 2,
     // width: 300,
     // autoWidth: false
+=======
+  },
+  formControl: {
+    margin: theme.spacing.unit,
+    minWidth: 200,
+  },
+  selectEmpty: {
+    marginTop: theme.spacing.unit * 2,
+>>>>>>> completed booking feature
   },
 });
 
@@ -50,6 +60,7 @@ class BookingGuest extends React.Component {
   };
 
   render() {
+<<<<<<< HEAD
     const { classes } = this.props;
 
     return (
@@ -57,6 +68,14 @@ class BookingGuest extends React.Component {
         <FormControl className={classes.formControl}>
           <InputLabel id='guest-lable' htmlFor="guests-simple">Guests</InputLabel>
           <Select id='guest-select'
+=======
+
+    return (
+      <form className={this.props.container} autoComplete="off">
+        <FormControl className={this.props.formControl}>
+          <InputLabel htmlFor="guests-simple">Guests</InputLabel>
+          <Select
+>>>>>>> completed booking feature
             value={this.state.guests}
             onChange={this.handleChange.bind(this)}
             input={<Input name="guests" id="guests-simple" />}
