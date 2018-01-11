@@ -7,8 +7,7 @@ import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
-
-
+import TextField from 'material-ui/TextField';
 
 const styles = {
   root: {
@@ -21,6 +20,10 @@ const styles = {
     marginLeft: -12,
     marginRight: 20,
   },
+  search: {
+    textColor: "white",
+    marginLeft: 50
+  },
 };
 
 function ButtonAppBar(props) {
@@ -29,11 +32,13 @@ function ButtonAppBar(props) {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton className={classes.menuButton} color="contrast" aria-label="Menu">
+          <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
             <MenuIcon />
           </IconButton>
           <Typography type="title" color="inherit" className={classes.flex}>
             AirHnR
+            <span/>
+            <TextField/>
           </Typography>
           <Button color="contrast">Login</Button>
         </Toolbar>
