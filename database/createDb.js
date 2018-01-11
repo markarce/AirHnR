@@ -66,6 +66,8 @@ createListings = () => {
     table.date('start_date');
     table.date('end_date');
     table.float('price');
+    table.float('fee_service');
+    table.float('fee_cleaning');
     table.integer('location_id');
     table.foreign('location_id').references('locations.id');
     table.integer('host_id');

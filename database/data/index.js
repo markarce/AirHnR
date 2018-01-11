@@ -119,6 +119,8 @@ const createListings = (num) => {
       start_date: range.start,
       end_date: range.end,
       price: numberInRange(40, 350),
+      fee_service: 50,
+      fee_cleaning: pickOne([0, 0, 0, 15, 15, 25, 25, 50]),
       location_id: idx + 1,
       host_id: (idx % userdata.length) + 1
     };
@@ -133,7 +135,7 @@ const createBookings = (num) => {
     let endDay = startDay + nights;
     let month = numberInRange(1, 12);
     let price = numberInRange(40, 350);
-    let fee_service = 0.1 * price * nights;
+    let fee_service = 50;
     let fee_cleaning = pickOne([0, 0, 0, 15, 15, 25, 25, 50]);
     let tax = nights * price * 0.085;
     let total = (nights * price * 1.085) + fee_service + fee_service;
