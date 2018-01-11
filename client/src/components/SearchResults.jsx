@@ -7,6 +7,8 @@ import data from '../../../lib/dummyData.js';
 import SearchResult from './SearchResult.jsx'
 import Grid from 'material-ui/Grid';
 import { withStyles } from 'material-ui/styles';
+import MapContainer from './MapContainer';
+import $ from 'jquery';
 
 class SearchResults extends React.Component {
   constructor(props) {
@@ -14,7 +16,13 @@ class SearchResults extends React.Component {
     this.state = {
       fakeResults: data.testSearchResults
     }
+
+    this.node = '';
     this.handleListingClick = this.handleListingClick.bind(this);
+  }
+
+  componentDidMount() {
+    this._setMapPosition();
   }
 
   handleListingClick(listingID) {
@@ -33,9 +41,11 @@ class SearchResults extends React.Component {
     // });
 
     return (
-      <Grid container={true} spacing={16}>
-        { this.state.fakeResults.map(listing => (
-          <Grid item>
+      <div className="listing-details">
+      <div className="listings">
+        <Grid container={true} spacing={16}>
+          { this.state.fakeResults.map(listing => (
+            <Grid item>
             <SearchResult 
               key={listing.id}
               id={listing.id}
@@ -47,10 +57,26 @@ class SearchResults extends React.Component {
               image={listing.image_url}
               handleClick={this.handleListingClick}
             />
-          </Grid>
-        ))}
-      </Grid>
+            </Grid>
+          ))}
+        </Grid>
+      </div>
+      <div className="map-container" ref={node => this.node = node}>
+        <MapContainer listings={data.testSearchResults} searchedLocation={{lat: 37.89, lon: -122.432758}}/>
+      </div>
+      </div>
     );
+  }
+
+  _setMapPosition() {
+    let divNodes = $(this.node).find('div');
+    $(divNodes[0]).css({
+      width: '100%',
+      height: '100%'
+    });
+    $(divNodes[1]).css({
+      position: 'relative'
+    });
   }
 }
 

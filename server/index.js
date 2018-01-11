@@ -11,6 +11,14 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static(__dirname + '/../client/dist'));
 app.use(express.json());
 
+app.get('/api/listings/:listingId', (req, res) => {
+  console.log(req.params);
+  let listing = data.data.testDetailItems.filter(listing => {
+    return listing.id === parseInt(req.params.listingId);
+  });
+  res.json(listing[0]);
+});
+
 app.get('/api/listings',function(req, res) {
   //return all listings near the searched area
   googleMaps.getPlaceCoordinates(req.query.q, googleResults => {
@@ -24,26 +32,11 @@ app.get('/api/listings',function(req, res) {
   });
 });
 
-app.get('/api/listing/', function(req, res){
-  //move helper function to lib folder
-  // var findListing = function(listingID, listings) { 
-  //   for (var i = 0; i < listings.length; i++){
-  //     if (listingID === listings[i].id) {
-  //       return listing[i];
-  //     } else {
-  //       return 'err';
-  //     }
-  //   }
-  // }
-  res.json("Hello!!!")
-
-})
-
-
 app.post('/api/bookings', (req, res) => {
   console.log(req.body);
   res.send('ok');
 });
+
 app.listen(config.serverPort, () => {
   console.log(`Server listening on port ${config.serverPort}`)
 });
