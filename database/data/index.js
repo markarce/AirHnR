@@ -1,31 +1,32 @@
-const userdata = require('./users.json')
-const locationdata = require('./locations.json')
+const userdata = require('./users.json');
+const locationdata = require('./locations.json');
 const reviewdata = require('./reviews.json')
-const nyll = require('./ny_lat_long.json')
-const sfll = require('./sf_lat_long.json')
-const home_types = ['Home', 'Aprtment', 'Abode', 'Townhouse', 'Mansion', 'Castle', 'Dump', 'Slum', 'House', 'Flat', 'Palace', 'Estate', 'Dwelling', 'Box', 'Co-Op', 'Lean-To', 'Cardboard Box', 'Shanty', 'Cairn', 'Alleyway', 'Flophouse', 'Couch', 'Basement'];
-
-const room_types = ['Couch', 'Room', 'Studio', 'House'];
+const nyll = require('./ny_lat_long.json');
+const sfll = require('./sf_lat_long.json');
 const house_pics = require('./pics.json');
+const home_types = ['Home', 'Aprtment', 'Abode', 'Townhouse', 'Mansion', 'Castle', 'Dump', 'Slum', 'House', 'Flat', 'Palace', 'Estate', 'Dwelling', 'Box', 'Co-Op', 'Lean-To', 'Cardboard Box', 'Shanty', 'Cairn', 'Alleyway', 'Flophouse', 'Couch', 'Basement'];
+const room_types = ['Couch', 'Room', 'Studio', 'House'];
 
 const toTitleCase = (word) => {
   return word.slice(0, 1).toUpperCase() + word.slice(1);
-}
+};
+
+const properCase = (string) => {
+  return string.slice(0, 1).toLowerCase() + string.slice(1);
+};
 
 const pickOne = (array) => {
   return array[Math.floor(Math.random() * array.length)]
 };
 
 const numberInRange = (start, stop) => {
-  //return a number in range (inclusive) or between 0- start if stop not given
   if (stop) {
-    return Math.floor(Math.random() * (stop - start)) + start;
+    return Math.floor(Math.random() * (1 + stop - start)) + start;
   }
   else {
     return Math.floor(Math.random() * (start + 1));
   }
 };
-
 
 const listingRange = () => {
   let startDay = numberInRange(1, 28);
@@ -60,7 +61,7 @@ const generateHouseRules = () => {
 const createUsers = () => {
   let address_info = [['NewYork','NY', '10001'], ['San Francisco', 'CA', '94117']]
   return userdata.map( (dp, idx) => { 
-    let city = idx > 99 ? 1 : 0;
+    let city = idx < userdata.length / 2 ? 0 : 1;
     return {
       username: dp.username,
       password: dp.password,
@@ -166,7 +167,7 @@ const createFavorites = (num) => {
 const createLocationReviews = (num) => {
   return Array(num).fill(null).map((dp, idx) => {
     return {
-      tagline: toTitleCase(pickOne(reviewdata).buzzword) + ' ' + pickOne(reviewdata).tagline,
+      tagline: toTitleCase(pickOne(reviewdata).buzzword) + ' ' + properCase(pickOne(reviewdata).tagline),
       review_text: pickOne(reviewdata).review,
       stars: numberInRange(1, 5),
       location_id: numberInRange(1, locationdata.length),
@@ -179,7 +180,7 @@ const createLocationReviews = (num) => {
 const createHostReviews = (num) => {
   return Array(num).fill(null).map((dp, idx) => {
     return {
-      tagline: toTitleCase(pickOne(reviewdata).buzzword) + ' ' + pickOne(reviewdata).tagline,
+      tagline: toTitleCase(pickOne(reviewdata).buzzword) + ' ' + properCase(pickOne(reviewdata).tagline),
       review_text: pickOne(reviewdata).review,
       stars: numberInRange(1, 5),
       host_id: numberInRange(1, userdata.length),
@@ -192,7 +193,7 @@ const createHostReviews = (num) => {
 const createGuestReviews = (num) => {
   return Array(num).fill(null).map((dp, idx) => {
     return {
-      tagline: toTitleCase(pickOne(reviewdata).buzzword) + ' ' + pickOne(reviewdata).tagline,
+      tagline: toTitleCase(pickOne(reviewdata).buzzword) + ' ' + properCase(pickOne(reviewdata).tagline),
       review_text: pickOne(reviewdata).review,
       stars: numberInRange(1, 5),
       guest_id: numberInRange(1, userdata.length),
@@ -209,6 +210,15 @@ const favorites = createFavorites(500);
 const location_reviews = createLocationReviews(800);
 const host_reviews = createHostReviews(600);
 const guest_reviews = createGuestReviews(500);
+
+console.log('EXAMPLE user:', users[0]);
+console.log('EXAMPLE location:', locations[0]);
+console.log('EXAMPLE listing:', listings[0]);
+console.log('EXAMPLE booking:', bookings[0]);
+console.log('EXAMPLE favorite:', favorites[0]);
+console.log('EXAMPLE location review:', location_reviews[0]);
+console.log('EXAMPLE host review:', host_reviews[0]);
+console.log('EXAMPLE guest review:', guest_reviews[0]);
 
 module.exports = {
   users: users,
