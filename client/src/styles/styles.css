@@ -276,23 +276,7 @@ p {
   /* border-bottom: 1px solid #DBDBDB */
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 .booking-guests label {
-=======
-.MuiSelect-select-122 {
-  width: 300px !important;
-}
-
-.MuiSelect-selectMenu-217 {
-  width: 300px !important;
-}
-
-.MuiFormLabel-root-117 {
->>>>>>> completed booking feature
-=======
-.booking-guests label {
->>>>>>> updated booking select css
   color: #484848 !important;
   font-family: 'Crimson Text', serif !important;
   font-size: 24px !important;
