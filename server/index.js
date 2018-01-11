@@ -2,15 +2,16 @@ const config = require('../config');
 const db = require('../database');
 const express = require('express');
 const app = express();
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
 const googleMaps = require('../lib/index.js')
-
+const data = require('./serverDummyData.js');
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
 app.use(express.static(__dirname + '/../client/dist'));
 app.use(express.json());
+
 
 
 
@@ -21,6 +22,25 @@ app.get('/api/listings',function(req, res){
       console.log(results)
       res.json(db.getLocationsNear(results.lat, results.lon, 5))
     })
+})
+
+
+
+app.get('/api/listings/', function(req, res){
+  //move helper function to lib folder
+  var findListing = function(listingID, listings) { 
+    for (var i = 0; i < listings.length; i++){
+      if (listingID === listings[i].id) {
+        return listing[i];
+      } else {
+        return 'err';
+      }
+    }
+  }
+
+
+  res.json("Hello!!!")
+
 })
 
 

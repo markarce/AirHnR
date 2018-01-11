@@ -72,6 +72,7 @@ class App extends React.Component {
       .then((response) => response.json())
       .then((listing) => {
         console.log(listing)
+        //this.setState({})
     })
   }
 
