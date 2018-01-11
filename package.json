@@ -12,6 +12,7 @@
     "webpack": "webpack -d --watch",
     "pg-install": "brew install postgres postgis && pg_ctl -D /usr/local/var/postgres start && brew services start postgresql",
     "create-db": "psql -U $USER -d postgres -f database/createDb.sql && node database/createDb.js",
+    "create-heroku-db": "node database/createHerokuDb.js",
     "build": "webpack -p",
     "postinstall": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
