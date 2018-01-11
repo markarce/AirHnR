@@ -31,7 +31,7 @@ export class MapContainer extends Component {
     });
     return (
         <Map google={this.props.google} zoom={12} style={style} 
-        initialCenter={{lat: this.props.searchedLocation.lat, lng: this.props.searchedLocation.lon + 0.05}}>
+        initialCenter={{lat: this.props.searchedLocation.lat, lng: this.props.searchedLocation.lon}}>
           {markers}
           <InfoWindow onClose={this.onInfoWindowClose} marker={this.state.activeMarker} visible={this.state.showInfo}>
               <div>
