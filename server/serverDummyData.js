@@ -86,7 +86,9 @@ var testSearchResults = [
     "reviews_count": 32,
     "room_type": 'Entire loft',
     "star_rating": 5,
-    "image_url": 'https://a0.muscache.com/im/pictures/7ce1579c-4c8b-424c-99cd-23cab046adce.jpg?aki_policy=xx_large'
+    "image_url": 'https://a0.muscache.com/im/pictures/7ce1579c-4c8b-424c-99cd-23cab046adce.jpg?aki_policy=xx_large',
+    "lat": 37.78590229749053,
+    "lon": 122.4108374118805
   },
   {
     "beds": 8,
@@ -97,7 +99,9 @@ var testSearchResults = [
     "reviews_count": 24,
     "room_type": 'Entire villa',
     "star_rating": 5,
-    "image_url": 'https://a0.muscache.com/im/pictures/be366b07-1ab8-4456-90c4-a09d5588e4fe.jpg?aki_policy=xx_large'
+    "image_url": 'https://a0.muscache.com/im/pictures/be366b07-1ab8-4456-90c4-a09d5588e4fe.jpg?aki_policy=xx_large',
+    "lat": 37.78590229749053,
+    "lon": 122.4108374118805
   },
 ];
 
