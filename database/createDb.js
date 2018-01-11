@@ -1,14 +1,16 @@
+//This script will set up and configure the database created by createDb.sql
+
 const config = require('../config');
 const data = require('./data');
-const fs = require('fs');
 const knex = require('knex')({
   client: 'pg',
   connection: config.database_url + config.database_name
 });
 const bookshelf = require('bookshelf')(knex);
 
-knex.schema
-  .createTable('users', table => {
+createUsers = () => {
+  console.log('createUsers')
+  return knex.schema.createTableIfNotExists('users', table => {
     table.increments('id').primary();
     table.timestamps(true, true);
     table.string('username');
@@ -26,12 +28,12 @@ knex.schema
     table.string('address_region');
     table.string('address_postal_code');
     table.boolean('is_host');
-  }).then(() => { 
-    knex('users').insert(data.users);
-  });
+  })
+}
 
-knex.schema
-  .createTable('locations', table => {
+createLocations = () => {
+  console.log('createLocations')
+  return knex.schema.createTableIfNotExists('locations', table => {
     table.increments('id').primary();
     table.timestamps(true, true);
     table.string('name');
@@ -53,12 +55,12 @@ knex.schema
     table.json('house_rules');
     table.integer('host_id');
     table.foreign('host_id').references('users.id');
-  }).then(() => { 
-    knex('users').insert(data.locations);
-  });
+  })
+}
 
-knex.schema
-  .createTable('listings', table => {
+createListings = () => {
+  console.log('createListings')
+  return knex.schema.createTableIfNotExists('listings', table => {
     table.increments('id').primary();
     table.timestamps(true, true);
     table.date('start_date');
@@ -68,12 +70,12 @@ knex.schema
     table.foreign('location_id').references('locations.id');
     table.integer('host_id');
     table.foreign('host_id').references('users.id');
-  }).then(() => {
-    knex('users').insert(data.listings);
-  });
-  
-  knex.schema
-  .createTable('bookings', table => {
+  })
+}
+
+createBookings = () => {
+  console.log('createBookings')  
+  return knex.schema.createTableIfNotExists('bookings', table => {
     table.increments('id').primary();
     table.timestamps(true, true);
     table.float('price');
@@ -93,24 +95,24 @@ knex.schema
     table.foreign('guest_id').references('users.id');
     table.integer('host_id');
     table.foreign('host_id').references('users.id');
-  }).then(() => { 
-    knex('users').insert(data.bookings);
-  });
+  })
+}
 
-knex.schema
-  .createTable('favorites', table => {
+createFavorites = () => {
+  console.log('createFavorites')
+  return knex.schema.createTableIfNotExists('favorites', table => {
     table.increments('id').primary();
     table.timestamps(true, true);
     table.integer('location_id');
     table.foreign('location_id').references('locations.id');
     table.integer('user_id');
     table.foreign('user_id').references('users.id');
-  }).then(() => {
-    knex('users').insert(data.favorites);
-  });
+  })
+}
 
-knex.schema
-  .createTable('location_reviews', table => {
+createLocationReviews = () => {
+  console.log('createLocationReviews')
+  return knex.schema.createTableIfNotExists('location_reviews', table => {
     table.increments('id').primary();
     table.string('tagline');    
     table.string('review_text', 2000);
@@ -120,12 +122,12 @@ knex.schema
     table.foreign('location_id').references('locations.id');
     table.integer('reviewer_id');
     table.foreign('reviewer_id').references('users.id');
-  }).then(() => {
-    knex('users').insert(data.location_reviews);
-  });
+  })
+}
 
-knex.schema
-  .createTable('host_reviews', table => {
+createHostReviews = () => {
+  console.log('createHostReviews')
+  return knex.schema.createTableIfNotExists('host_reviews', table => {
     table.increments('id').primary();
     table.string('tagline');    
     table.string('review_text', 2000);
@@ -135,12 +137,12 @@ knex.schema
     table.foreign('host_id').references('users.id');
     table.integer('reviewer_id');
     table.foreign('reviewer_id').references('users.id');
-  }).then(() => {
-    knex('users').insert(data.host_reviews);    
-  });
+  })
+}
 
-knex.schema
-  .createTable('guest_reviews', table => {
+createGuestReviews = () => {
+  console.log('createGuestReviews')
+  return knex.schema.createTableIfNotExists('guest_reviews', table => {
     table.increments('id').primary();
     table.string('tagline');
     table.string('review_text', 2000);
@@ -150,6 +152,44 @@ knex.schema
     table.foreign('guest_id').references('users.id');
     table.integer('reviewer_id');
     table.foreign('reviewer_id').references('users.id');
-  }).then(() => {
-    knex('users').insert(data.guest_reviews);    
-  });
+  })
+}
+
+createUsers().then(() => {
+  return knex('users').insert(data.users)
+}).then(() => {
+  return createLocations()
+}).then(() => {
+  return knex('locations').insert(data.locations)
+}).then(() => {
+  return createListings()
+}).then(() => {
+  return knex('listings').insert(data.listings)
+}).then(() => {
+  return createBookings()
+}).then(() => {
+  return knex('bookings').insert(data.bookings)
+}).then(() => {
+  return createFavorites()
+}).then(() => {
+  return knex('favorites').insert(data.favorites)
+}).then(() => {
+  return createLocationReviews()
+}).then(() => {
+  return knex('location_reviews').insert(data.location_reviews)
+}).then(() => {
+  return createHostReviews() 
+}).then(() => {
+  return knex('host_reviews').insert(data.host_reviews)
+}).then(() => {
+  return createGuestReviews()
+}).then(() => {
+  return knex('guest_reviews').insert(data.guest_reviews)
+}).then(done => {
+  console.log('done');
+  process.exit();
+}).catch(err => {
+  console.log('ERROR CREATING DB');
+  console.log(err);
+  process.exit();
+})

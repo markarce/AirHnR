@@ -7,6 +7,11 @@ const home_types = ['Home', 'Aprtment', 'Abode', 'Townhouse', 'Mansion', 'Castle
 
 const room_types = ['Couch', 'Room', 'Studio', 'House'];
 const house_pics = require('./pics.json');
+
+const toTitleCase = (word) => {
+  return word.slice(0, 1).toUpperCase() + word.slice(1);
+}
+
 const pickOne = (array) => {
   return array[Math.floor(Math.random() * array.length)]
 };
@@ -161,7 +166,7 @@ const createFavorites = (num) => {
 const createLocationReviews = (num) => {
   return Array(num).fill(null).map((dp, idx) => {
     return {
-      tagline: pickOne(reviewdata).buzzword.toUpperCase() + pickOne(reviewdata).tagline,
+      tagline: toTitleCase(pickOne(reviewdata).buzzword) + ' ' + pickOne(reviewdata).tagline,
       review_text: pickOne(reviewdata).review,
       stars: numberInRange(1, 5),
       location_id: numberInRange(1, locationdata.length),
@@ -174,7 +179,7 @@ const createLocationReviews = (num) => {
 const createHostReviews = (num) => {
   return Array(num).fill(null).map((dp, idx) => {
     return {
-      tagline: pickOne(reviewdata).buzzword.toUpperCase() + pickOne(reviewdata).tagline,
+      tagline: toTitleCase(pickOne(reviewdata).buzzword) + ' ' + pickOne(reviewdata).tagline,
       review_text: pickOne(reviewdata).review,
       stars: numberInRange(1, 5),
       host_id: numberInRange(1, userdata.length),
@@ -187,7 +192,7 @@ const createHostReviews = (num) => {
 const createGuestReviews = (num) => {
   return Array(num).fill(null).map((dp, idx) => {
     return {
-      tagline: pickOne(reviewdata).buzzword.toUpperCase() + pickOne(reviewdata).tagline,
+      tagline: toTitleCase(pickOne(reviewdata).buzzword) + ' ' + pickOne(reviewdata).tagline,
       review_text: pickOne(reviewdata).review,
       stars: numberInRange(1, 5),
       guest_id: numberInRange(1, userdata.length),
