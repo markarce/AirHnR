@@ -5,10 +5,6 @@ const app = express();
 const bodyParser = require('body-parser')
 const googleMaps = require('../lib/index.js')
 
-<<<<<<< HEAD
-
-=======
->>>>>>> getting API data and passing to database. Currently logging default response to console from DB.--no-verify
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
