@@ -26,19 +26,17 @@ app.get('/api/listings',function(req, res){
 
 
 
-app.get('/api/listings/', function(req, res){
+app.get('/api/listing/', function(req, res){
   //move helper function to lib folder
-  var findListing = function(listingID, listings) { 
-    for (var i = 0; i < listings.length; i++){
-      if (listingID === listings[i].id) {
-        return listing[i];
-      } else {
-        return 'err';
-      }
-    }
-  }
-
-
+  // var findListing = function(listingID, listings) { 
+  //   for (var i = 0; i < listings.length; i++){
+  //     if (listingID === listings[i].id) {
+  //       return listing[i];
+  //     } else {
+  //       return 'err';
+  //     }
+  //   }
+  // }
   res.json("Hello!!!")
 
 })

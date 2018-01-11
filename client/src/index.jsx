@@ -61,7 +61,7 @@ class App extends React.Component {
   }
 
   handleListingClick(listingID) {
-    console.log(listingID + ' clicked in App');
+     console.log(listingID + ' clicked in App');
     const options = {
       method: 'GET',
       contentType: "application/json",
@@ -72,7 +72,7 @@ class App extends React.Component {
       .then((response) => response.json())
       .then((listing) => {
         console.log(listing)
-        //this.setState({})
+       //this.setState({})
     })
   }
 
