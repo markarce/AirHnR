@@ -8,7 +8,7 @@ const bookshelf = require('bookshelf')(knex);
 const getLocationsNear = (lat, long, radius) => {
   //lat, long of center of map, and distance radius in meters
   //returns a promise of data
-  query = `SELECT * FROM locations WHERE ST_Distance(ST_SetSRID(ST_MakePoint(${long}, ${lat})::GEOGRAPHY, 4326), ST_SetSRID(ST_MakePoint(longitude, latitude), 4326)::GEOGRAPHY) <= ${radius}`;
+  query = `SELECT * FROM locations WHERE ST_Distance(ST_SetSRID(ST_MakePoint(${long}, ${lat})::geography, 4326), ST_SetSRID(ST_MakePoint(longitude, latitude), 4326)::geography) <= ${radius}`;
   return bookshelf.knex.raw(query);
 };
 

@@ -33,8 +33,8 @@ const listingRange = () => {
   let endDay = numberInRange(1, 28);
   let startMonth = numberInRange(1, 12);
   let endMonth = numberInRange(1, 12);
-  let startYear = pickOne([2017, 2018])
-  let endYear = pickOne([2019, 2020])
+  let startYear = pickOne([2017, 2018]);
+  let endYear = pickOne([2019, 2020]);
   return {
     start: new Date(`${startMonth}/${startDay}/${startYear}`),
     end: new Date(`${endMonth}/${endDay}/${endYear}`)
@@ -59,7 +59,7 @@ const generateHouseRules = () => {
 };
 
 const createUsers = () => {
-  let address_info = [['NewYork','NY', '10001'], ['San Francisco', 'CA', '94117']]
+  let address_info = [['NewYork','NY', '10001'], ['San Francisco', 'CA', '94117']];
   return userdata.map( (dp, idx) => { 
     let city = idx < userdata.length / 2 ? 0 : 1;
     return {
@@ -83,7 +83,7 @@ const createUsers = () => {
 };
 
 const createLocations = () => {
-  let address_info = [['NewYork', 'NY', '10001'], ['San Francisco', 'CA', '94117']]
+  let address_info = [['NewYork', 'NY', '10001'], ['San Francisco', 'CA', '94117']];
   return locationdata.map((dp, idx) => {
     let city = idx < locationdata.length / 2 ? 0 : 1;
     let cityidx = idx < locationdata.length - 1 ? idx : idx - 101;
@@ -213,6 +213,7 @@ const location_reviews = createLocationReviews(800);
 const host_reviews = createHostReviews(600);
 const guest_reviews = createGuestReviews(500);
 
+console.log('NOTE: THE FOLLOWING EXAMPLES DO NOT INCLUDE DB-GENERATED KEYS');
 console.log('EXAMPLE user:', users[0]);
 console.log('EXAMPLE location:', locations[0]);
 console.log('EXAMPLE listing:', listings[0]);
