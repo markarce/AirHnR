@@ -5,6 +5,7 @@ import css from './styles/styles.css';
 import { BrowserRouter } from 'react-router-dom';
 
 import ListingDetails from './components/listingDetails.jsx'
+import Booking from './components/Booking.jsx'
 
 
 
