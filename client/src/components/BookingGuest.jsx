@@ -10,13 +10,17 @@ const styles = theme => ({
   container: {
     display: 'flex',
     flexWrap: 'wrap',
+    autoWidth: false,
   },
   formControl: {
-    margin: theme.spacing.unit,
-    minWidth: 200,
+    // margin: theme.spacing.unit,
+    minWidth: 330,
+    autoWidth: false
   },
   selectEmpty: {
-    marginTop: theme.spacing.unit * 2,
+    // marginTop: theme.spacing.unit * 2,
+    // width: 300,
+    // autoWidth: false
   },
 });
 
@@ -46,12 +50,13 @@ class BookingGuest extends React.Component {
   };
 
   render() {
+    const { classes } = this.props;
 
     return (
-      <form className={this.props.container} autoComplete="off">
-        <FormControl className={this.props.formControl}>
-          <InputLabel htmlFor="guests-simple">Guests</InputLabel>
-          <Select
+      <form className={classes.container} autoComplete="off">
+        <FormControl className={classes.formControl}>
+          <InputLabel id='guest-lable' htmlFor="guests-simple">Guests</InputLabel>
+          <Select id='guest-select'
             value={this.state.guests}
             onChange={this.handleChange.bind(this)}
             input={<Input name="guests" id="guests-simple" />}
