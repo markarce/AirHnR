@@ -4,7 +4,7 @@ const config = require('../config');
 const data = require('./data');
 const knex = require('knex')({
   client: 'pg',
-  connection: config.database_url + config.database_name
+  connection: config.database_url
 });
 const bookshelf = require('bookshelf')(knex);
 
