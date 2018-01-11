@@ -3,7 +3,6 @@ import ReactDOM  from 'react-dom';
 import { render } from 'react-dom';
 import css from '../styles/styles.css';
 import { BrowserRouter } from 'react-router-dom';
-import data from '../../../lib/dummyData.js';
 import SearchResult from './SearchResult.jsx'
 import Grid from 'material-ui/Grid';
 import { withStyles } from 'material-ui/styles';
@@ -14,9 +13,7 @@ class SearchResults extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      fakeResults: data.testSearchResults
     }
-
     this.node = '';
     this.handleListingClick = this.handleListingClick.bind(this);
   }
@@ -30,22 +27,15 @@ class SearchResults extends React.Component {
   }
 
   render() {
-    console.log('state', this.state);
-
-    // const styles = theme => ({
-    //   SearchResult: {
-    //   },
-    //   SearchResults: {
-    //     paddingLeft: '8',
-    //   },
-    // });
-
+    console.log('state/results', this.props.results);
+    var listings = this.props.results;
+    console.log('listings', listings);
     return (
       <div className="listing-details">
         <div className="listings">
           <Grid container={true} spacing={16}>
-            { this.state.fakeResults.map(listing => (
-              <Grid item>
+            { listings.map(listing => (
+              <Grid item key={listing.id}>
               <SearchResult 
                 key={listing.id}
                 id={listing.id}
@@ -62,7 +52,7 @@ class SearchResults extends React.Component {
           </Grid>
         </div>
         <div className="map-container" ref={node => this.node = node}>
-          <MapContainer listings={data.testSearchResults} searchedLocation={{lat: 37.89, lon: -122.432758}}/>
+          <MapContainer listings={listings} searchedLocation={{lat: 37.89, lon: -122.432758}}/>
         </div>
       </div>
     );

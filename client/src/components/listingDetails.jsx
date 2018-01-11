@@ -6,7 +6,7 @@ import Booking from './Booking.jsx'
 
 let listingSampleData = {
   start_date: '01/01/2018',
-  end_date: '04/01/2018',
+  end_date: '04/04/2018',
   price: 299,
   star_rating: 5,
   reviews_count: 32,
@@ -139,6 +139,7 @@ class ListingDetails extends React.Component {
           <a href='#'>Location</a>
         </div> */}
         <ListingNav />
+        <Booking listing={listingSampleData}/>
         <div className='line-break1'></div>
         <div className='listing-title'>
           <h1>{this.props.listing.name}</h1>
