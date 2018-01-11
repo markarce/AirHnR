@@ -32,5 +32,3 @@ app.post('/api/bookings', (req, res) => {
 app.listen(config.serverPort, () => {
   console.log(`Server listening on port ${config.serverPort}`)
 });
-
-//db.getLocationsNear(lat,long,radius).then(data => {res.json(data)}).catch(res.statusCode(500).end())
