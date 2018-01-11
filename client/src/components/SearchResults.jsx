@@ -42,28 +42,28 @@ class SearchResults extends React.Component {
 
     return (
       <div className="listing-details">
-      <div className="listings">
-        <Grid container={true} spacing={16}>
-          { this.state.fakeResults.map(listing => (
-            <Grid item>
-            <SearchResult 
-              key={listing.id}
-              id={listing.id}
-              roomtype={listing.room_type}
-              beds={listing.beds}
-              name={listing.name}
-              price={listing.price}
-              rating={listing.star_rating}
-              image={listing.image_url}
-              handleClick={this.handleListingClick}
-            />
-            </Grid>
-          ))}
-        </Grid>
-      </div>
-      <div className="map-container" ref={node => this.node = node}>
-        <MapContainer listings={data.testSearchResults} searchedLocation={{lat: 37.89, lon: -122.432758}}/>
-      </div>
+        <div className="listings">
+          <Grid container={true} spacing={16}>
+            { this.state.fakeResults.map(listing => (
+              <Grid item>
+              <SearchResult 
+                key={listing.id}
+                id={listing.id}
+                roomtype={listing.room_type}
+                beds={listing.beds}
+                name={listing.name}
+                price={listing.price}
+                rating={listing.star_rating}
+                image={listing.image_url}
+                handleClick={this.handleListingClick}
+              />
+              </Grid>
+            ))}
+          </Grid>
+        </div>
+        <div className="map-container" ref={node => this.node = node}>
+          <MapContainer listings={data.testSearchResults} searchedLocation={{lat: 37.89, lon: -122.432758}}/>
+        </div>
       </div>
     );
   }
