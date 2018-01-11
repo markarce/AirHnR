@@ -4,8 +4,8 @@ const reviewdata = require('./reviews.json')
 const nyll = require('./ny_lat_long.json');
 const sfll = require('./sf_lat_long.json');
 const house_pics = require('./pics.json');
-const home_types = ['Home', 'Aprtment', 'Abode', 'Townhouse', 'Mansion', 'Castle', 'Dump', 'Slum', 'House', 'Flat', 'Palace', 'Estate', 'Dwelling', 'Box', 'Co-Op', 'Lean-To', 'Cardboard Box', 'Shanty', 'Cairn', 'Alleyway', 'Flophouse', 'Couch', 'Basement'];
-const room_types = ['Couch', 'Room', 'Studio', 'House'];
+const home_types = ['Home', 'Aprtment', 'Abode', 'Townhouse', 'Mansion', 'Castle', 'Dump', 'Slum', 'House', 'Flat', 'Palace', 'Estate', 'Dwelling', 'Box', 'Co-Op', 'Lean-To', 'Cardboard Box', 'Shanty', 'Cairn', 'Alleyway', 'Flophouse', 'Couch', 'Basement', 'Attic', 'Loft', 'Condo', 'Condominium', 'Duplex', 'Shed', 'Barn', 'Penthouse', 'Suite', 'Cabin', 'Shack', 'Love Shack', 'Domicile', 'Dormitory', 'Closet', 'Home', 'Apartment', 'Home', 'Apartment', 'Flat', 'Home', 'Apartment', 'Home', 'Apartment', 'Flat', 'Home', 'Apartment', 'Home', 'Apartment', 'Flat', 'Home', 'Apartment', 'Home', 'Apartment', 'Flat', 'House', 'House', 'House', 'House', 'Loft', 'Loft', 'Loft', 'Studio', 'Studio', 'Studio', 'Room'];
+const room_types = ['Couch', 'Room', 'Studio', 'House', 'Entire House', 'Private Room', 'Entire Apartment'];
 
 const toTitleCase = (word) => {
   return word.slice(0, 1).toUpperCase() + word.slice(1);
@@ -89,7 +89,7 @@ const createLocations = () => {
     let cityidx = idx < locationdata.length - 1 ? idx : idx - 101;
     let cityll = city === 1 ? sfll : nyll;
     return {
-      name: `${dp.adjective.toUpperCase()} ${address_info[city][0]} ${pickOne(home_types)}`,
+      name: `${toTitleCase(dp.adjective)} ${address_info[city][0]} ${pickOne(home_types)}`,
       tagline: dp.tagline,
       description: dp.description,
       image_url: pickOne(house_pics),
@@ -204,9 +204,9 @@ const createGuestReviews = (num) => {
   });
 };
 
-const users = createUsers();
-const locations = createLocations();
-const listings = createListings(500);
+const users = createUsers(); //200
+const locations = createLocations(); //500
+const listings = createListings(locations.length);
 const bookings = createBookings(300);
 const favorites = createFavorites(500);
 const location_reviews = createLocationReviews(800);

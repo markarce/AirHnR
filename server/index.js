@@ -12,14 +12,15 @@ app.use(express.static(__dirname + '/../client/dist'));
 app.use(express.json());
 
 app.get('/api/listings',function(req, res) {
+  //return all listings near the searched area
   googleMaps.getPlaceCoordinates(req.query.q, googleResults => {
-  db.getLocationsNear(googleResults.lat, googleResults.lon, 4000)
-    .then(dbResults => {
-      res.status(200).json(dbResults);
-    }).catch(err => {
-      console.warn(err);
-      res.status(503).end();
-    });
+    db.getListingsNear(googleResults.lat, googleResults.lon, 3000)
+      .then(dbResults => {
+        res.status(200).json(dbResults);
+      }).catch(err => {
+        console.warn(err);
+        res.status(503).end();
+      });
   });
 });
 
