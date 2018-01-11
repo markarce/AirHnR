@@ -9,7 +9,6 @@ import Grid from 'material-ui/Grid';
 import { withStyles } from 'material-ui/styles';
 import MapContainer from './MapContainer';
 import $ from 'jquery';
-import { withStyles } from 'material-ui/styles';
 
 class SearchResults extends React.Component {
   constructor(props) {
