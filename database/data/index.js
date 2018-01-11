@@ -4,8 +4,8 @@ const reviewdata = require('./reviews.json')
 const nyll = require('./ny_lat_long.json');
 const sfll = require('./sf_lat_long.json');
 const house_pics = require('./pics.json');
-const home_types = ['Home', 'Aprtment', 'Abode', 'Townhouse', 'Mansion', 'Castle', 'Dump', 'Slum', 'House', 'Flat', 'Palace', 'Estate', 'Dwelling', 'Box', 'Co-Op', 'Lean-To', 'Cardboard Box', 'Shanty', 'Cairn', 'Alleyway', 'Flophouse', 'Couch', 'Basement'];
-const room_types = ['Couch', 'Room', 'Studio', 'House'];
+const home_types = ['Home', 'Aprtment', 'Abode', 'Townhouse', 'Mansion', 'Castle', 'Dump', 'Slum', 'House', 'Flat', 'Palace', 'Estate', 'Dwelling', 'Box', 'Co-Op', 'Lean-To', 'Cardboard Box', 'Shanty', 'Cairn', 'Alleyway', 'Flophouse', 'Couch', 'Basement', 'Attic', 'Loft', 'Condo', 'Condominium', 'Duplex', 'Shed', 'Barn', 'Penthouse', 'Suite', 'Cabin', 'Shack', 'Love Shack', 'Domicile', 'Dormitory', 'Closet', 'Home', 'Apartment', 'Home', 'Apartment', 'Flat', 'Home', 'Apartment', 'Home', 'Apartment', 'Flat', 'Home', 'Apartment', 'Home', 'Apartment', 'Flat', 'Home', 'Apartment', 'Home', 'Apartment', 'Flat', 'House', 'House', 'House', 'House', 'Loft', 'Loft', 'Loft', 'Studio', 'Studio', 'Studio', 'Room'];
+const room_types = ['Couch', 'Room', 'Studio', 'House', 'Entire House', 'Private Room', 'Entire Apartment'];
 
 const toTitleCase = (word) => {
   return word.slice(0, 1).toUpperCase() + word.slice(1);
@@ -33,8 +33,8 @@ const listingRange = () => {
   let endDay = numberInRange(1, 28);
   let startMonth = numberInRange(1, 12);
   let endMonth = numberInRange(1, 12);
-  let startYear = pickOne([2017, 2018])
-  let endYear = pickOne([2019, 2020])
+  let startYear = pickOne([2017, 2018]);
+  let endYear = pickOne([2019, 2020]);
   return {
     start: new Date(`${startMonth}/${startDay}/${startYear}`),
     end: new Date(`${endMonth}/${endDay}/${endYear}`)
@@ -59,7 +59,7 @@ const generateHouseRules = () => {
 };
 
 const createUsers = () => {
-  let address_info = [['NewYork','NY', '10001'], ['San Francisco', 'CA', '94117']]
+  let address_info = [['NewYork','NY', '10001'], ['San Francisco', 'CA', '94117']];
   return userdata.map( (dp, idx) => { 
     let city = idx < userdata.length / 2 ? 0 : 1;
     return {
@@ -83,13 +83,13 @@ const createUsers = () => {
 };
 
 const createLocations = () => {
-  let address_info = [['NewYork', 'NY', '10001'], ['San Francisco', 'CA', '94117']]
+  let address_info = [['NewYork', 'NY', '10001'], ['San Francisco', 'CA', '94117']];
   return locationdata.map((dp, idx) => {
     let city = idx < locationdata.length / 2 ? 0 : 1;
     let cityidx = idx < locationdata.length - 1 ? idx : idx - 101;
     let cityll = city === 1 ? sfll : nyll;
     return {
-      name: `${dp.adjective.toUpperCase()} ${address_info[city][0]} ${pickOne(home_types)}`,
+      name: `${toTitleCase(dp.adjective)} ${address_info[city][0]} ${pickOne(home_types)}`,
       tagline: dp.tagline,
       description: dp.description,
       image_url: pickOne(house_pics),
@@ -119,6 +119,8 @@ const createListings = (num) => {
       start_date: range.start,
       end_date: range.end,
       price: numberInRange(40, 350),
+      fee_service: 50,
+      fee_cleaning: pickOne([0, 0, 0, 15, 15, 25, 25, 50]),
       location_id: idx + 1,
       host_id: (idx % userdata.length) + 1
     };
@@ -133,7 +135,7 @@ const createBookings = (num) => {
     let endDay = startDay + nights;
     let month = numberInRange(1, 12);
     let price = numberInRange(40, 350);
-    let fee_service = 0.1 * price * nights;
+    let fee_service = 50;
     let fee_cleaning = pickOne([0, 0, 0, 15, 15, 25, 25, 50]);
     let tax = nights * price * 0.085;
     let total = (nights * price * 1.085) + fee_service + fee_service;
@@ -202,15 +204,16 @@ const createGuestReviews = (num) => {
   });
 };
 
-const users = createUsers();
-const locations = createLocations();
-const listings = createListings(500);
+const users = createUsers(); //200
+const locations = createLocations(); //500
+const listings = createListings(locations.length);
 const bookings = createBookings(300);
 const favorites = createFavorites(500);
 const location_reviews = createLocationReviews(800);
 const host_reviews = createHostReviews(600);
 const guest_reviews = createGuestReviews(500);
 
+console.log('NOTE: THE FOLLOWING EXAMPLES DO NOT INCLUDE DB-GENERATED KEYS');
 console.log('EXAMPLE user:', users[0]);
 console.log('EXAMPLE location:', locations[0]);
 console.log('EXAMPLE listing:', listings[0]);
