@@ -276,7 +276,19 @@ p {
   /* border-bottom: 1px solid #DBDBDB */
 }
 
+<<<<<<< HEAD
 .booking-guests label {
+=======
+.MuiSelect-select-122 {
+  width: 300px !important;
+}
+
+.MuiSelect-selectMenu-217 {
+  width: 300px !important;
+}
+
+.MuiFormLabel-root-117 {
+>>>>>>> a18d70825d5ac5c8a8095507eaf5ad1bc122690a
   color: #484848 !important;
   font-family: 'Crimson Text', serif !important;
   font-size: 24px !important;
