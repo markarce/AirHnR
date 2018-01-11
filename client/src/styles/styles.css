@@ -344,6 +344,7 @@ p {
 
 .overview {
   grid-area: "overview";
+  margin: 3em 0;
 }
 
 .details {
