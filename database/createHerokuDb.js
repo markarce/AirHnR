@@ -223,7 +223,7 @@ drop('users')
 }).then(() => {
   return knex('guest_reviews').insert(data.guest_reviews);
 }).then(() => {
-  return bookshelf.knex.raw('CREATE EXTENSION Postgis');
+  return bookshelf.knex.raw('CREATE EXTENSION IF NOT EXISTS Postgis');
 }).then(done => {
   console.log('DONE');
   process.exit();
