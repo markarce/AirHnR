@@ -5,11 +5,24 @@ import css from './styles/styles.css';
 // import 'typeface-roboto';
 import { BrowserRouter } from 'react-router-dom';
 import ListingDetails from './components/listingDetails.jsx'
+<<<<<<< HEAD
+=======
+
+import 'react-dates/initialize';
+import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'react-dates';
+import 'react-dates/lib/css/_datepicker.css';
+// import SearchBar from 'material-ui-search-bar'
+// import AutoComplete from 'material-ui/AutoComplete';
+
+
+>>>>>>> added date functionality
 import SearchResults from './components/SearchResults'
 import Search from './components/Search.jsx'
 import NavBar from './components/NavBar.jsx'
 import $ from 'jquery'
 import Checkout from './components/Checkout.jsx';
+
+
 
 var sampleData = {
   //added city and pool
@@ -53,12 +66,16 @@ class App extends React.Component {
     this.state = {
       view: 'default',
       query: '',
-      results: []
+      results: [],
+      startDate: null,
+      endDate: null
     }
+
     this.searchTerm = this.searchTerm.bind(this);
     this.handleSearchClick = this.handleSearchClick.bind(this);
     this.handleListingClick = this.handleListingClick.bind(this);
-  }
+     
+    }
 
   searchTerm(term) {
     console.log('value: ', term);
@@ -111,6 +128,36 @@ class App extends React.Component {
     }
 
     return (
+
+      <div>
+      <NavBar/>
+      <br />
+      <div>
+      <DateRangePicker
+        startDate={this.state.startDate} // momentPropTypes.momentObj or null,
+        endDate={this.state.endDate} // momentPropTypes.momentObj or null,
+        onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })} // PropTypes.func.isRequired,
+        focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
+        onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired,
+      />
+      </div>
+      <div>
+
+      {/* <SearchBar
+        onChange={() => console.log('onChange')}
+        onRequestSearch={() => console.log('onRequestSearch')}
+        style={{
+        margin: '0 auto',
+        maxWidth: 800
+      }}
+    /> */}
+
+      </div>
+      {console.log("ready",this.state)}
+      <div>
+        <Search onClick={this.handleClickFunction}/>
+      </div>
+      <br/>
       <div>
         <NavBar/>
         <Search searchTerm={this.searchTerm} handleSearchClick={this.handleSearchClick}/>

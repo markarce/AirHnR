@@ -19,6 +19,7 @@ app.get('/api/listings/:listingId', (req, res) => {
   res.json(listing[0]);
 });
 
+<<<<<<< HEAD
 app.get('/api/listings',function(req, res) {
   //return all listings near the searched area
   googleMaps.getPlaceCoordinates(req.query.q, googleResults => {
@@ -31,6 +32,17 @@ app.get('/api/listings',function(req, res) {
       });
   });
 });
+=======
+
+app.get('/api/listings',function(req, res){
+    console.log(req.query.q)
+    var location = req.query.q;
+    googleMaps.getPlaceCoordinates(location,function(results){
+      console.log(results)
+      res.json(db.getLocationsNear(results.lat, results.lon, 5))
+    })
+})
+>>>>>>> added date functionality
 
 app.post('/api/bookings', (req, res) => {
   console.log(req.body);

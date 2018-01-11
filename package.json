@@ -46,9 +46,14 @@
     "knex": "^0.14.2",
     "lodash": "^4.17.4",
     "material-ui": "^1.0.0-beta.27",
+    "material-ui-autocomplete-google-places": "^2.2.0",
     "material-ui-icons": "^1.0.0-beta.17",
+    "material-ui-search-bar": "^0.4.1",
+    "material-ui-search-bar-enhanced": "^0.4.3",
+    "moment": "^2.20.1",
     "pg": "^7.4.1",
     "react": "^16.2.0",
+    "react-dates": "^16.0.2",
     "react-dom": "^16.2.0",
     "react-router-dom": "^4.2.2",
     "react-strap": "0.0.1",
@@ -61,6 +66,7 @@
     "webpack": "^3.10.0"
   },
   "devDependencies": {
+    "install-peers": "^1.0.2",
     "mocha": "^4.1.0",
     "nodemon": "^1.14.7",
     "webpack-bundle-analyzer": "^2.9.1"
