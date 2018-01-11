@@ -1,21 +1,17 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { render } from 'react-dom';
 import css from './styles/styles.css';
 // import 'typeface-roboto';
 import { BrowserRouter } from 'react-router-dom';
+
 import ListingDetails from './components/listingDetails.jsx'
-<<<<<<< HEAD
-=======
 
 import 'react-dates/initialize';
 import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
 // import SearchBar from 'material-ui-search-bar'
-// import AutoComplete from 'material-ui/AutoComplete';
 
 
->>>>>>> added date functionality
 import SearchResults from './components/SearchResults'
 import Search from './components/Search.jsx'
 import NavBar from './components/NavBar.jsx'
@@ -69,66 +65,26 @@ class App extends React.Component {
       results: [],
       startDate: null,
       endDate: null
-    }
-
-    this.searchTerm = this.searchTerm.bind(this);
-    this.handleSearchClick = this.handleSearchClick.bind(this);
-    this.handleListingClick = this.handleListingClick.bind(this);
-     
-    }
-
-  searchTerm(term) {
-    console.log('value: ', term);
-    this.setState({
-      query: term 
-    });
+    };
   }
 
-  handleSearchClick() {
+  handleListingClick(listingID) {
+    console.log(listingID + ' clicked in App');
     const options = {
       method: 'GET',
       contentType: "application/json",
       mode: 'cors',
       cache: 'default'
     }
-    fetch(`/api/listings?q=${this.state.query}`, options)
-    .then((response) => response.json())
-    .then((listings) => {
-      console.log(listings)
+    fetch(`/api/listing?id=${listingID}`, options)
+      .then((response) => response.json())
+      .then((listing) => {
+        console.log(listing)
     })
-    this.setState({view: 'searchResults'})
-  }
-
-  handleListingClick(listingID) {
-    // console.log(listingID + ' clicked in App');
-    // const options = {
-    //   method: 'GET',
-    //   contentType: "application/json",
-    //   mode: 'cors',
-    //   cache: 'default'
-    // }
-    // fetch(`/api/listing?id=${listingID}`, options)
-    //   .then((response) => response.json())
-    //   .then((listing) => {
-    //     console.log(listing)
-    //    this.setState({view: 'listingDetails'})
-    // })
-    this.setState({view: 'listingDetails'})
   }
 
   render() {
-    const currentView = this.state.view;
-    let showPage = null;
-    if (currentView === 'searchResults') {
-      showPage = <SearchResults handleListingClick={this.handleListingClick} />;
-    } else if (currentView === 'listingDetails') {
-      showPage = <ListingDetails listing={sampleData} />;
-    } else if (currentView === 'checkout') {
-      showPage = <Checkout />;
-    }
-
     return (
-
       <div>
       <NavBar/>
       <br />
@@ -143,10 +99,10 @@ class App extends React.Component {
       </div>
       <div>
 
-      {/* <SearchBar
-        onChange={() => console.log('onChange')}
-        onRequestSearch={() => console.log('onRequestSearch')}
-        style={{
+    {/* <SearchBar
+      onChange={() => console.log('onChange')}
+      onRequestSearch={() => console.log('onRequestSearch')}
+      style={{
         margin: '0 auto',
         maxWidth: 800
       }}
@@ -159,16 +115,14 @@ class App extends React.Component {
       </div>
       <br/>
       <div>
-        <NavBar/>
-        <Search searchTerm={this.searchTerm} handleSearchClick={this.handleSearchClick}/>
-        <br/>
-        <div>
-          {showPage}
-        </div>
+        <SearchResults handleListingClick={this.handleListingClick}/>
       </div>
-    )
+        <ListingDetails listing={sampleData}/>
+        <Checkout/>
+      </div>
+    );
   }
 
-
 }
+
 render(<App />, document.getElementById('app'));
