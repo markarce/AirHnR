@@ -1,5 +1,13 @@
-//This script will set up and configure the database created by createDb.sql
+// This script will set up and configure the database on Heroku.
+// Run this script from the shell with "npm run create-heroku-db"
+// Have the following key/val pairs in your .env file:
+// HEROKU_DB_HOST=<YOUR_HEROKU_DB_URL>
+// HEROKU_DB_USER=<YOUR_HEROKU_DB_USER_NAME>
+// HEROKU_DB_PASS=<YOUR_HEROKU_DB PASSWORD>
+// HEROKU_PG_DB=<YOUR_HEROKU_DB_NAME>
 
+const pg = require('pg');
+pg.defaults.ssl = true;
 const config = require('../config');
 const data = require('./data');
 const knex = require('knex')({
@@ -12,6 +20,11 @@ const knex = require('knex')({
   }
 });
 const bookshelf = require('bookshelf')(knex);
+
+drop = (tableName) => {
+  console.log(`DROPPING TABLE: ${tableName}`)
+  return knex.schema.dropTableIfExists(tableName);
+};
 
 createUsers = () => {
   console.log('CREATING TABLE: users')
@@ -162,36 +175,55 @@ createGuestReviews = () => {
   });
 };
 
-createUsers().then(() => {
+drop('users')
+  .then(() => {
+  return createUsers();
+}).then(() => {
   return knex('users').insert(data.users);
+}).then(() => {
+  return drop('locations');
 }).then(() => {
   return createLocations();
 }).then(() => {
   return knex('locations').insert(data.locations);
 }).then(() => {
+  return drop('listings');
+}).then(() => {
   return createListings();
 }).then(() => {
   return knex('listings').insert(data.listings);
+}).then(() => {
+  return drop('bookings');
 }).then(() => {
   return createBookings();
 }).then(() => {
   return knex('bookings').insert(data.bookings);
 }).then(() => {
+  return drop('favorites');
+}).then(() => {
   return createFavorites();
 }).then(() => {
   return knex('favorites').insert(data.favorites);
+}).then(() => {
+  return drop('location_reviews');
 }).then(() => {
   return createLocationReviews();
 }).then(() => {
   return knex('location_reviews').insert(data.location_reviews);
 }).then(() => {
+  return drop('host_reviews');
+}).then(() => {
   return createHostReviews();
 }).then(() => {
   return knex('host_reviews').insert(data.host_reviews);
 }).then(() => {
+  return drop('guest_reviews');
+}).then(() => {
   return createGuestReviews();
 }).then(() => {
   return knex('guest_reviews').insert(data.guest_reviews);
+}).then(() => {
+  return bookshelf.knex.raw('CREATE EXTENSION Postgis');
 }).then(done => {
   console.log('DONE');
   process.exit();
@@ -199,4 +231,4 @@ createUsers().then(() => {
   console.log('ERROR CREATING DB:');
   console.log(err);
   process.exit();
-})
+});
