@@ -223,6 +223,17 @@ console.log('EXAMPLE location review:', location_reviews[0]);
 console.log('EXAMPLE host review:', host_reviews[0]);
 console.log('EXAMPLE guest review:', guest_reviews[0]);
 
+console.log('\nSizes:');
+console.log('users:', users.length);
+console.log('locations:', locations.length);
+console.log('listings:', listings.length);
+console.log('bookings:', bookings.length);
+console.log('favorites:', favorites.length);
+console.log('location reviews:', location_reviews.length);
+console.log('host reviews:', host_reviews.length);
+console.log('guest reviews:', guest_reviews.length);
+
+
 module.exports = {
   users: users,
   locations: locations,
