@@ -5,13 +5,6 @@ import css from './styles/styles.css';
 // import 'typeface-roboto';
 import { BrowserRouter } from 'react-router-dom';
 import ListingDetails from './components/listingDetails.jsx'
-<<<<<<< HEAD
-=======
-import Booking from './components/Booking.jsx'
-
-
-
->>>>>>> completed booking feature
 import SearchResults from './components/SearchResults'
 import Search from './components/Search.jsx'
 import NavBar from './components/NavBar.jsx'
