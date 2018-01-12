@@ -28,8 +28,15 @@ class CreateAccount extends Component {
       lastName: '',
       password: '',
       confirmPassword: '',
+      email: '',
+      phoneNumber: '',
       passwordError: '',
-      missingMandatoryFields: ''
+      missingMandatoryFields: '',
+      addressStreet: '',
+      addressCity: '',
+      addressRegion: '',
+      addressPostalCode: '',
+
     };
     this.passwordNode = null;
   }
@@ -44,11 +51,25 @@ class CreateAccount extends Component {
       this.setState({
         passwordError: ''
       });
-      if(this.state.name.length > 0 && this.state.lastName.length > 0 && this.state.password.length > 0) {
+      if(this.state.name.length > 0 && this.state.lastName.length > 0 && this.state.password.length > 7 && this.state.email.length > 0) {
         this.setState({
           missingMandatoryFields: '',
         });
-        console.log('ACCOUNT CREATED!');
+        //valid input, create user!
+        let userData = {
+          name: this.state.name,
+          age: this.state.age,
+          lastName: this.state.lastName,
+          password: this.state.password,
+          email: this.state.email,
+          phoneNumber: this.state.phoneNumber,
+          addressStreet: this.state.addressStreet,
+          addressCity: this.state.addressCity,
+          addressRegion: this.state.addressRegion,
+          addressPostalCode: this.state.addressPostalCode
+        }
+
+        this._postNewUser(userData);
       } else {
         this.setState({
           missingMandatoryFields: 'Complete all mandatory fields'
@@ -58,62 +79,141 @@ class CreateAccount extends Component {
   }
   render() {
     const { classes } = this.props;
-
     return (
-      <form className={classes.container} noValidate autoComplete="off">
-        <TextField
-          required
-          id="name"
-          label="Name"
-          className={classes.textField}
-          value={this.state.name}
-          helperText={this.state.missingMandatoryFields}
-          onChange={(e) => {
-            this.setState({'name': e.target.value, 'missingMandatoryFields': ''});
+      <div>
+        <form className={classes.container} noValidate autoComplete="off">
+          <TextField
+            required
+            id="name"
+            label="Name"
+            className={classes.textField}
+            value={this.state.name}
+            helperText={this.state.missingMandatoryFields}
+            onChange={(e) => {
+              this.setState({'name': e.target.value, 'missingMandatoryFields': ''});
+              }
             }
-          }
-          margin="normal"
-        />
-        <TextField
-          required
-          id="last-name"
-          label="Last Name"
-          className={classes.textField}
-          value={this.state.lastName}
-          helperText={this.state.missingMandatoryFields}
-          onChange={(e) => {
-            this.setState({'lastName': e.target.value, 'missingMandatoryFields': ''});
+            margin="normal"
+          />
+          <TextField
+            required
+            id="last-name"
+            label="Last Name"
+            className={classes.textField}
+            value={this.state.lastName}
+            helperText={this.state.missingMandatoryFields}
+            onChange={(e) => {
+              this.setState({'lastName': e.target.value, 'missingMandatoryFields': ''});
+              }
             }
-          }
-          margin="normal"
-        />
-        <TextField
-          required
-          id="password"
-          label="Password"
-          className={classes.textField}
-          type="password"
-          autoComplete="current-password"
-          margin="normal"
-          helperText={this.state.passwordError}
-          onChange={(e) => this.setState({'password': e.target.value})}
-        />
-        <TextField
-          required
-          id="confirm-password"
-          label="Confirm Password"
-          className={classes.textField}
-          type="password"
-          autoComplete="current-password"
-          margin="normal"
-          helperText={this.state.passwordError}
-          onChange={(e) => this.setState({'confirmPassword': e.target.value})}
-        />
+            margin="normal"
+          />
+          <TextField
+            required
+            id="email"
+            label="E-mail"
+            className={classes.textField}
+            value={this.state.email}
+            helperText={this.state.missingMandatoryFields}
+            onChange={(e) => {
+              this.setState({'email': e.target.value, 'missingMandatoryFields': ''});
+              }
+            }
+            margin="normal"
+          />
+          <TextField
+            required
+            id="password"
+            label="Password"
+            className={classes.textField}
+            type="password"
+            autoComplete="current-password"
+            margin="normal"
+            helperText={this.state.passwordError}
+            onChange={(e) => this.setState({'password': e.target.value})}
+          />
+          <TextField
+            required
+            id="confirm-password"
+            label="Confirm Password"
+            className={classes.textField}
+            type="password"
+            autoComplete="current-password"
+            margin="normal"
+            helperText={this.state.passwordError}
+            onChange={(e) => this.setState({'confirmPassword': e.target.value})}
+          />
+          <TextField
+            id="street"
+            label="Street Address"
+            className={classes.textField}
+            value={this.state.addressStreet}
+            helperText={this.state.missingMandatoryFields}
+            onChange={(e) => {
+              this.setState({'addressStreet': e.target.value, 'missingMandatoryFields': ''});
+              }
+            }
+            margin="normal"
+          />
+          <TextField
+            id="city"
+            label="City"
+            className={classes.textField}
+            value={this.state.addressCity}
+            helperText={this.state.missingMandatoryFields}
+            onChange={(e) => {
+              this.setState({'addressCity': e.target.value, 'missingMandatoryFields': ''});
+              }
+            }
+            margin="normal"
+          />
+          <TextField
+            id="region"
+            label="Region"
+            className={classes.textField}
+            value={this.state.addressRegion}
+            helperText={this.state.missingMandatoryFields}
+            onChange={(e) => {
+              this.setState({'addressRegion': e.target.value, 'missingMandatoryFields': ''});
+              }
+            }
+            margin="normal"
+          />
+          <TextField
+            id="zip-code"
+            label="Postal Code"
+            className={classes.textField}
+            value={this.state.addressPostalCode}
+            helperText={this.state.missingMandatoryFields}
+            onChange={(e) => {
+              this.setState({'addressPostalCode': e.target.value, 'missingMandatoryFields': ''});
+              }
+            }
+            margin="normal"
+          />
+        </form>
         <Button raised className={classes.button} onClick={() => this.createAccount()}>
-        Create Account
+          Create Account
         </Button>
-      </form>
+      </div>
     );
+  }
+
+  _postNewUser(users) {
+    const options = { 
+      method: 'POST',
+      headers: {      
+      'X-Requested-With': 'XMLHttpRequest',
+      'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(users)
+    };
+  
+    fetch('/api/users', options)
+    .then((response) => {
+      if(!response.ok) return console.log('error', response);
+      console.log(response);
+    }).catch((err) => console.log('error: ', err));
   }
 }
 
