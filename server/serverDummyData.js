@@ -86,9 +86,7 @@ var testSearchResults = [
     "reviews_count": 32,
     "room_type": 'Entire loft',
     "star_rating": 5,
-    "image_url": 'https://a0.muscache.com/im/pictures/7ce1579c-4c8b-424c-99cd-23cab046adce.jpg?aki_policy=xx_large',
-    "lat": 37.78590229749053,
-    "lon": 122.4108374118805
+    "image_url": 'https://a0.muscache.com/im/pictures/7ce1579c-4c8b-424c-99cd-23cab046adce.jpg?aki_policy=xx_large'
   },
   {
     "beds": 8,
@@ -99,9 +97,7 @@ var testSearchResults = [
     "reviews_count": 24,
     "room_type": 'Entire villa',
     "star_rating": 5,
-    "image_url": 'https://a0.muscache.com/im/pictures/be366b07-1ab8-4456-90c4-a09d5588e4fe.jpg?aki_policy=xx_large',
-    "lat": 37.78590229749053,
-    "lon": 122.4108374118805
+    "image_url": 'https://a0.muscache.com/im/pictures/be366b07-1ab8-4456-90c4-a09d5588e4fe.jpg?aki_policy=xx_large'
   },
 ];
 
@@ -111,6 +107,7 @@ var testDetailItems = [
   {
     "beds": 18,
     "address": "1600 Pennsylvania Avenue NW, Washington, DC 20500, USA",
+    "city": 'San Francisco',
     "id": 867541,
     "name": "Really, really white house",
     "price": 150,
@@ -145,6 +142,7 @@ var testDetailItems = [
   {
     "beds": 4,
     "address": "700 Steiner St, San Francisco, CA 94117, USA",
+    "city": 'San Francisco',
     "id": 854623,
     "name": "Beautiful Four Bedroom House",
     "price": 200,
@@ -161,7 +159,8 @@ var testDetailItems = [
     "amenities": {
       "wifi": true,
       "kitchen": true,
-      "hotTub": false
+      "hotTub": false,
+      "pool": false
     },
     "houseRules": {
       "pets": false,
@@ -177,6 +176,7 @@ var testDetailItems = [
   {
      "beds": 2,
      "address": "680 Mission Street, San Francisco CA 94105",
+     "city": 'San Francisco',
      "id": 12345,
      "name": "Beautiful One Bedroom Apartment",
      "price": 90,
@@ -193,7 +193,8 @@ var testDetailItems = [
      "amenities": {
          "wifi": true,
          "kitchen": true,
-         "hotTub": false
+         "hotTub": false,
+         "pool": false,
      },
      "houseRules": {
        "pets": true,
@@ -209,6 +210,7 @@ var testDetailItems = [
   {
     "beds": 4,
     "address": "1725 Fulton St, San Francisco, CA 94117, USA",
+    "city": 'San Francisco',
     "id": 12346,
     "name": "Beautiful Four Bedroom House",
     "price": 150,
@@ -225,7 +227,8 @@ var testDetailItems = [
      "amenities": {
          "wifi": true,
          "kitchen": true,
-         "hotTub": true
+         "hotTub": true,
+         "pool": false
      },
      "houseRules": {
        "pets": true,
@@ -242,6 +245,7 @@ var testDetailItems = [
   {
     "beds": 2,
     "address": '37171 Sycamore St, Newark, CA 94560 USA',
+    "city": 'Newark',
     "id": 285733,
     "name": 'Well-furnished apt in Newark, close to downtown',
     "price": 70,
@@ -258,7 +262,8 @@ var testDetailItems = [
     "amenities": {
         "wifi": true,
         "kitchen": true,
-        "hotTub": true
+        "hotTub": true,
+        "pool": true
     },
     "houseRules": {
       "pets": true,
@@ -274,6 +279,7 @@ var testDetailItems = [
   {
     "beds": 2,
     "address": "333 O'Farrell St, San Francisco, CA 94102, USA",
+    "city": 'San Francisco',
     "id": 411709,
     "name": 'Hilton San Francisco Union Square',
     "price": 164,
@@ -290,7 +296,8 @@ var testDetailItems = [
     "amenities": {
         "wifi": true,
         "kitchen": false,
-        "hotTub": true
+        "hotTub": true,
+        "pool": true
     },
     "houseRules": {
       "pets": false,
@@ -306,6 +313,7 @@ var testDetailItems = [
   {
     "beds": 1,
     "address": '360 10th st, San Francisco, CA 94102, USA',
+    "city": 'San Francisco',
     "id": 139857,
     "name": 'Beautiful SOMA Condo/Moscone/Downtown',
     "price": 300,
@@ -320,7 +328,8 @@ var testDetailItems = [
     "amenities": {
       "wifi": true,
       "kitchen": true,
-      "hotTub": false
+      "hotTub": false,
+      "pool": false
     },
     "houseRules": {
       "pets": false,
@@ -337,6 +346,7 @@ var testDetailItems = [
   {
     "beds": 8,
     "address": 'Jalan Pantai Kuta, Banjar Pande Mas, Kuta, Kabupaten Badung, Bali 80361, Indonesia',
+    "city": 'Kuta',
     "id": 187468,
     "name": 'Amazing 8 Bedroom, Seminyak-Oberoi',
     "price": 1900,
@@ -352,6 +362,7 @@ var testDetailItems = [
       "wifi": false,
       "kitchen": true,
       "hotTub": true,
+      "pool": true
     },
     "houseRules": {
       "pets": true,
