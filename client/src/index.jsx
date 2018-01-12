@@ -14,6 +14,7 @@ import data from '../../lib/dummyData.js';
 import $ from 'jquery'
 import Checkout from './components/Checkout.jsx';
 import Login from './components/Login.jsx';
+import CreateAccount from './components/CreateAccount.jsx';
 
 var sampleData = {
   //added city and pool
@@ -67,6 +68,7 @@ class App extends React.Component {
     this.searchTerm = this.searchTerm.bind(this);
     this.handleSearchClick = this.handleSearchClick.bind(this);
     this.handleListingClick = this.handleListingClick.bind(this);
+    this._triggerViewChange = this._triggerViewChange.bind(this);
   }
 
   searchTerm(term) {
@@ -113,12 +115,14 @@ class App extends React.Component {
       showPage = <ListingDetails listing={this.state.listing} />;
     } else if (currentView === 'checkout') {
       showPage = <Checkout />;
+    } else if(currentView === 'createAccount') {
+      showPage = <CreateAccount triggerView={this._triggerViewChange}/>
     }
 
     return (
       <div>
         <div>
-          <NavBar/>
+          <NavBar triggerView={this._triggerViewChange}/>
         </div>
         <Search searchTerm={this.searchTerm} handleSearchClick={this.handleSearchClick}/>
         <br />
@@ -138,6 +142,12 @@ class App extends React.Component {
         </div>
       </div>
     );
+  }
+
+  _triggerViewChange(requestedView) {
+    this.setState({
+      view: requestedView
+    });
   }
 }
 

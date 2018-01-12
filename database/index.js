@@ -24,8 +24,13 @@ const getListingInfo = (listingId) => {
   return bookshelf.knex.raw(query).then(res => res.rows[0]);
 };
 
+const saveUserInDB = (user) => {
+  return knex('users').insert(user);
+}
+
 module.exports = {
   getListingsNear: getListingsNear,
   getLocationsNear: getLocationsNear,
-  getListingInfo: getListingInfo
+  getListingInfo: getListingInfo,
+  saveUserInDB: saveUserInDB
 };

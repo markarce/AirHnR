@@ -35,12 +35,13 @@ function ButtonAppBar(props) {
           <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
             <MenuIcon />
           </IconButton>
-          <Typography type="title" color="inherit" className={classes.flex}>
+          <Typography type="title" color="inherit" className={classes.flex} onClick={() => props.triggerView('default')}>
             AirHnR
             <span/>
             <TextField/>
           </Typography>
           <Button color="contrast">Login</Button>
+          <Button color="contrast" onClick={() => props.triggerView('createAccount')}>Create Account</Button>
         </Toolbar>
       </AppBar>
     </div>
