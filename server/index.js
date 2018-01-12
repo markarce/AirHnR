@@ -13,13 +13,14 @@ app.use(express.static(__dirname + '/../client/dist'));
 app.use(express.json());
 
 app.get('/api/listings/:listingId', (req, res) => {
-  // console.log(req.params);
-  let listing = data.data.testDetailItems.filter(listing => {
-    return listing.id === parseInt(req.params.listingId);
+  db.getListingInfo(parseInt(req.params.listingId)).then(row => {
+    console.log(row);
+    res.status(200).json(row);
+  }).catch(err => {
+    console.log(err);
+    res.status(503).end();
   });
-  res.json(listing[0]);
 });
-
 
 app.get('/api/listings',function(req, res) {
   //return all listings near the searched area

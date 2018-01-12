@@ -28,6 +28,8 @@ createUsers = () => {
     table.string('address_region');
     table.string('address_postal_code');
     table.boolean('is_host');
+    table.unique('email');
+    table.unique('username');
   });
 };
 

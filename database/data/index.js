@@ -62,13 +62,15 @@ const createUsers = () => {
   let address_info = [['NewYork','NY', '10001'], ['San Francisco', 'CA', '94117']];
   return userdata.map( (dp, idx) => { 
     let city = idx < userdata.length / 2 ? 0 : 1;
+    let index = dp.email.indexOf('@');
+    let email = dp.email.slice(0, index) + idx.toString() + dp.email.slice(index);
     return {
-      username: dp.username,
+      username: idx.toString() + dp.username,
       password: dp.password,
       first_name: dp.first_name,
       last_name: dp.last_name,
       account_created: dp.account_created,
-      email: dp.email,
+      email: email,
       about_me: dp.about_me,
       avatar_url: dp.avatar_url,
       phone_number: dp.phone_number,
