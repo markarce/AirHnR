@@ -139,7 +139,7 @@ class ListingDetails extends React.Component {
           <a href='#'>Location</a>
         </div> */}
         <ListingNav />
-        <Booking listing={listingSampleData}/>
+        {/*<Booking listing={listingSampleData}/>*/}
         <div className='line-break1'></div>
         <div className='listing-title'>
           <h1>{this.props.listing.name}</h1>
