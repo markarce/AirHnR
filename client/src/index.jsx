@@ -40,7 +40,7 @@ class App extends React.Component {
     fetch(`/api/listings/${listingID}`)//, options)
     .then((response) => response.json())
     .then((json) => {
-      console.log(json)
+      console.log('LC-JSON: ', json)
       this.setState({
         listing: json,
         view: 'listingDetails'
@@ -59,11 +59,18 @@ class App extends React.Component {
     fetch(`/api/listings?q=${this.state.query}`, options)
       .then((response) => response.json())
       .then((json) => {
-        console.log(json)
-        this.setState({results: json});
+        console.log('SC-JSON: ', json)
+        if (json.length > 0){
+          this.setState({
+            results: json,
+            view: 'searchResults'
+          });
+        } else {
+          console.log('Either no search term entered or no results found');
+        }
       }
     )
-    this.setState({view: 'searchResults'})
+    //this.setState({view: 'searchResults'})
   }
 
   render() {
