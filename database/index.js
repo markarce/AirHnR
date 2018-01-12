@@ -20,7 +20,7 @@ const getLocationsNear = (lat, long, radius = 3000) => {
 };
 
 const getListingInfo = (listingId) => {
-  let query = `SELECT listings.*, locations.* FROM listings, locations WHERE listings.id=${listingId} AND locations.id=listings.location_id`;
+  let query = `SELECT listings.*, locations.*, users.* FROM listings, locations, users WHERE listings.id=${listingId} AND locations.id=listings.location_id AND users.id=listings.host_id`;
   return bookshelf.knex.raw(query).then(res => res.rows[0]);
 };
 

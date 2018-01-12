@@ -53,7 +53,7 @@ class ListingDetails extends React.Component {
   }
 
   renderHouseRules () {
-    return _.map(this.props.listing.houseRules, (val, key) => {
+    return _.map(this.props.listing.house_rules, (val, key) => {
       if (val) {
         if (key === 'checkIn') {
           return <li key={key}>{`Check-in at ${val}`}</li>
@@ -146,7 +146,7 @@ class ListingDetails extends React.Component {
         </div>
         <div className='listing-type'>
           <p>{`${this.props.listing.room_type} · ${this.props.listing.city}`}</p>
-          <p>{`Hosted by ${this.props.listing.host.name}`}</p>
+          <p>{`Hosted by ${this.props.listing.first_name}`}</p>
         </div>
         <div className='listing-space'> 
           <span className='listing-space-detail'>👯</span> 
@@ -183,7 +183,7 @@ class ListingDetails extends React.Component {
         {this.renderRating()}
         <div className='line-break6'></div>
         <div className='listing-host'>
-          <h2>{`Hosted By ${this.props.listing.host.name}`}</h2>
+          <h2>{`Hosted By ${this.props.listing.first_name}`}</h2>
           <p>San Francisco, California, United States</p>
           <p>Joined in May 2012</p>
         </div>
