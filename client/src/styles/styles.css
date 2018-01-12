@@ -65,6 +65,11 @@
   margin-bottom: 40px;
 }
 
+.listing-space div {
+  display: inline;
+  margin-right: 10px;
+}
+
 .listing-space-detail {
   margin: 5px;
 }

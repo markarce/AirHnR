@@ -6,7 +6,6 @@ import ListingDetails from './components/listingDetails.jsx'
 import 'react-dates/initialize';
 import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
-// import SearchBar from 'material-ui-search-bar'
 import SearchResults from './components/SearchResults'
 import Search from './components/Search.jsx'
 import NavBar from './components/NavBar.jsx'
@@ -73,13 +72,19 @@ class App extends React.Component {
       }).catch(err => console.log(err));
   }
 
+  handleBookingClick () {
+    this.setState({
+      view: 'checkout'
+    })
+  }
+
   render() {
     const currentView = this.state.view;
     let showPage = null;
     if (currentView === 'searchResults') {
       showPage = <SearchResults results={this.state.results} handleListingClick={this.handleListingClick} mapCenter={this.state.mapCenter} />;
     } else if (currentView === 'listingDetails') {
-      showPage = <ListingDetails listing={this.state.listing} />;
+      showPage = <ListingDetails handleBookingClick={this.handleBookingClick.bind(this)} listing={this.state.listing} />;
     } else if (currentView === 'checkout') {
       showPage = <Checkout />;
     } else if(currentView === 'createAccount') {

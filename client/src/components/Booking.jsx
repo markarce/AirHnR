@@ -8,7 +8,8 @@ class Booking extends React.Component {
   }
 
   renderRating () {
-    if (this.props.listing.star_rating === 5) {
+    let rating = Math.round(this.props.listing.star_rating);
+    if (rating === 5) {
       return (
         <div className='booking-rating-img'>
           <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
@@ -19,7 +20,7 @@ class Booking extends React.Component {
           <span className='booking-reviewCount'>{this.props.listing.reviews_count}</span>
         </div>
       )
-    } else if (this.props.listing.star_rating === 4) {
+    } else if (rating === 4) {
       return (
         <div className='booking-rating-img'>
           <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
@@ -29,7 +30,7 @@ class Booking extends React.Component {
           <span className='booking-reviewCount'>{this.props.listing.reviews_count}</span>
         </div>
       )
-    } else if (this.props.listing.star_rating === 3) {
+    } else if (rating === 3) {
       return (
         <div className='booking-rating-img'>
           <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
@@ -38,14 +39,29 @@ class Booking extends React.Component {
           <span className='booking-reviewCount'>{this.props.listing.reviews_count}</span>
         </div>
       )
-    } 
+    } else if (rating === 2) {
+      return (
+        <div className='booking-rating-img'>
+          <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
+          <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
+          <span className='booking-reviewCount'>{this.props.listing.reviews_count}</span>
+        </div>
+      )
+    } else {
+      return (
+        <div className='booking-rating-img'>
+          <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
+          <span className='booking-reviewCount'>{this.props.listing.reviews_count}</span>
+        </div>
+      )
+    }
   }
 
   renderBookingButton () {
     if (this.props.button) {
       return (
         <div className='booking-button'>
-          <button>Book</button>
+          <button onClick={() => this.props.handleBookingClick()}>Book</button>
         </div>
       )
     }
