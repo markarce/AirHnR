@@ -72,8 +72,7 @@ class App extends React.Component {
             view: 'searchResults'
           });
         }
-      }
-    )
+      })
     //this.setState({view: 'searchResults'})
   }
 
