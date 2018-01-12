@@ -27,9 +27,7 @@ class SearchResults extends React.Component {
   }
 
   render() {
-    console.log('state/results', this.props.results);
     var listings = this.props.results;
-    console.log('listings', listings);
     return (
       <div className="listing-details">
         <div className="listings">
