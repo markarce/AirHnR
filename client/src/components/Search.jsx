@@ -14,26 +14,10 @@ class Search extends React.Component {
 
   handleChange(event) {
     this.props.searchTerm(event.target.value)
-    // console.log(this.state.value)
-    // this.setState({
-    //   value: event.target.value
-    // })
   }
 
   handleSearchClick() {
-    console.log('stuff')
-    this.props.handleSearchClick()
-    // const options = {
-    //   method: 'GET',
-    //   contentType: "application/json",
-    //   mode: 'cors',
-    //   cache: 'default'
-    // }
-    // fetch(`/api/listings?q=${this.state.value}`, options)
-    //   .then((response) => response.json())
-    //   .then((listings) => {
-    //     console.log(listings)
-    //   })
+    this.props.handleSearchClick();
   }
 
   render(){

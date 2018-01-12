@@ -3,6 +3,7 @@ import { withStyles } from 'material-ui/styles';
 import Button from 'material-ui/Button';
 import StripeCheckout from 'react-stripe-checkout';
 import key from '../stripe_key';
+import Booking from './Booking';
 
 let fakeDataSent = {
   price: 100.0,
@@ -17,6 +18,18 @@ let fakeDataSent = {
   locationId: 10,
   guestId: 109593,
   hostId: 1000494
+};
+
+let listingSampleData = {
+  start_date: '01/01/2018',
+  end_date: '04/01/2018',
+  price: 299,
+  star_rating: 5,
+  reviews_count: 32,
+  max_guests: 2,
+  nights: 3,
+  service_fee: 20,
+  tax: 0.1
 };
 
 const styles = theme => ({
@@ -82,7 +95,7 @@ class Checkout extends React.Component {
           </div>
         </div>
         <div className="overview">
-              <div>BOOK COMPONENT</div>
+              <Booking listing={listingSampleData} button={false}/>
           </div>
       </div>
     );

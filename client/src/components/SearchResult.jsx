@@ -9,6 +9,21 @@ import Typography from 'material-ui/Typography';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
 
+// const styles = theme => ({
+//   SearchResult: {
+//   },
+//   SearchResults: {
+//     paddingLeft: '8',
+//   },
+//   card: {
+//     width: 300,
+//     height: 300,
+//   },
+//   media: {
+//     height: 170,
+//   },
+// });
+
 const styles = {
   card: {
     width: 300,

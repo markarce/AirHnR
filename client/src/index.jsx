@@ -1,24 +1,18 @@
 import React from 'react';
 import { render } from 'react-dom';
 import css from './styles/styles.css';
-// import 'typeface-roboto';
 import { BrowserRouter } from 'react-router-dom';
-
 import ListingDetails from './components/listingDetails.jsx'
-
 import 'react-dates/initialize';
 import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
 // import SearchBar from 'material-ui-search-bar'
-
-
 import SearchResults from './components/SearchResults'
 import Search from './components/Search.jsx'
 import NavBar from './components/NavBar.jsx'
+import data from '../../lib/dummyData.js';
 import $ from 'jquery'
 import Checkout from './components/Checkout.jsx';
-
-
 
 var sampleData = {
   //added city and pool
@@ -31,7 +25,9 @@ var sampleData = {
   reviews_count: 32,
   room_type: 'Entire loft',
   star_rating: 5,
-  image_url: 'https://a0.muscache.com/im/pictures/7ce1579c-4c8b-424c-99cd-23cab046adce.jpg?aki_policy=xx_large',
+
+  image_url: 'http://lh6.ggpht.com/-cXg1IbQWCOY/UkQUVtcrfhI/AAAAAAAAs4c/bhH-b6HHDTE/painted-ladies-5%25255B5%25255D.jpg?imgmax=800',
+
 
   bathrooms: 2,
   maxGuests: 2,
@@ -47,7 +43,7 @@ var sampleData = {
     pets: false,
     smoking: false,
     checkIn: '3pm',
-    checkOut: '12pm',
+    checkOut: '12pm'
   },
   cancellation: true,
   host: {
@@ -62,67 +58,114 @@ class App extends React.Component {
     this.state = {
       view: 'default',
       query: '',
-      results: [],
+      results: data.testSearchResults,
+      listing: {},
       startDate: null,
       endDate: null
-    };
+    }
+    this.searchTerm = this.searchTerm.bind(this);
+    this.handleSearchClick = this.handleSearchClick.bind(this);
+    this.handleListingClick = this.handleListingClick.bind(this);
   }
 
-  handleListingClick(listingID) {
-    console.log(listingID + ' clicked in App');
+  searchTerm(term) {
+    this.setState({
+      query: term 
+    });
+    console.log('value: ', term);
+    console.log('state', this.state);
+  }
+
+handleListingClick(listingID) {
+    //send GET to server route for single listing
+      const options = {
+      method: 'GET',
+      contentType: "application/json",
+      mode: 'cors',
+      cache: 'default'
+    }
+    fetch(`/api/listing=${this.state.query}`, options)
+    .then((response) => response.json())
+    .then((listing) => {
+      console.log(listing)
+    })
+    //return listing object
+    var results = data.testDetailItems;
+    var listing;
+    for (var i = 0; i < results.length; i++) {
+      if (results[i]['id'] === listingID) {
+        //console.log('i:', results[i]['id']);
+        //console.log('results[i]:', results[i]);
+        listing = results[i];
+      }
+    }
+    this.setState({
+      listing: listing,
+      view: 'listingDetails'
+    }, function(){ console.log(this.state)});
+  }
+
+  handleSearchClick() {
     const options = {
       method: 'GET',
       contentType: "application/json",
       mode: 'cors',
       cache: 'default'
     }
-    fetch(`/api/listing?id=${listingID}`, options)
+    fetch(`/api/listings?q=${this.state.query}`, options)
       .then((response) => response.json())
-      .then((listing) => {
-        console.log(listing)
-    })
+      .then((listings) => {
+        console.log(listings)
+      }
+    )
+    this.setState({view: 'searchResults'})
   }
 
   render() {
-    return (
-      <div>
-      <NavBar/>
-      <br />
-      <div>
-      <DateRangePicker
-        startDate={this.state.startDate} // momentPropTypes.momentObj or null,
-        endDate={this.state.endDate} // momentPropTypes.momentObj or null,
-        onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })} // PropTypes.func.isRequired,
-        focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
-        onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired,
-      />
-      </div>
-      <div>
+    const currentView = this.state.view;
+    let showPage = null;
+    if (currentView === 'searchResults') {
+      showPage = <SearchResults results={this.state.results} handleListingClick={this.handleListingClick} />;
+    } else if (currentView === 'listingDetails') {
+      showPage = <ListingDetails listing={this.state.listing} />;
+    } else if (currentView === 'checkout') {
+      showPage = <Checkout />;
+    }
 
-    {/* <SearchBar
+    return (
+
+      <div>
+        <div>
+          <NavBar/>
+        </div>
+        <Search searchTerm={this.searchTerm} handleSearchClick={this.handleSearchClick}/>
+        <br />
+        <div>
+          <DateRangePicker
+            startDate={this.state.startDate} // momentPropTypes.momentObj or null,
+            endDate={this.state.endDate} // momentPropTypes.momentObj or null,
+            onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })} // PropTypes.func.isRequired,
+            focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
+            onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired,
+          />
+        </div>
+        <br/>
+        <div>
+          {showPage}
+        </div>
+      </div>
+      
+
+    );
+  }
+}
+
+render(<App />, document.getElementById('app'));
+    /* <SearchBar
       onChange={() => console.log('onChange')}
       onRequestSearch={() => console.log('onRequestSearch')}
       style={{
         margin: '0 auto',
         maxWidth: 800
       }}
-    /> */}
-
-      </div>
-      {console.log("ready",this.state)}
-      <div>
-        <Search onClick={this.handleClickFunction}/>
-      </div>
-      <br/>
-      <div>
-        <SearchResults handleListingClick={this.handleListingClick}/>
-      </div>
-        <ListingDetails listing={sampleData}/>
-        <Checkout/>
-      </div>
-    );
-  }
-
-}
-
-render(<App />, document.getElementById('app'));
+    /> */
