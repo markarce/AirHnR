@@ -4,7 +4,7 @@ const reviewdata = require('./reviews.json')
 const nyll = require('./ny_lat_long.json');
 const sfll = require('./sf_lat_long.json');
 const house_pics = require('./pics.json');
-const home_types = ['Home', 'Aprtment', 'Abode', 'Townhouse', 'Mansion', 'Castle', 'Dump', 'Slum', 'House', 'Flat', 'Palace', 'Estate', 'Dwelling', 'Box', 'Co-Op', 'Lean-To', 'Cardboard Box', 'Shanty', 'Cairn', 'Alleyway', 'Flophouse', 'Couch', 'Basement', 'Attic', 'Loft', 'Condo', 'Condominium', 'Duplex', 'Shed', 'Barn', 'Penthouse', 'Suite', 'Cabin', 'Shack', 'Love Shack', 'Domicile', 'Dormitory', 'Closet', 'Home', 'Apartment', 'Home', 'Apartment', 'Flat', 'Home', 'Apartment', 'Home', 'Apartment', 'Flat', 'Home', 'Apartment', 'Home', 'Apartment', 'Flat', 'Home', 'Apartment', 'Home', 'Apartment', 'Flat', 'House', 'House', 'House', 'House', 'Loft', 'Loft', 'Loft', 'Studio', 'Studio', 'Studio', 'Room'];
+const home_types = ['Home', 'Aprtment', 'Abode', 'Townhouse', 'Hole In the Wall', 'Hole In the Ground', 'Mansion', 'Castle', 'Dump', 'Slum', 'House', 'Flat', 'Palace', 'Estate', 'Dwelling', 'Box', 'Co-Op', 'Lean-To', 'Cardboard Box', 'Shanty', 'Cairn', 'Alleyway', 'Flophouse', 'Couch', 'Basement', 'Attic', 'Loft', 'Condo', 'Condominium', 'Duplex', 'Shed', 'Barn', 'Penthouse', 'Suite', 'Cabin', 'Shack', 'Love Shack', 'Domicile', 'Dormitory', 'Closet', 'Home', 'Apartment', 'Home', 'Apartment', 'Flat', 'Home', 'Apartment', 'Home', 'Apartment', 'Flat', 'Home', 'Apartment', 'Home', 'Apartment', 'Flat', 'Home', 'Apartment', 'Home', 'Apartment', 'Flat', 'House', 'House', 'House', 'House', 'Loft', 'Loft', 'Loft', 'Studio', 'Studio', 'Studio', 'Room'];
 const room_types = ['Couch', 'Room', 'Studio', 'House', 'Entire House', 'Private Room', 'Entire Apartment'];
 
 const toTitleCase = (word) => {
@@ -83,7 +83,7 @@ const createUsers = () => {
 };
 
 const createLocations = () => {
-  let address_info = [['NewYork', 'NY', '10001'], ['San Francisco', 'CA', '94117']];
+  let address_info = [['New York', 'NY', '10001'], ['San Francisco', 'CA', '94117']];
   return locationdata.map((dp, idx) => {
     let city = idx < locationdata.length / 2 ? 0 : 1;
     let cityidx = idx < locationdata.length - 1 ? idx : idx - 101;
@@ -222,6 +222,17 @@ console.log('EXAMPLE favorite:', favorites[0]);
 console.log('EXAMPLE location review:', location_reviews[0]);
 console.log('EXAMPLE host review:', host_reviews[0]);
 console.log('EXAMPLE guest review:', guest_reviews[0]);
+
+console.log('\nSizes:');
+console.log('users:', users.length);
+console.log('locations:', locations.length);
+console.log('listings:', listings.length);
+console.log('bookings:', bookings.length);
+console.log('favorites:', favorites.length);
+console.log('location reviews:', location_reviews.length);
+console.log('host reviews:', host_reviews.length);
+console.log('guest reviews:', guest_reviews.length);
+
 
 module.exports = {
   users: users,

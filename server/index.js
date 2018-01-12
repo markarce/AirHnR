@@ -5,14 +5,15 @@ const app = express();
 const bodyParser = require('body-parser');
 const googleMaps = require('../lib')
 
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: false }))
+// app.use(bodyParser.json())
+// app.use(bodyParser.urlencoded({ extended: false }))
+app.use(express.urlencoded({ extended: false }))
 
 app.use(express.static(__dirname + '/../client/dist'));
 app.use(express.json());
 
 app.get('/api/listings/:listingId', (req, res) => {
-  console.log(req.params);
+  // console.log(req.params);
   let listing = data.data.testDetailItems.filter(listing => {
     return listing.id === parseInt(req.params.listingId);
   });

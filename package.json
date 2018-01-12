@@ -12,6 +12,7 @@
     "webpack": "webpack -d --watch",
     "pg-install": "brew install postgres postgis && pg_ctl -D /usr/local/var/postgres start && brew services start postgresql",
     "create-db": "psql -U $USER -d postgres -f database/createDb.sql && node database/createDb.js",
+    "create-heroku-db": "node database/createHerokuDb.js",
     "build": "webpack -p",
     "postinstall": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -41,7 +42,6 @@
     "file-loader": "^1.1.6",
     "google-maps-react": "^1.1.2",
     "html-webpack-plugin": "^2.30.1",
-    "install": "^0.10.2",
     "jquery": "^3.2.1",
     "knex": "^0.14.2",
     "lodash": "^4.17.4",
