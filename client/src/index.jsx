@@ -46,7 +46,6 @@ class App extends React.Component {
     fetch(`/api/listings/${listingID}`)//, options)
     .then((response) => response.json())
     .then((json) => {
-      console.log('LC-JSON: ', json)
       this.setState({
         listing: json,
         view: 'listingDetails'
@@ -65,15 +64,13 @@ class App extends React.Component {
     fetch(`/api/listings?q=${this.state.query}`, options)
       .then((response) => response.json())
       .then((json) => {
-        if (json.length > 0) {
-          this.setState({
-            results: json.listings,
-            mapCenter: json.mapCenter,
-            view: 'searchResults'
-          });
-        }
-      })
-    //this.setState({view: 'searchResults'})
+        console.log('here', json)
+        this.setState({
+          results: json.listings,
+          mapCenter: json.mapCenter,
+          view: 'searchResults'
+        });
+      }).catch(err => console.log(err));
   }
 
   render() {

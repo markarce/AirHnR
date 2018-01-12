@@ -21,9 +21,12 @@ app.get('/api/listings/:listingId', (req, res) => {
 
 app.get('/api/listings',function(req, res) {
   //return all listings near the searched area
+  console.log('got request')
   lib.getPlaceCoordinates(req.query.q, googleResults => {
+    console.log('googleResults')
     db.getListingsNear(googleResults.lat, googleResults.lon, 3000)
-      .then(dbResults => {
+    .then(dbResults => {
+      // console.log(dbResults.length)
         res.status(200).json({
           listings: dbResults,
           mapCenter: {
