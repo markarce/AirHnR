@@ -41,9 +41,18 @@ const saveUserInDB = (user) => {
   return knex('users').insert(user);
 }
 
+const getUserFromDB = (userEmail) => {
+  return knex('users')
+  .where({ email: userEmail})
+  .then((rows) => {
+    return rows[0];
+  });
+}
+
 module.exports = {
   getListingsNear: getListingsNear,
   getLocationsNear: getLocationsNear,
   getListingInfo: getListingInfo,
-  saveUserInDB: saveUserInDB
+  saveUserInDB: saveUserInDB,
+  getUserFromDB: getUserFromDB
 };

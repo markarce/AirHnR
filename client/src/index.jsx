@@ -37,12 +37,14 @@ class App extends React.Component {
       },
       startDate: null,
       endDate: null,
-      guests: null
+      guests: null,
+      user: null
     }
     this.searchTerm = this.searchTerm.bind(this);
     this.handleSearchClick = this.handleSearchClick.bind(this);
     this.handleListingClick = this.handleListingClick.bind(this);
     this._triggerViewChange = this._triggerViewChange.bind(this);
+    this.userLoggedIn = this.userLoggedIn.bind(this);
   }
 
   searchTerm(term) {
@@ -92,7 +94,11 @@ class App extends React.Component {
       view: 'checkout'
     })
   }
-
+  userLoggedIn(userData) {
+    this.setState({
+      user: userData
+    });
+  }
   render() {
     const currentView = this.state.view;
     let showPage = null;
@@ -127,7 +133,7 @@ class App extends React.Component {
         <br/>
         <div>
           {showPage}
-          <Login />
+          <Login login={this.login} userLoggedIn={this.userLoggedIn}/>
         </div>
       </div>
     );

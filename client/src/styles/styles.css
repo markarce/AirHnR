@@ -384,3 +384,8 @@ header {
   align-items: center;
   margin-left: 10px;
 }
+
+/* login */
+#sign-up {
+  cursor: pointer;
+}
