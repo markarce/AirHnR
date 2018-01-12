@@ -10,7 +10,7 @@ import { withStyles } from 'material-ui/styles';
 
 const styles = theme => ({
   button: {
-    margin: theme.spacing.unit,
+    // margin: theme.spacing.unit,
   },
   input: {
     display: 'none',
@@ -43,7 +43,7 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: true,
+      open: false,
     };
     this.handleOpen = this.handleOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
@@ -68,14 +68,19 @@ class Login extends React.Component {
           onClose={this.handleClose}
         >
           <div style={getModalStyle()}>
-          <IconButton aria-label="Delete">
-            <ClearIcon />
-          </IconButton>
-          <Button style={buttonStyle} color='primary' onClick={this.handleOpen}>Log in with Facebook</Button>
-          <Button style={buttonStyle} onClick={this.handleOpen}>Log in with Google</Button>
-          <Divider />
-          <Button style={buttonStyle} color='accent' onClick={this.handleOpen}>Log in</Button>
-          <Divider />
+            <IconButton aria-label="Delete">
+              <ClearIcon />
+            </IconButton>
+            <Button style={buttonStyle} color='primary' onClick={this.handleOpen}>Log in with Facebook</Button>
+            <Button style={buttonStyle} onClick={this.handleOpen}>Log in with Google</Button>
+            <Divider />
+            or
+
+            <a>Show password</a>
+            <Button style={buttonStyle} color='accent' onClick={this.handleOpen}>Log in</Button>
+            <a>Forgot password?</a>
+            <Divider />
+            Don’t have an account? <a>Sign up</a>
           </div>
         </Modal>
       </div>

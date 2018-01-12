@@ -20,15 +20,15 @@ class Search extends React.Component {
     this.props.handleSearchClick();
   }
 
-  render(){
-    return(
+  render() {
+    return (
       <div>
         <div>
           <input className="col-lg-6 mb-3" type="text" placeholder="Anywhere..." id="place" onChange={this.handleChange}/>
           <button className="btn btn-primary" value={$("#place").val()} onClick={this.handleSearchClick}>Go</button>
         </div>
       </div>
-    )
+    );
   }
 }
 
