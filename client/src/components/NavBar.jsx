@@ -36,6 +36,7 @@ class ButtonAppBar extends React.Component{
     this.state = {
       searchValue: null,
       showModal: false
+      searchValue: null
     }
     this.handleSearchClick = this.handleSearchClick.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -80,6 +81,8 @@ class ButtonAppBar extends React.Component{
           Air HnR
           </Typography>
           {this.props.isUserLoggedIn ? <NavLogged logOut={this.props.userLogOut} user={this.props.user}/> : <NotLoggedIn userLoggedIn={this.props.userLoggedIn} triggerView={this.props.triggerView}/>}
+          <Button color="contrast">Login</Button>
+          <Button color="contrast" onClick={() => this.props.triggerView('createAccount')}>Create Account</Button>
         </Toolbar>
       </AppBar>
     </div>
