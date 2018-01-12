@@ -3,7 +3,7 @@ const db = require('../database');
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const googleMaps = require('../lib')
+const lib = require('../lib')
 
 // app.use(bodyParser.json())
 // app.use(bodyParser.urlencoded({ extended: false }))
@@ -24,8 +24,7 @@ app.get('/api/listings/:listingId', (req, res) => {
 
 app.get('/api/listings',function(req, res) {
   //return all listings near the searched area
-  googleMaps.getPlaceCoordinates(req.query.q, googleResults => {
-    // console.log('google results', googleResults);
+  lib.getPlaceCoordinates(req.query.q, googleResults => {
     db.getListingsNear(googleResults.lat, googleResults.lon, 3000)
       .then(dbResults => {
         res.status(200).json(dbResults);
@@ -39,6 +38,14 @@ app.get('/api/listings',function(req, res) {
 app.post('/api/bookings', (req, res) => {
   console.log(req.body);
   res.send('ok');
+});
+
+app.post('/api/users', (req, res) => {
+  console.log(req.body);
+  lib.hashPassword(req.body.password).then((hash) => {
+    console.log(hash);
+  });
+  res.json(req.body);
 });
 
 app.listen(config.serverPort, () => {
