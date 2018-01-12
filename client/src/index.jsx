@@ -31,7 +31,7 @@ var sampleData = {
   reviews_count: 32,
   room_type: 'Entire loft',
   star_rating: 5,
-  image_url: 'https://a0.muscache.com/im/pictures/7ce1579c-4c8b-424c-99cd-23cab046adce.jpg?aki_policy=xx_large',
+  image_url: 'http://lh6.ggpht.com/-cXg1IbQWCOY/UkQUVtcrfhI/AAAAAAAAs4c/bhH-b6HHDTE/painted-ladies-5%25255B5%25255D.jpg?imgmax=800',
 
   bathrooms: 2,
   maxGuests: 2,
