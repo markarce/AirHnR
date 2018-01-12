@@ -20,7 +20,6 @@ app.get('/api/listings/:listingId', (req, res) => {
   res.json(listing[0]);
 });
 
-
 app.get('/api/listings',function(req, res) {
   //return all listings near the searched area
   googleMaps.getPlaceCoordinates(req.query.q, googleResults => {

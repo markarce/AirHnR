@@ -13,6 +13,7 @@ import NavBar from './components/NavBar.jsx'
 import data from '../../lib/dummyData.js';
 import $ from 'jquery'
 import Checkout from './components/Checkout.jsx';
+import Login from './components/Login.jsx';
 
 var sampleData = {
   //added city and pool
