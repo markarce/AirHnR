@@ -59,7 +59,7 @@ class App extends React.Component {
     this.state = {
       view: 'default',
       query: '',
-      results: data.testSearchResults,
+      results: [],
       listing: {},
       startDate: null,
       endDate: null
@@ -70,43 +70,24 @@ class App extends React.Component {
   }
 
   searchTerm(term) {
-    this.setState({
-      query: term 
-    });
-    console.log('value: ', term);
-    console.log('state', this.state);
+    this.setState({ query: term });
   }
 
-handleListingClick(listingID) {
-    //send GET to server route for single listing
-      const options = {
-      method: 'GET',
-      contentType: "application/json",
-      mode: 'cors',
-      cache: 'default'
-    }
-    fetch(`/api/listing=${this.state.query}`, options)
+  handleListingClick(listingID) {
+    // called when a list item is clicked on.
+    fetch(`/api/listings/${listingID}`)//, options)
     .then((response) => response.json())
-    .then((listing) => {
-      console.log(listing)
-    })
-    //return listing object
-    var results = data.testDetailItems;
-    var listing;
-    for (var i = 0; i < results.length; i++) {
-      if (results[i]['id'] === listingID) {
-        //console.log('i:', results[i]['id']);
-        //console.log('results[i]:', results[i]);
-        listing = results[i];
-      }
-    }
-    this.setState({
-      listing: listing,
-      view: 'listingDetails'
-    }, function(){ console.log(this.state)});
-  }
+    .then((json) => {
+      console.log(json)
+      this.setState({
+        listing: json,
+        view: 'listingDetails'
+      })
+    }).catch(err => console.log(err));
+  };
 
   handleSearchClick() {
+    //called from search bar, submits a search request for locations near searched area
     const options = {
       method: 'GET',
       contentType: "application/json",
@@ -115,8 +96,9 @@ handleListingClick(listingID) {
     }
     fetch(`/api/listings?q=${this.state.query}`, options)
       .then((response) => response.json())
-      .then((listings) => {
-        console.log(listings)
+      .then((json) => {
+        console.log(json)
+        this.setState({results: json});
       }
     )
     this.setState({view: 'searchResults'})
@@ -134,7 +116,6 @@ handleListingClick(listingID) {
     }
 
     return (
-
       <div>
         <div>
           <NavBar/>
@@ -153,20 +134,11 @@ handleListingClick(listingID) {
         <br/>
         <div>
           {showPage}
+          <Login />
         </div>
       </div>
-      
-
     );
   }
 }
 
 render(<App />, document.getElementById('app'));
-    /* <SearchBar
-      onChange={() => console.log('onChange')}
-      onRequestSearch={() => console.log('onRequestSearch')}
-      style={{
-        margin: '0 auto',
-        maxWidth: 800
-      }}
-    /> */
