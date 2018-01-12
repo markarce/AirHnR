@@ -34,16 +34,6 @@ app.get('/api/listings',function(req, res) {
   });
 });
 
-app.get('/api/listings',function(req, res){
-    console.log(req.query.q)
-    var location = req.query.q;
-    googleMaps.getPlaceCoordinates(location,function(results){
-      console.log(results)
-      res.json(db.getLocationsNear(results.lat, results.lon, 5))
-    })
-})
-
-
 app.post('/api/bookings', (req, res) => {
   console.log(req.body);
   res.send('ok');
