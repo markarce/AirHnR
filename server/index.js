@@ -42,10 +42,27 @@ app.post('/api/bookings', (req, res) => {
 
 app.post('/api/users', (req, res) => {
   console.log(req.body);
+  let userData = req.body;
   lib.hashPassword(req.body.password).then((hash) => {
     console.log(hash);
+    db.saveUserInDB({ 
+        first_name: userData.name,
+        last_name: userData.lastName,
+        password: hash,
+        email: userData.email,
+        phone_number: userData.phoneNumber,
+        address_street: userData.addressStreet,
+        address_city: userData.addressCity,
+        address_region: userData.addressRegion,
+        address_postal_code: userData.addressPostalCode
+    }).then((response) => {
+      console.log('IT GOT SAVED');
+      //sending false to test the trigger of e-mail already used.
+      res.json({
+        ok: false
+      })
+    });
   });
-  res.json(req.body);
 });
 
 app.listen(config.serverPort, () => {

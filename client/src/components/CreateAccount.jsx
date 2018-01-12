@@ -36,7 +36,7 @@ class CreateAccount extends Component {
       addressCity: '',
       addressRegion: '',
       addressPostalCode: '',
-
+      emailTaken: false
     };
     this.passwordNode = null;
   }
@@ -69,7 +69,18 @@ class CreateAccount extends Component {
           addressPostalCode: this.state.addressPostalCode
         }
 
-        this._postNewUser(userData);
+        this._postNewUser(userData, (response) => {
+          if(response.ok) {
+            alert('account has been created!');
+            this.setState({
+              emailTaken: false
+            });
+          } else {
+            this.setState({
+              emailTaken: true
+            });
+          }
+        });
       } else {
         this.setState({
           missingMandatoryFields: 'Complete all mandatory fields'
@@ -195,11 +206,12 @@ class CreateAccount extends Component {
         <Button raised className={classes.button} onClick={() => this.createAccount()}>
           Create Account
         </Button>
+        {this.state.emailTaken ? <span style={{'margin-left': '10px'}}>Email already taken, please choose another one</span> : null}
       </div>
     );
   }
 
-  _postNewUser(users) {
+  _postNewUser(users, cb) {
     const options = { 
       method: 'POST',
       headers: {      
@@ -209,10 +221,12 @@ class CreateAccount extends Component {
       body: JSON.stringify(users)
     };
   
-    fetch('/api/users', options)
+    return fetch('/api/users', options)
     .then((response) => {
       if(!response.ok) return console.log('error', response);
-      console.log(response);
+      return response.json();
+    }).then((res) => {
+      cb(res);
     }).catch((err) => console.log('error: ', err));
   }
 }
