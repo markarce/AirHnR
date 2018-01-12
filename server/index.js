@@ -2,7 +2,6 @@ const config = require('../config');
 const db = require('../database');
 const express = require('express');
 const app = express();
-const bodyParser = require('body-parser');
 const lib = require('../lib')
 
 app.use(express.urlencoded({ extended: false }))

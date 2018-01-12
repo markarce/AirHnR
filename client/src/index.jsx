@@ -65,14 +65,12 @@ class App extends React.Component {
     fetch(`/api/listings?q=${this.state.query}`, options)
       .then((response) => response.json())
       .then((json) => {
-        console.log('SC-JSON: ', json)
-        if (json.length > 0){
+        if (json.length > 0) {
           this.setState({
-            results: json,
+            results: json.listings,
+            mapCenter: json.mapCenter,
             view: 'searchResults'
           });
-        } else {
-          console.log('Either no search term entered or no results found');
         }
       }
     )
