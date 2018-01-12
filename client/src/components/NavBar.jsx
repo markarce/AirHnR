@@ -8,6 +8,7 @@ import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
 import TextField from 'material-ui/TextField';
+import $ from 'jquery';
 
 const styles = {
   root: {
@@ -26,30 +27,66 @@ const styles = {
   },
 };
 
-function ButtonAppBar(props) {
-  const { classes } = props;
+class ButtonAppBar extends React.Component{
+  constructor(props) {
+    super(props)
+    this.state = {
+      searchValue: null
+    }
+    this.handleSearchClick = this.handleSearchClick.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+   // const { classes } = props;
+  }
+
+  handleChange(event){
+    console.log(event.target.value)
+    var data = event.target.value;
+    this.setState({
+      searchValue: data
+    })
+    console.log("state",this.state.searchValue)
+  }
+
+  handleSearchClick(){
+    var entry = this.state.searchValue;
+
+    console.log("entry",entry)
+    $.ajax({
+      success:function(req,res){
+        console.log("success",req,res)
+      },
+      error: function(req, res){
+        console.log("error",req,res)
+      },
+      contentType: "application/json",
+      type: 'GET',
+      url: `/api/listings?q=${entry}`
+    })
+  }
+
+  render() {
+
   return (
-    <div className={classes.root}>
+    <div>
       <AppBar position="static">
         <Toolbar>
-          <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-            <MenuIcon />
-          </IconButton>
-          <Typography type="title" color="inherit" className={classes.flex} onClick={() => props.triggerView('default')}>
-            AirHnR
-            <span/>
-            <TextField/>
+          <input type="text" style={{width: 700}}  placeholder="Anywhere..." id="place" onChange={this.handleChange}/>
+          <button value={$("#place").val()} onClick={()=>{this.handleSearchClick()}}>Go</button>
+          <Typography onClick={() => this.props.triggerView('default')} style={{color:"white", font:"Helvetica", width: "100px"}}>
+          Air HnR
           </Typography>
           <Button color="contrast">Login</Button>
-          <Button color="contrast" onClick={() => props.triggerView('createAccount')}>Create Account</Button>
+          <Button color="contrast" onClick={() => this.props.triggerView('createAccount')}>Create Account</Button>
         </Toolbar>
       </AppBar>
     </div>
   );
 }
+}
 
 ButtonAppBar.propTypes = {
   classes: PropTypes.object.isRequired,
 };
+
 
 export default withStyles(styles)(ButtonAppBar);
