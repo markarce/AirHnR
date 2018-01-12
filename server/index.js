@@ -5,8 +5,6 @@ const app = express();
 const bodyParser = require('body-parser');
 const lib = require('../lib')
 
-// app.use(bodyParser.json())
-// app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.urlencoded({ extended: false }))
 
 app.use(express.static(__dirname + '/../client/dist'));
@@ -27,7 +25,13 @@ app.get('/api/listings',function(req, res) {
   lib.getPlaceCoordinates(req.query.q, googleResults => {
     db.getListingsNear(googleResults.lat, googleResults.lon, 3000)
       .then(dbResults => {
-        res.status(200).json(dbResults);
+        res.status(200).json({
+          listings: dbResults,
+          mapCenter: {
+            latitude: googleResults.lat, 
+            longitude: googleResults.lon
+          }
+        });
       }).catch(err => {
         console.warn(err);
         res.status(503).end();

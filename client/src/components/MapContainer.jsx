@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
- 
+import Stars from './Stars';
+
 const style = {
-  height: '100%',
+  height: '1000px',
   width: '100%',
   position: 'relative'
 }
@@ -18,6 +19,7 @@ export class MapContainer extends Component {
   }
 
   onMarkerClick(props, marker, e) {
+    console.log(props, marker, e)
     this.setState({
       activeMarker: marker,
       showInfo: !this.state.showInfo,
@@ -26,25 +28,30 @@ export class MapContainer extends Component {
   }
   render() {
     let markers = this.props.listings.map((listing, i) => {
-      return <Marker key={i} listing={listing} position={{lat: listing.lat, lng: listing.lon}} 
+      return <Marker key={i} listing={listing} position={{lat: listing.latitude, lng: listing.longitude}} 
       onClick={this.onMarkerClick.bind(this)}/>
     });
     return (
         <Map google={this.props.google} zoom={12} style={style} 
-        initialCenter={{lat: this.props.searchedLocation.lat, lng: this.props.searchedLocation.lon}}>
+        // initialCenter={{ lat: this.props.searchedLocation.latitude, lng: this.props.searchedLocation.longitude }}>
+        center={{lat: this.props.searchedLocation.latitude, lng: this.props.searchedLocation.longitude}}>
           {markers}
-          <InfoWindow onClose={this.onInfoWindowClose} marker={this.state.activeMarker} visible={this.state.showInfo}>
-              <div>
-                <h5>{this.state.locationSelectedOnMap.name}</h5>
-                <p>{this.state.locationSelectedOnMap.address}</p>
-                <p>{this.state.locationSelectedOnMap.star_rating}/5 star rating</p>
-              </div>
+          <InfoWindow 
+            onClose={this.onInfoWindowClose} 
+            marker={this.state.activeMarker} 
+            visible={this.state.showInfo}
+          >
+            <div>
+              <h5>{this.state.locationSelectedOnMap.name}</h5>
+              <p>{this.state.locationSelectedOnMap.address_street}</p>
+            <Stars rating={this.state.locationSelectedOnMap.average_stars} total={5} offset={0.25}/>
+            </div>
           </InfoWindow>
         </Map>
       );
     }
 }
- 
+
 export default GoogleApiWrapper({
   apiKey: ('AIzaSyDmDsMe3Ggc4Tp35hWdoITOKa4vKLkVQrM')
 })(MapContainer);

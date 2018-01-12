@@ -12,8 +12,7 @@ import $ from 'jquery';
 class SearchResults extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-    }
+    this.state = {};
     this.node = '';
     this.handleListingClick = this.handleListingClick.bind(this);
   }
@@ -50,7 +49,7 @@ class SearchResults extends React.Component {
           </Grid>
         </div>
         <div className="map-container" ref={node => this.node = node}>
-          <MapContainer listings={listings} searchedLocation={{lat: 37.89, lon: -122.432758}}/>
+          <MapContainer listings={listings} searchedLocation={this.props.mapCenter}/>
         </div>
       </div>
     );

@@ -24,6 +24,10 @@ class App extends React.Component {
       query: '',
       results: [],
       listing: {},
+      mapCenter: {
+        latitude: 37.774929,
+        longitude: -122.419416
+      },
       startDate: null,
       endDate: null
     }
@@ -79,7 +83,7 @@ class App extends React.Component {
     const currentView = this.state.view;
     let showPage = null;
     if (currentView === 'searchResults') {
-      showPage = <SearchResults results={this.state.results} handleListingClick={this.handleListingClick} />;
+      showPage = <SearchResults results={this.state.results} handleListingClick={this.handleListingClick} mapCenter={this.state.mapCenter} />;
     } else if (currentView === 'listingDetails') {
       showPage = <ListingDetails listing={this.state.listing} />;
     } else if (currentView === 'checkout') {
