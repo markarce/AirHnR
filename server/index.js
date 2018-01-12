@@ -56,11 +56,19 @@ app.post('/api/users', (req, res) => {
         address_region: userData.addressRegion,
         address_postal_code: userData.addressPostalCode
     }).then((response) => {
-      console.log('IT GOT SAVED');
-      //sending false to test the trigger of e-mail already used.
+      console.log('THEN RESPONSE: ', response);
       res.json({
-        ok: false
-      })
+        ok: true,
+        message: 'Account created.'
+      });
+    }).catch((err) => {
+      console.log('CATCH: ', err);
+      if(err.constraint === 'users_email_unique') {
+        res.json({
+          ok: false,
+          message: 'Email already taken, please choose another one'
+        });
+      }
     });
   });
 });

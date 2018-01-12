@@ -371,3 +371,11 @@ header {
 .map-container {
   grid-area: "map";
 }
+
+/* create account */
+
+.submission {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+}

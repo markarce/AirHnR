@@ -3,6 +3,7 @@ import { withStyles } from 'material-ui/styles';
 import MenuItem from 'material-ui/Menu/MenuItem';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
+import { CircularProgress } from 'material-ui/Progress';
 
 const styles = theme => ({
   container: {
@@ -17,6 +18,9 @@ const styles = theme => ({
   menu: {
     width: 200,
   },
+  progress: {
+    margin: `0 ${theme.spacing.unit * 2}px`,
+  }
 });
 
 class CreateAccount extends Component {
@@ -36,7 +40,8 @@ class CreateAccount extends Component {
       addressCity: '',
       addressRegion: '',
       addressPostalCode: '',
-      emailTaken: false
+      serverMessage: null,
+      loading: false
     };
     this.passwordNode = null;
   }
@@ -68,18 +73,20 @@ class CreateAccount extends Component {
           addressRegion: this.state.addressRegion,
           addressPostalCode: this.state.addressPostalCode
         }
+        this.setState({
+          loading: true
+        });
 
         this._postNewUser(userData, (response) => {
-          if(response.ok) {
-            alert('account has been created!');
+          setTimeout(() => {
             this.setState({
-              emailTaken: false
+              serverMessage: response.message,
+              loading: false
             });
-          } else {
-            this.setState({
-              emailTaken: true
-            });
-          }
+            if(response.ok) {
+              this.props.triggerView('default');
+            }
+          }, 2000);
         });
       } else {
         this.setState({
@@ -203,10 +210,17 @@ class CreateAccount extends Component {
             margin="normal"
           />
         </form>
-        <Button raised className={classes.button} onClick={() => this.createAccount()}>
-          Create Account
-        </Button>
-        {this.state.emailTaken ? <span style={{'margin-left': '10px'}}>Email already taken, please choose another one</span> : null}
+        <div className="submission">
+          <div>
+            <Button raised className={classes.button} onClick={() => this.createAccount()}>
+              Create Account
+            </Button>
+          </div>
+          <div>
+            {this.state.serverMessage ? <span style={{'marginLeft': '10px'}}>{this.state.serverMessage}</span> : null}
+            {this.state.loading ? <div><CircularProgress className={classes.progress} style={{'marginTop': '10px'}}/></div> : null}
+          </div>
+        </div>
       </div>
     );
   }
