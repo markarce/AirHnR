@@ -40,9 +40,9 @@ class NavLoggedIn extends Component {
         <List>{this.props.user.first_name + ' ' + this.props.user.last_name}</List>
         <List>{this.props.user.email}</List>
         <Divider />
-        <Button onClick={this.props.logOut} style={styles.links}>My Trips</Button>
+        <Button style={styles.links}>My Trips</Button>
         <Divider />
-        <Button onClick={this.props.logOut} style={styles.links}>Settings</Button>
+        <Button style={styles.links}>Settings</Button>
         <Divider />
         <Button onClick={this.props.logOut} style={styles.links}>Log out</Button>
       </div>
