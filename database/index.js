@@ -5,25 +5,6 @@ const knex = require('knex')({
 });
 const bookshelf = require('bookshelf')(knex);
 
-// const getListingsNear = (lat, long, radius = 3000) => {
-//   //lat, long of center of map, and distance radius in meters
-//   //returns a promise of data
-//   let query = `SELECT locations.*, listings.* FROM locations, listings WHERE ST_Distance(ST_SetSRID(ST_MakePoint(${long}, ${lat})::geography, 4326), ST_SetSRID(ST_MakePoint(longitude, latitude), 4326)::geography) <= ${radius} AND listings.location_id = locations.id`;
-//   return bookshelf.knex.raw(query).then(res => res.rows);
-// };
-// const getListingsNear = (lat, long, radius = 3000) => {
-//   //lat, long of center of map, and distance radius in meters
-//   //returns a promise of data
-//   let query = `
-//     SELECT list.*, loc.*,
-//     (SELECT AVG(rev.stars) average_stars FROM location_reviews rev WHERE rev.location_id = loc.id),
-//     (SELECT COUNT(rev.*) review_count FROM location_reviews rev WHERE rev.location_id = loc.id)
-//     FROM locations loc, listings list WHERE loc.id = list.location_id
-//     AND ST_Distance(ST_SetSRID(ST_MakePoint(${long}, ${lat})::geography, 4326), 
-//     ST_SetSRID(ST_MakePoint(longitude, latitude), 4326)::geography) <= ${radius}
-//   `;
-//   return bookshelf.knex.raw(query).then(res => res.rows);
-// };
 const getListingsNear = (lat, long, startDate, endDate, radius = 3000) => {
   //lat, long of center of map, and distance radius in meters
   //returns a promise of data
@@ -34,12 +15,12 @@ const getListingsNear = (lat, long, startDate, endDate, radius = 3000) => {
     FROM locations loc, listings list WHERE loc.id = list.location_id
     AND ST_Distance(ST_SetSRID(ST_MakePoint(${long}, ${lat})::geography, 4326), 
     ST_SetSRID(ST_MakePoint(longitude, latitude), 4326)::geography) <= ${radius}
-    AND ${startDate} BETWEEN list.start_date AND list.end_date
-    AND ${endDate} BETWEEN list.start_date AND list.end_date
+    AND '${startDate}' BETWEEN list.start_date AND list.end_date
+    AND '${endDate}' BETWEEN list.start_date AND list.end_date
     AND NOT EXISTS (
       SELECT * FROM bookings WHERE bookings.listing_id = list.id
-      AND bookings.start_date BETWEEN ${startDate} AND ${endDate}
-      AND bookings.end_date BETWEEN ${startDate} AND ${endDate}
+      AND bookings.start_date BETWEEN '${startDate}' AND '${endDate}'
+      AND bookings.end_date BETWEEN '${startDate}' AND '${endDate}'
     )
   `;
   return bookshelf.knex.raw(query).then(res => res.rows);
