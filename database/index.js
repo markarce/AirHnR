@@ -5,7 +5,7 @@ const knex = require('knex')({
 });
 const bookshelf = require('bookshelf')(knex);
 
-const getListingsNear = (lat, long, startDate, endDate, radius = 3000) => {
+const getListingsNear = (lat, long, startDate, endDate, radius = 3000, limit = 25) => {
   //lat, long of center of map, and distance radius in meters
   //returns a promise of data
   let query = `
@@ -22,6 +22,7 @@ const getListingsNear = (lat, long, startDate, endDate, radius = 3000) => {
       AND bookings.start_date BETWEEN '${startDate}' AND '${endDate}'
       AND bookings.end_date BETWEEN '${startDate}' AND '${endDate}'
     )
+    ORDER BY average_stars ASC LIMIT ${limit}
   `;
   return bookshelf.knex.raw(query).then(res => res.rows);
 };
