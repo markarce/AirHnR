@@ -6,7 +6,7 @@ const style = {
   height: '1000px',
   width: '100%',
   position: 'relative'
-}
+};
 
 export class MapContainer extends Component {
   constructor(props) {
@@ -17,22 +17,29 @@ export class MapContainer extends Component {
       locationSelectedOnMap: {}
     }
     this.centerMoved = this.centerMoved.bind(this);
-  }
+  };
 
   centerMoved(mapProps, map) {
     this.props.handleMapDrag(map.center.lat(), map.center.lng())
-  }
+  };
 
   onMarkerClick(props, marker, e) {
-    console.log(props, marker, e)
-    this.setState({
-      activeMarker: marker,
-      showInfo: !this.state.showInfo,
-      locationSelectedOnMap: props.listing
-    });
-  }
+    if (this.state.locationSelectedOnMap === props.listing) {
+      this.setState({
+        showInfo: false,
+      });
+    }
+    else {
+      this.setState({
+        activeMarker: marker,
+        locationSelectedOnMap: props.listing,
+        showInfo: true
+      });
+    }
+  };
 
   render() {
+    console.log('rerender')
     let markers = this.props.listings.map((listing, i) => {
       return (
         <Marker 
@@ -70,8 +77,8 @@ export class MapContainer extends Component {
         </InfoWindow>
       </Map>
     );
-  }
-}
+  };
+};
 
 export default GoogleApiWrapper({
   apiKey: ('AIzaSyDmDsMe3Ggc4Tp35hWdoITOKa4vKLkVQrM')

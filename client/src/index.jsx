@@ -142,7 +142,6 @@ class App extends React.Component {
   };
   
   handleMapDrag(latitude, longitude) {
-    console.log(latitude, longitude);
     fetch(`/api/markings`, {
       headers: new Headers({
         "Content-Type": "application/json"
@@ -154,7 +153,6 @@ class App extends React.Component {
       })
     }).then(response => response.json())
       .then(json => {
-        console.log('here', json)
         this.setState({
           results: json.listings,
           mapCenter: {
