@@ -41,6 +41,15 @@ const saveUserInDB = (user) => {
   return knex('users').insert(user);
 }
 
+const saveBookingInDB = (booking) => {
+  console.log('booking', booking);
+  console.log('type', typeof booking);
+  return knex.insert(booking).into("bookings").then(function (result) {
+    console.log('knex', result);
+    return result;
+  });
+}
+
 const getUserFromDB = (userEmail) => {
   return knex('users')
   .where({ email: userEmail})
@@ -54,5 +63,6 @@ module.exports = {
   getLocationsNear: getLocationsNear,
   getListingInfo: getListingInfo,
   saveUserInDB: saveUserInDB,
-  getUserFromDB: getUserFromDB
+  getUserFromDB: getUserFromDB,
+  saveBookingInDB: saveBookingInDB
 };
