@@ -39,7 +39,6 @@ export class MapContainer extends Component {
   };
 
   render() {
-    console.log('rerender')
     let markers = this.props.listings.map((listing, i) => {
       return (
         <Marker 
@@ -58,8 +57,9 @@ export class MapContainer extends Component {
         zoom={12} 
         style={style} 
         onDragend={this.centerMoved}
-        center={{
-          lat: this.props.searchedLocation.latitude, 
+        onClick={() => this.setState({showInfo: false})}
+        initialCenter={{
+          lat: this.props.searchedLocation.latitude,
           lng: this.props.searchedLocation.longitude
         }}
       >
