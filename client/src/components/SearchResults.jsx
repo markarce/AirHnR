@@ -30,20 +30,20 @@ class SearchResults extends React.Component {
     return (
       <div className="listing-details">
         <div className="listings">
-          <Grid container={true} spacing={16}>
+          <Grid container spacing={16}>
             { listings.map(listing => (
               <Grid item key={listing.id}>
-              <SearchResult 
-                key={listing.id}
-                id={listing.id}
-                roomtype={listing.room_type}
-                beds={listing.beds}
-                name={listing.name}
-                price={listing.price}
-                rating={listing.star_rating}
-                image={listing.image_url}
-                handleClick={this.handleListingClick}
-              />
+                <SearchResult 
+                  key={listing.id}
+                  id={listing.id}
+                  roomtype={listing.room_type}
+                  beds={listing.beds}
+                  name={listing.name}
+                  price={listing.price}
+                  rating={listing.average_stars}
+                  image={listing.image_url}
+                  handleClick={this.handleListingClick}
+                />
               </Grid>
             ))}
           </Grid>

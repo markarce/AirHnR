@@ -34,6 +34,17 @@ const styles = {
   },
 };
 
+const makeStars = (stars) => {
+  var result = [];
+  for (var i = 1; i <= stars; i++) {
+    result.push(<i class="material-icons">star</i>)
+  }
+  while (result.length < 5) {
+    result.push(<i className="material-icons">star_border</i>)
+  }
+  return result;
+}
+
 function SearchResult (props) {
   const { classes } = props;
   return (
@@ -57,7 +68,7 @@ function SearchResult (props) {
             ${props.price} per night
           </Typography>
           <Typography>
-            {props.rating} / 5 star rating
+            {makeStars(Math.round(props.rating))}
           </Typography>
         </CardContent>
       </Card>
@@ -69,3 +80,5 @@ SearchResult.propTypes = {
 };
 
 export default withStyles(styles)(SearchResult);
+
+//console.log(makeStars(Math.round(props.rating)))
