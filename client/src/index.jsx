@@ -16,6 +16,8 @@ import Login from './components/Login.jsx';
 import CreateAccount from './components/CreateAccount.jsx';
 import Trips from './components/Trips.jsx'
 import NavLogged from './components/NavLogged.jsx';
+import moment from 'moment';
+
 let bookingSampleData = {
   start_date: '01/01/2018',
   end_date: '04/01/2018',
@@ -35,10 +37,11 @@ class App extends React.Component {
         latitude: 37.774929,
         longitude: -122.419416
       },
-      startDate: null,
-      endDate: null,
+      startDate: moment(),
+      endDate: moment().add(7, 'days')
       guests: null,
       user: null
+
     }
     this.searchTerm = this.searchTerm.bind(this);
     this.handleSearchClick = this.handleSearchClick.bind(this);
@@ -46,7 +49,35 @@ class App extends React.Component {
     this._triggerViewChange = this._triggerViewChange.bind(this);
     this.userLoggedIn = this.userLoggedIn.bind(this);
     this.userLogOut = this.userLogOut.bind(this);
+
   }
+
+  // componentDidMount() {
+  //   var today = new Date();
+  //   var nextWeek = new Date;
+  //   nextWeek.setDate(nextWeek.getDate() + 7);
+
+  //   today = today.toISOString();
+  //   nextWeek = nextWeek.toISOString();
+
+  //   this.setState({
+  //     startDate: today,
+  //     endDate: nextWeek
+  //   })
+  // }
+
+  // convertDate(date) {
+  //   var dd = date.getDate();
+  //   var mm = date.getMonth()+1;
+  //   var yyyy = date.getFullYear();
+  //   if (dd < 10) {
+  //     dd = 0 + dd;
+  //   }
+  //   if (mm < 10) {
+  //     mm = 0 + mm;
+  //   }
+  //   return `${yyyy}-${mm}-${dd}`
+  // }
 
   searchTerm(term) {
     this.setState({ query: term });
@@ -78,7 +109,18 @@ class App extends React.Component {
       mode: 'cors',
       cache: 'default'
     }
-    fetch(`/api/listings?q=${this.state.query}`, options)
+    var startDate = null;
+    var endDate = null;
+    if (this.state.startDate) {
+      startDate = this.state.startDate._d;
+    }
+    if (this.state.endDate) {
+      endDate = this.state.endDate._d;
+    }
+    console.log('startDate', this.state.startDate._d);
+    console.log('endDate', this.state.endDate._d);
+      //&start=${startDate}&end=${endDate}
+    fetch(`/api/listings?q=${this.state.query}&start=${startDate}&end=${endDate}`, options)
       .then((response) => response.json())
       .then((json) => {
         console.log('here', json)
@@ -106,6 +148,7 @@ class App extends React.Component {
       user: null
     });
   }
+
   render() {
     const currentView = this.state.view;
     let showPage = null;
@@ -137,6 +180,7 @@ class App extends React.Component {
             onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })} // PropTypes.func.isRequired,
             focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
             onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired,
+            onClose={this.handleSearchClick}
           />
         </div>
         <br/>
