@@ -110,25 +110,50 @@ class App extends React.Component {
     const currentView = this.state.view;
     let showPage = null;
     if (currentView === 'searchResults') {
-      showPage = <SearchResults results={this.state.results} handleListingClick={this.handleListingClick} mapCenter={this.state.mapCenter} />;
+      showPage = 
+        <SearchResults
+          results={this.state.results}
+          handleListingClick={this.handleListingClick}
+          mapCenter={this.state.mapCenter}
+        />;
     } else if (currentView === 'listingDetails') {
-      showPage = <ListingDetails updateGuests={this.updateGuests.bind(this)} handleBookingClick={this.handleBookingClick.bind(this)} booking={bookingSampleData} listing={this.state.listing} />;
+      showPage =
+        <ListingDetails
+          updateGuests={this.updateGuests.bind(this)}
+          handleBookingClick={this.handleBookingClick.bind(this)}
+          booking={bookingSampleData} listing={this.state.listing}
+        />;
     } else if (currentView === 'checkout') {
-      showPage = <Checkout guests={this.state.guests} updateGuests={this.updateGuests.bind(this)} booking={bookingSampleData} listing={this.state.listing} />
+      showPage =
+        <Checkout
+          guests={this.state.guests}
+          updateGuests={this.updateGuests.bind(this)}
+          booking={bookingSampleData}
+          listing={this.state.listing}
+        />
     } else if(currentView === 'createAccount') {
-      showPage = <CreateAccount triggerView={this._triggerViewChange}/>
+      showPage =
+        <CreateAccount
+          triggerView={this._triggerViewChange}
+        />
     } else if (currentView === 'trips') {
       showPage = <Trips />
     }
-
     return (
       <div>
         <div>
-          <NavBar triggerView={this._triggerViewChange} userLoggedIn={this.userLoggedIn} 
-          isUserLoggedIn={this.state.user ? true : false}
-          userLogOut={this.userLogOut} user={this.state.user}/>
+          <NavBar 
+            triggerView={this._triggerViewChange}
+            userLoggedIn={this.userLoggedIn} 
+            isUserLoggedIn={this.state.user ? true : false}
+            userLogOut={this.userLogOut}
+            user={this.state.user}
+          />
         </div>
-        <Search searchTerm={this.searchTerm} handleSearchClick={this.handleSearchClick}/>
+          <Search
+            searchTerm={this.searchTerm}
+            handleSearchClick={this.handleSearchClick}
+          />
         <br />
         <div>
           <DateRangePicker
