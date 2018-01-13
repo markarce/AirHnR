@@ -384,3 +384,14 @@ header {
   align-items: center;
   margin-left: 10px;
 }
+
+/* login */
+#sign-up {
+  cursor: pointer;
+}
+
+/* logged in navbar */
+.avatar-img {
+  border-radius: 50%;
+  cursor: pointer;
+}

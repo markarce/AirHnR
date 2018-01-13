@@ -9,6 +9,9 @@ import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
 import TextField from 'material-ui/TextField';
 import $ from 'jquery';
+import NotLoggedIn from './NotLoggedIn';
+import Login from './Login.jsx'
+import NavLogged from './NavLogged.jsx';
 
 const styles = {
   root: {
@@ -31,7 +34,8 @@ class ButtonAppBar extends React.Component{
   constructor(props) {
     super(props)
     this.state = {
-      searchValue: null
+      searchValue: null,
+      showModal: false
     }
     this.handleSearchClick = this.handleSearchClick.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -75,8 +79,7 @@ class ButtonAppBar extends React.Component{
           <Typography onClick={() => this.props.triggerView('default')} style={{color:"white", font:"Helvetica", width: "100px"}}>
           Air HnR
           </Typography>
-          <Button color="contrast">Login</Button>
-          <Button color="contrast" onClick={() => this.props.triggerView('createAccount')}>Create Account</Button>
+          {this.props.isUserLoggedIn ? <NavLogged/> : <NotLoggedIn userLoggedIn={this.props.userLoggedIn} triggerView={this.props.triggerView}/>}
         </Toolbar>
       </AppBar>
     </div>

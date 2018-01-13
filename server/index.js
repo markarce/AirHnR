@@ -74,6 +74,12 @@ app.post('/api/users', (req, res) => {
   });
 });
 
+app.post('/login', (req, res) => {
+  lib.validateUser(req.body.user_email, req.body.user_password).then((results) => {
+    res.json(results);
+  });
+});
+
 app.listen(config.serverPort, () => {
   console.log(`Server listening on port ${config.serverPort}`)
 });
