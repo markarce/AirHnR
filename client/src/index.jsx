@@ -53,6 +53,7 @@ class App extends React.Component {
     this.getSimpleDate = this.getSimpleDate.bind(this);
     this.login = this.login.bind(this);
     this.getSimpleDate = this.getSimpleDate.bind(this);
+    this.login = this.login.bind(this);
   }
 
   getSimpleDate (dateObj) {
