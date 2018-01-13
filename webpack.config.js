@@ -25,7 +25,8 @@ module.exports = {
         include: __src,
         loader: 'babel-loader',
         query: {
-          presets: ['react', ['env', {loose: true, modules: false}]]
+          presets: ['react', ['env', {loose: true, modules: false}]],
+          plugins: ["transform-class-properties"]
         }
       },
       {

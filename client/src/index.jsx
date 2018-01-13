@@ -16,7 +16,6 @@ import Login from './components/Login.jsx';
 import CreateAccount from './components/CreateAccount.jsx';
 import Trips from './components/Trips.jsx'
 import NavLogged from './components/NavLogged.jsx';
-
 let bookingSampleData = {
   start_date: '01/01/2018',
   end_date: '04/01/2018',
@@ -46,6 +45,7 @@ class App extends React.Component {
     this.handleListingClick = this.handleListingClick.bind(this);
     this._triggerViewChange = this._triggerViewChange.bind(this);
     this.userLoggedIn = this.userLoggedIn.bind(this);
+    this.userLogOut = this.userLogOut.bind(this);
   }
 
   searchTerm(term) {
@@ -95,9 +95,15 @@ class App extends React.Component {
       view: 'checkout'
     })
   }
+
   userLoggedIn(userData) {
     this.setState({
       user: userData
+    });
+  }
+  userLogOut() {
+    this.setState({
+      user: null
     });
   }
   render() {
@@ -119,7 +125,8 @@ class App extends React.Component {
       <div>
         <div>
           <NavBar triggerView={this._triggerViewChange} userLoggedIn={this.userLoggedIn} 
-          isUserLoggedIn={this.state.user ? true : false}/>
+          isUserLoggedIn={this.state.user ? true : false}
+          userLogOut={this.userLogOut} user={this.state.user}/>
         </div>
         <Search searchTerm={this.searchTerm} handleSearchClick={this.handleSearchClick}/>
         <br />

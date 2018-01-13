@@ -65,7 +65,8 @@
     "style-loader": "^0.19.1",
     "typeface-roboto": "0.0.45",
     "uglifyjs-webpack-plugin": "^1.1.5",
-    "webpack": "^3.10.0"
+    "webpack": "^3.10.0",
+    "babel-plugin-transform-class-properties": "^6.24.1"
   },
   "devDependencies": {
     "install-peers": "^1.0.2",
