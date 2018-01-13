@@ -35,7 +35,7 @@ class ButtonAppBar extends React.Component{
     super(props)
     this.state = {
       searchValue: null,
-      showModal: false
+      showModal: false,
       searchValue: null
     }
     this.handleSearchClick = this.handleSearchClick.bind(this)
