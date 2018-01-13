@@ -88,14 +88,16 @@ class Login extends React.Component {
       if(!response.ok) return console.log('ERROR IN LOGIN', response);
       return response.json();
     }).then((resObject) => {
-      console.log(resObject);
       if(resObject.error) {
         this.setState({
           errorMessage: resObject.error
         });
       } else {
+        this.setState({
+          open: false,
+          errorMessage: ''
+        });
         this.props.userLoggedIn(resObject);
-        this.handleClose();
       }
     })
     .catch((err) => {
@@ -107,7 +109,7 @@ class Login extends React.Component {
     const { classes } = this.props;
     return (
       <div>
-        <Button onClick={this.handleOpen}>Open Modal</Button>
+        <Button onClick={this.handleOpen}>Log In</Button>
         <Modal
           aria-labelledby="simple-modal-title"
           aria-describedby="simple-modal-description"

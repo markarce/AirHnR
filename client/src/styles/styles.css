@@ -389,3 +389,9 @@ header {
 #sign-up {
   cursor: pointer;
 }
+
+/* logged in navbar */
+.avatar-img {
+  border-radius: 50%;
+  cursor: pointer;
+}
