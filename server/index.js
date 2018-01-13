@@ -47,6 +47,19 @@ app.get('/api/listings',function(req, res) {
   });
 });
 
+app.post('/api/markings', function (req, res) {
+  //return all listings near the searched area
+  db.getListingsNear(req.body.latitude, req.body.longitude, '2018-02-20', '2018-02-28')//req.query.start, req.query.end)
+    .then(dbResults => {
+      res.status(200).json({
+        listings: dbResults
+      });
+    }).catch(err => {
+      console.warn(err);
+      res.status(503).end();
+    });
+});
+
 app.post('/api/bookings', (req, res) => {
   db.saveBookingInDB(req.body).then(response => {
     res.send('Booking successful');

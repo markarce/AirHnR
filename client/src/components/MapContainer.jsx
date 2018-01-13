@@ -16,6 +16,11 @@ export class MapContainer extends Component {
       showInfo: false,
       locationSelectedOnMap: {}
     }
+    this.centerMoved = this.centerMoved.bind(this);
+  }
+
+  centerMoved(mapProps, map) {
+    this.props.handleMapDrag(map.center.lat(), map.center.lng())
   }
 
   onMarkerClick(props, marker, e) {
@@ -26,30 +31,46 @@ export class MapContainer extends Component {
       locationSelectedOnMap: props.listing
     });
   }
+
   render() {
     let markers = this.props.listings.map((listing, i) => {
-      return <Marker key={i} listing={listing} position={{lat: listing.latitude, lng: listing.longitude}} 
-      onClick={this.onMarkerClick.bind(this)}/>
+      return (
+        <Marker 
+          key={i} 
+          listing={listing} 
+          position={{
+            lat: listing.latitude, 
+            lng: listing.longitude
+          }}
+          onClick={this.onMarkerClick.bind(this)}
+        />
+      )
     });
     return (
-        <Map google={this.props.google} zoom={12} style={style} 
-        // initialCenter={{ lat: this.props.searchedLocation.latitude, lng: this.props.searchedLocation.longitude }}>
-        center={{lat: this.props.searchedLocation.latitude, lng: this.props.searchedLocation.longitude}}>
-          {markers}
-          <InfoWindow 
-            onClose={this.onInfoWindowClose} 
-            marker={this.state.activeMarker} 
-            visible={this.state.showInfo}
-          >
-            <div>
-              <h5>{this.state.locationSelectedOnMap.name}</h5>
-              <p>{this.state.locationSelectedOnMap.address_street}</p>
-            <Stars rating={this.state.locationSelectedOnMap.average_stars} total={5} offset={0.25}/>
-            </div>
-          </InfoWindow>
-        </Map>
-      );
-    }
+      <Map google={this.props.google} 
+        zoom={12} 
+        style={style} 
+        onDragend={this.centerMoved}
+        center={{
+          lat: this.props.searchedLocation.latitude, 
+          lng: this.props.searchedLocation.longitude
+        }}
+      >
+        {markers}
+        <InfoWindow 
+          onClose={this.onInfoWindowClose} 
+          marker={this.state.activeMarker} 
+          visible={this.state.showInfo}
+        >
+          <div>
+            <h5>{this.state.locationSelectedOnMap.name}</h5>
+            <p>{this.state.locationSelectedOnMap.address_street}</p>
+          <Stars rating={this.state.locationSelectedOnMap.average_stars} total={5} offset={0.25}/>
+          </div>
+        </InfoWindow>
+      </Map>
+    );
+  }
 }
 
 export default GoogleApiWrapper({

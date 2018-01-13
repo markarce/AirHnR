@@ -42,7 +42,7 @@ class App extends React.Component {
       endDate: moment().add(7, 'days'),
       guests: null,
       user: null
-    }
+    };
     this.searchTerm = this.searchTerm.bind(this);
     this.handleSearchClick = this.handleSearchClick.bind(this);
     this.handleListingClick = this.handleListingClick.bind(this);
@@ -51,6 +51,7 @@ class App extends React.Component {
     this.userLogOut = this.userLogOut.bind(this);
     this.getSimpleDate = this.getSimpleDate.bind(this);
     this.login = this.login.bind(this);
+    this.handleMapDrag = this.handleMapDrag.bind(this);
   }
 
   getSimpleDate (dateObj) {
@@ -83,13 +84,13 @@ class App extends React.Component {
 
   searchTerm(term) {
     this.setState({ query: term });
-  }
+  };
 
   updateGuests (guests) {
     this.setState({
       guests: guests
     });
-  }
+  };
 
   handleTripClick () {
     this.setState({
@@ -138,13 +139,38 @@ class App extends React.Component {
           view: 'searchResults'
         });
       }).catch(err => console.log(err));
-  }
+  };
+  
+  handleMapDrag(latitude, longitude) {
+    console.log(latitude, longitude);
+    fetch(`/api/markings`, {
+      headers: new Headers({
+        "Content-Type": "application/json"
+      }),
+      method: 'POST',
+      body: JSON.stringify({
+        latitude: latitude,
+        longitude: longitude
+      })
+    }).then(response => response.json())
+      .then(json => {
+        console.log('here', json)
+        this.setState({
+          results: json.listings,
+          mapCenter: {
+            latitude: latitude,
+            longitude: longitude
+          }
+        });
+      }).catch(err => console.log(err));
+  };
+  //};
 
-  handleBookingClick () {
+  handleBookingClick() {
     this.setState({
       view: 'checkout'
-    })
-  }
+    });
+  };
 
   userLoggedIn(userData) {
     this.setState({
@@ -195,6 +221,7 @@ class App extends React.Component {
           results={this.state.results}
           handleListingClick={this.handleListingClick}
           mapCenter={this.state.mapCenter}
+          handleMapDrag={this.handleMapDrag}
         />;
     } else if (currentView === 'listingDetails') {
       showPage =
@@ -256,13 +283,13 @@ class App extends React.Component {
         <FeaturedPlaces goToLocation={this.handleSearchClick}/>
       </div>
     );
-  }
+  };
 
   _triggerViewChange(requestedView) {
     this.setState({
       view: requestedView
     });
-  }
-}
+  };
+};
 
 render(<App />, document.getElementById('app'));
