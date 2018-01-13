@@ -39,10 +39,10 @@ class ButtonAppBar extends React.Component{
     }
     this.handleSearchClick = this.handleSearchClick.bind(this)
     this.handleChange = this.handleChange.bind(this)
-   // const { classes } = props;
+  // const { classes } = props;
   }
 
-  handleChange(event){
+  handleChange(event) {
     console.log(event.target.value)
     var data = event.target.value;
     this.setState({
@@ -51,7 +51,7 @@ class ButtonAppBar extends React.Component{
     console.log("state",this.state.searchValue)
   }
 
-  handleSearchClick(){
+  handleSearchClick() {
     var entry = this.state.searchValue;
 
     console.log("entry",entry)
