@@ -31,7 +31,11 @@ app.get('/api/bookings/:userId', (req, res) => {
 app.get('/api/listings',function(req, res) {
   //return all listings near the searched area
   lib.getPlaceCoordinates(req.query.q, googleResults => {
+<<<<<<< HEAD
     db.getListingsNear(googleResults.lat, googleResults.lon, req.query.start, req.query.end)
+=======
+    db.getListingsNear(googleResults.lat, googleResults.lon, req.query.start, req.query.end, 3000)
+>>>>>>> on listing query, db now filters for date availability
     .then(dbResults => {
         res.status(200).json({
           listings: dbResults,
