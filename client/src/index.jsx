@@ -67,20 +67,6 @@ class App extends React.Component {
     return `${year.toString()}-${month.toString()}-${day.toString()}`
   }
 
-  getSimpleDate (dateObj) {
-    const date = new Date(dateObj);
-    const year = date.getFullYear();
-    var month = date.getMonth() + 1;
-    var day = date.getDate();
-    if (month < 10) {
-      month = '0' + month;
-    }
-    if (day < 10) {
-      day = '0' + date;
-    }
-    return `${year.toString()}-${month.toString()}-${day.toString()}`
-  }
-
   searchTerm(term) {
     this.setState({ query: term });
   }
