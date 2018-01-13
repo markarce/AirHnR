@@ -5,11 +5,7 @@ const knex = require('knex')({
 });
 const bookshelf = require('bookshelf')(knex);
 
-<<<<<<< HEAD
 const getListingsNear = (lat, long, startDate, endDate, radius = 3000, limit = 25) => {
-=======
-const getListingsNear = (lat, long, startDate, endDate, radius = 3000) => {
->>>>>>> fixed big Q
   //lat, long of center of map, and distance radius in meters
   //returns a promise of data
   let query = `
