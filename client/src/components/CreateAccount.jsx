@@ -84,7 +84,9 @@ class CreateAccount extends Component {
               loading: false
             });
             if(response.ok) {
-              this.props.triggerView('default');
+              this.props.login(this.state.email, this.state.password, () => {
+                this.props.triggerView('default');
+              });
             }
           }, 2000);
         });

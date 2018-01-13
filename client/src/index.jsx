@@ -49,6 +49,7 @@ class App extends React.Component {
     this.userLoggedIn = this.userLoggedIn.bind(this);
     this.userLogOut = this.userLogOut.bind(this);
     this.getSimpleDate = this.getSimpleDate.bind(this);
+    this.login = this.login.bind(this);
   }
 
   getSimpleDate (dateObj) {
@@ -134,6 +135,35 @@ class App extends React.Component {
       user: null
     });
   }
+
+  login(email, password, cb) {
+    const options = { method: 'POST',
+      headers: {      
+        'X-Requested-With': 'XMLHttpRequest',
+        'Content-Type': 'application/json'
+      },
+      mode: 'cors',
+      cache: 'default',
+      body: JSON.stringify({user_email: email, user_password: password})
+    };
+
+    fetch('/login', options)
+    .then((response) => {
+      if(!response.ok) return console.log('ERROR IN LOGIN', response);
+      return response.json();
+    }).then((resObject) => {
+      if(resObject.error) {
+        cb(resObject.error, true);
+      } else {
+        cb(null, false);
+        this.userLoggedIn(resObject);
+      }
+    })
+    .catch((err) => {
+      console.log('error: ', err);
+    });
+  }
+
   render() {
     const currentView = this.state.view;
     let showPage = null;
@@ -163,6 +193,7 @@ class App extends React.Component {
       showPage =
         <CreateAccount
           triggerView={this._triggerViewChange}
+          login={this.login}
         />
     } else if (currentView === 'trips') {
       showPage = <Trips />
@@ -176,6 +207,7 @@ class App extends React.Component {
             isUserLoggedIn={this.state.user ? true : false}
             userLogOut={this.userLogOut}
             user={this.state.user}
+            login={this.login}
           />
         </div>
           <Search
