@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import Button from 'material-ui/Button';
 import Avatar from './Avatar.jsx';
 import { withStyles } from 'material-ui/styles';
@@ -19,19 +19,17 @@ const styles = {
 };
 
 class NavLoggedIn extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      right: false
-    };
-  }
 
-  // toggleDrawer (side, open, e) => () => {
-  //   e.stopPropagation();
-  //   this.setState({
-  //     [side]: open,
-  //   });
-  // };
+  state = {
+    right: false
+  };
+
+  toggleDrawer = (side, open, e) => () => {
+    e.stopPropagation();
+    this.setState({
+      [side]: open,
+    });
+  };
 
   render() {
     const { classes } = this.props;
