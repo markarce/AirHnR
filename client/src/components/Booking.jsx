@@ -79,35 +79,35 @@ class Booking extends React.Component {
 
         <div className='booking-dates'>
           <h5>Dates</h5>
-            <span>{this.props.listing.start_date}</span>
+            <span>{this.props.booking.start_date}</span>
             <span className='icon-arrow-forward'><ArrowForward /></span>
-            <span>{this.props.listing.end_date}</span>
+            <span>{this.props.booking.end_date}</span>
         </div>
 
         <div className='booking-guests'>
-          <BookingGuest maxGuests={this.props.listing.max_guests}/>
+          <BookingGuest updateGuests={this.props.updateGuests} maxGuests={this.props.listing.max_guests}/>
         </div>
 
         <div className='booking-subtotal'>
-          <span className='booking-item'>{`$${this.props.listing.price} x ${this.props.listing.nights} nights`}</span>
-          <span className='booking-item-price'>{`$${this.props.listing.price * this.props.listing.nights}`}</span>
+          <span className='booking-item'>{`$${this.props.listing.price} x ${this.props.booking.nights} nights`}</span>
+          <span className='booking-item-price'>{`$${this.props.listing.price * this.props.booking.nights}`}</span>
         </div>
 
         <div className='booking-service-fee'>
           <span className='booking-item'>Service fee</span>
-          <span className='booking-item-price'>{`$${this.props.listing.service_fee}`}</span>
+          <span className='booking-item-price'>{`$${this.props.listing.fee_service}`}</span>
         </div>
 
         <div className='booking-tax'>
           <span className='booking-item'>Occupancy Taxes</span>
-          <span className='booking-item-price'>{`$${Math.round(0.085 * this.props.listing.price * this.props.listing.nights)}`}</span>
+          <span className='booking-item-price'>{`$${Math.round(0.085 * this.props.listing.price * this.props.booking.nights)}`}</span>
         </div>
 
         <div className='booking-total'>
           <span className='booking-item'>Total</span>
-          <span className='booking-item-price'>{`$${Math.round(1.085 * this.props.listing.price * this.props.listing.nights + this.props.listing.service_fee)}`}</span>
+          <span className='booking-item-price'>{`$${Math.round(1.085 * this.props.listing.price * this.props.booking.nights + this.props.listing.fee_service)}`}</span>
         </div>
-        
+  
         {this.renderBookingButton()}
 
       </div>

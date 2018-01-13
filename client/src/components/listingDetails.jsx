@@ -3,17 +3,12 @@ import ListingNav from './listingNav.jsx';
 import Button from 'material-ui/Button';
 import _ from 'lodash';
 import Booking from './Booking.jsx'
+import moment from 'moment';
 
-let listingSampleData = {
+let bookingSampleData = {
   start_date: '01/01/2018',
   end_date: '04/01/2018',
-  price: 299,
-  star_rating: 5,
-  reviews_count: 32,
-  max_guests: 2,
   nights: 3,
-  service_fee: 20,
-  tax: 0.1
 };
 
 //need star rating, review count, host_name
@@ -149,7 +144,7 @@ class ListingDetails extends React.Component {
   }
 
   renderRating () {
-    let rating = Math.round(this.props.listing.star_rating);
+    let rating = Math.round(this.props.listing.average_rating);
     if (rating === 5) {
       return (
         <div className='listing-rating-img'>
@@ -197,7 +192,7 @@ class ListingDetails extends React.Component {
     return (
       <div className='listing-wrapper'>
         <div className='listing-booking'>
-          <Booking handleBookingClick={this.props.handleBookingClick} listing={listingSampleData} button={true}/>
+          <Booking updateGuests={this.props.updateGuests} handleBookingClick={this.props.handleBookingClick} booking={this.props.booking} listing={this.props.listing} button={true}/>
         </div>
         <div className='listing-img'>
           <img src={this.props.listing.image_url}/> 
@@ -209,7 +204,7 @@ class ListingDetails extends React.Component {
         </div>
         <div className='listing-type'>
           <p>{`${this.props.listing.room_type} · ${this.props.listing.address_city}`}</p>
-          <p>{`Hosted by ${this.props.listing.host_name}`}</p>
+          <p>{`Hosted by ${this.props.listing.first_name}`}</p>
         </div>
         <div className='listing-space'> 
           {this.renderGuests()}
@@ -239,17 +234,17 @@ class ListingDetails extends React.Component {
         </div>
         <div className='line-break5'></div>
         <div className='listing-rating'>
-          <h2>{`${this.props.listing.reviews_count} Reviews`}</h2>
+          <h2>{`${this.props.listing.review_count} Reviews`}</h2>
         </div>
         {this.renderRating()}
         <div className='line-break6'></div>
         <div className='listing-host'>
-          <h2>{`Hosted By ${this.props.listing.host.name}`}</h2>
+          <h2>{`Hosted By ${this.props.listing.first_name}`}</h2>
           <p>{`${this.props.listing.address_city}, ${this.props.listing.address_region}, United States`}</p>
-          <p>Joined in May 2012</p>
+          <p>{`Joined in ${moment(this.props.listing.account_created).format('MMM YYYY')}`}</p>
         </div>
         <div className='listing-host-img'>
-          <img src='https://a0.muscache.com/defaults/user_pic-225x225.png?v=3' />
+          <img src={this.props.listing.avatar_url} />
         </div>
       </div>
     )

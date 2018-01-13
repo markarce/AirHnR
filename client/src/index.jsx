@@ -14,12 +14,20 @@ import $ from 'jquery'
 import Checkout from './components/Checkout.jsx';
 import Login from './components/Login.jsx';
 import CreateAccount from './components/CreateAccount.jsx';
+import Trips from './components/Trips.jsx'
+
+let bookingSampleData = {
+  start_date: '01/01/2018',
+  end_date: '04/01/2018',
+  nights: 3,
+  guest_id: 61
+};
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      view: 'default',
+      view: 'trips',
       query: '',
       results: [],
       listing: {},
@@ -28,7 +36,8 @@ class App extends React.Component {
         longitude: -122.419416
       },
       startDate: null,
-      endDate: null
+      endDate: null,
+      guests: null
     }
     this.searchTerm = this.searchTerm.bind(this);
     this.handleSearchClick = this.handleSearchClick.bind(this);
@@ -38,6 +47,12 @@ class App extends React.Component {
 
   searchTerm(term) {
     this.setState({ query: term });
+  }
+
+  updateGuests (guests) {
+    this.setState({
+      guests: guests
+    });
   }
 
   handleListingClick(listingID) {
@@ -84,11 +99,14 @@ class App extends React.Component {
     if (currentView === 'searchResults') {
       showPage = <SearchResults results={this.state.results} handleListingClick={this.handleListingClick} mapCenter={this.state.mapCenter} />;
     } else if (currentView === 'listingDetails') {
-      showPage = <ListingDetails handleBookingClick={this.handleBookingClick.bind(this)} listing={this.state.listing} />;
+      showPage = <ListingDetails updateGuests={this.updateGuests.bind(this)} handleBookingClick={this.handleBookingClick.bind(this)} booking={bookingSampleData} listing={this.state.listing} />;
     } else if (currentView === 'checkout') {
       showPage = <Checkout />;
     } else if(currentView === 'createAccount') {
       showPage = <CreateAccount triggerView={this._triggerViewChange}/>
+      showPage = <Checkout guests={this.state.guests} updateGuests={this.updateGuests.bind(this)} booking={bookingSampleData} listing={this.state.listing}/>;
+    } else if (currentView === 'trips') {
+      showPage = <Trips />
     }
 
     return (

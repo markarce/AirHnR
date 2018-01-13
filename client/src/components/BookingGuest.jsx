@@ -13,14 +13,8 @@ const styles = theme => ({
     autoWidth: false,
   },
   formControl: {
-    // margin: theme.spacing.unit,
     minWidth: 330,
     autoWidth: false
-  },
-  selectEmpty: {
-    // marginTop: theme.spacing.unit * 2,
-    // width: 300,
-    // autoWidth: false
   },
 });
 
@@ -47,6 +41,7 @@ class BookingGuest extends React.Component {
     this.setState({
       guests: event.target.value
     });
+    this.props.updateGuests(event.target.value);
   };
 
   render() {
