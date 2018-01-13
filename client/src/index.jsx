@@ -24,6 +24,10 @@ class App extends React.Component {
       query: '',
       results: [],
       listing: {},
+      mapCenter: {
+        latitude: 37.774929,
+        longitude: -122.419416
+      },
       startDate: null,
       endDate: null
     }
@@ -42,7 +46,6 @@ class App extends React.Component {
     fetch(`/api/listings/${listingID}`)//, options)
     .then((response) => response.json())
     .then((json) => {
-      console.log('LC-JSON: ', json)
       this.setState({
         listing: json,
         view: 'listingDetails'
@@ -61,25 +64,20 @@ class App extends React.Component {
     fetch(`/api/listings?q=${this.state.query}`, options)
       .then((response) => response.json())
       .then((json) => {
-        console.log('SC-JSON: ', json)
-        if (json.length > 0){
-          this.setState({
-            results: json,
-            view: 'searchResults'
-          });
-        } else {
-          console.log('Either no search term entered or no results found');
-        }
-      }
-    )
-    //this.setState({view: 'searchResults'})
+        console.log('here', json)
+        this.setState({
+          results: json.listings,
+          mapCenter: json.mapCenter,
+          view: 'searchResults'
+        });
+      }).catch(err => console.log(err));
   }
 
   render() {
     const currentView = this.state.view;
     let showPage = null;
     if (currentView === 'searchResults') {
-      showPage = <SearchResults results={this.state.results} handleListingClick={this.handleListingClick} />;
+      showPage = <SearchResults results={this.state.results} handleListingClick={this.handleListingClick} mapCenter={this.state.mapCenter} />;
     } else if (currentView === 'listingDetails') {
       showPage = <ListingDetails listing={this.state.listing} />;
     } else if (currentView === 'checkout') {
