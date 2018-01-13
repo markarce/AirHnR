@@ -38,7 +38,7 @@ class App extends React.Component {
         longitude: -122.419416
       },
       startDate: moment(),
-      endDate: moment().add(7, 'days')
+      endDate: moment().add(7, 'days'),
       guests: null,
       user: null
 
