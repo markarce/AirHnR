@@ -8,7 +8,8 @@ class Booking extends React.Component {
   }
 
   renderRating () {
-    if (this.props.listing.star_rating === 5) {
+    let rating = Math.round(this.props.listing.star_rating);
+    if (rating === 5) {
       return (
         <div className='booking-rating-img'>
           <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
@@ -19,7 +20,7 @@ class Booking extends React.Component {
           <span className='booking-reviewCount'>{this.props.listing.reviews_count}</span>
         </div>
       )
-    } else if (this.props.listing.star_rating === 4) {
+    } else if (rating === 4) {
       return (
         <div className='booking-rating-img'>
           <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
@@ -29,7 +30,7 @@ class Booking extends React.Component {
           <span className='booking-reviewCount'>{this.props.listing.reviews_count}</span>
         </div>
       )
-    } else if (this.props.listing.star_rating === 3) {
+    } else if (rating === 3) {
       return (
         <div className='booking-rating-img'>
           <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
@@ -38,14 +39,29 @@ class Booking extends React.Component {
           <span className='booking-reviewCount'>{this.props.listing.reviews_count}</span>
         </div>
       )
-    } 
+    } else if (rating === 2) {
+      return (
+        <div className='booking-rating-img'>
+          <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
+          <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
+          <span className='booking-reviewCount'>{this.props.listing.reviews_count}</span>
+        </div>
+      )
+    } else {
+      return (
+        <div className='booking-rating-img'>
+          <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
+          <span className='booking-reviewCount'>{this.props.listing.reviews_count}</span>
+        </div>
+      )
+    }
   }
 
   renderBookingButton () {
     if (this.props.button) {
       return (
         <div className='booking-button'>
-          <button>Book</button>
+          <button onClick={() => this.props.handleBookingClick()}>Book</button>
         </div>
       )
     }
@@ -63,35 +79,35 @@ class Booking extends React.Component {
 
         <div className='booking-dates'>
           <h5>Dates</h5>
-            <span>{this.props.listing.start_date}</span>
+            <span>{this.props.booking.start_date}</span>
             <span className='icon-arrow-forward'><ArrowForward /></span>
-            <span>{this.props.listing.end_date}</span>
+            <span>{this.props.booking.end_date}</span>
         </div>
 
         <div className='booking-guests'>
-          <BookingGuest maxGuests={this.props.listing.max_guests}/>
+          <BookingGuest updateGuests={this.props.updateGuests} maxGuests={this.props.listing.max_guests}/>
         </div>
 
         <div className='booking-subtotal'>
-          <span className='booking-item'>{`$${this.props.listing.price} x ${this.props.listing.nights} nights`}</span>
-          <span className='booking-item-price'>{`$${this.props.listing.price * this.props.listing.nights}`}</span>
+          <span className='booking-item'>{`$${this.props.listing.price} x ${this.props.booking.nights} nights`}</span>
+          <span className='booking-item-price'>{`$${this.props.listing.price * this.props.booking.nights}`}</span>
         </div>
 
         <div className='booking-service-fee'>
           <span className='booking-item'>Service fee</span>
-          <span className='booking-item-price'>{`$${this.props.listing.service_fee}`}</span>
+          <span className='booking-item-price'>{`$${this.props.listing.fee_service}`}</span>
         </div>
 
         <div className='booking-tax'>
           <span className='booking-item'>Occupancy Taxes</span>
-          <span className='booking-item-price'>{`$${Math.round(0.085 * this.props.listing.price * this.props.listing.nights)}`}</span>
+          <span className='booking-item-price'>{`$${Math.round(0.085 * this.props.listing.price * this.props.booking.nights)}`}</span>
         </div>
 
         <div className='booking-total'>
           <span className='booking-item'>Total</span>
-          <span className='booking-item-price'>{`$${Math.round(1.085 * this.props.listing.price * this.props.listing.nights + this.props.listing.service_fee)}`}</span>
+          <span className='booking-item-price'>{`$${Math.round(1.085 * this.props.listing.price * this.props.booking.nights + this.props.listing.fee_service)}`}</span>
         </div>
-        
+  
         {this.renderBookingButton()}
 
       </div>

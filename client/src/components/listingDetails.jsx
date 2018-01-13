@@ -3,18 +3,15 @@ import ListingNav from './listingNav.jsx';
 import Button from 'material-ui/Button';
 import _ from 'lodash';
 import Booking from './Booking.jsx'
+import moment from 'moment';
 
-let listingSampleData = {
+let bookingSampleData = {
   start_date: '01/01/2018',
-  end_date: '04/04/2018',
-  price: 299,
-  star_rating: 5,
-  reviews_count: 32,
-  max_guests: 2,
+  end_date: '04/01/2018',
   nights: 3,
-  service_fee: 20,
-  tax: 0.1
 };
+
+//need star rating, review count, host_name
 
 class ListingDetails extends React.Component {
   constructor (props) {
@@ -22,6 +19,60 @@ class ListingDetails extends React.Component {
     this.state = {
       showDescription: false
     };
+  }
+
+  renderGuests () {
+    if (this.props.listing.max_guests === 1) {
+      return (
+        <div> 
+          <span className='listing-space-detail'>👯</span> 
+          <span className='listing-space-detail'>{`${this.props.listing.max_guests} guest`}</span>
+        </div> 
+      )
+    } else {
+      return (
+        <div>
+          <span className='listing-space-detail'>👯</span> 
+          <span className='listing-space-detail'>{`${this.props.listing.max_guests} guests`}</span>
+        </div>
+      )
+    }
+  }
+
+  renderBeds () {
+    if (this.props.listing.beds === 1) {
+      return (
+        <div>
+          <span className='listing-space-detail'>🛌 </span> 
+          <span className='listing-space-detail'>{`${this.props.listing.beds} bed`}</span>
+        </div>
+      )
+    } else {
+      return (
+        <div>
+          <span className='listing-space-detail'>🛌 </span> 
+          <span className='listing-space-detail'>{`${this.props.listing.beds} beds`}</span>
+        </div>
+      )
+    }
+  }
+
+  renderBathrooms () {
+    if (this.props.listing.bathrooms === 1) {
+      return (
+        <div>
+          <span className='listing-space-detail'>🛀 </span> 
+          <span className='listing-space-detail'>{`${this.props.listing.bathrooms} bathroom`}</span>
+        </div>
+      )
+    } else {
+      return (
+        <div>
+            <span className='listing-space-detail'>🛀 </span> 
+            <span className='listing-space-detail'>{`${this.props.listing.bathrooms} bathrooms`}</span>
+        </div>
+      )
+    }
   }
 
   renderDescription () {
@@ -85,7 +136,7 @@ class ListingDetails extends React.Component {
     } else {
       return (
         <div>
-          <p>Strick</p>
+          <p>Strict</p>
           <p>Cancel up to 7 days before check in and get a 50% refund (minus service fees). Cancel within 7 days of your trip and the reservation is non-refundable. Service fees are refunded when cancellation happens before check in and within 48 hours of booking.</p>
         </div>
       );          
@@ -93,7 +144,8 @@ class ListingDetails extends React.Component {
   }
 
   renderRating () {
-    if (this.props.listing.star_rating === 5) {
+    let rating = Math.round(this.props.listing.average_rating);
+    if (rating === 5) {
       return (
         <div className='listing-rating-img'>
           <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
@@ -103,7 +155,7 @@ class ListingDetails extends React.Component {
           <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
         </div>
       )
-    } else if (this.props.listing.star_rating === 4) {
+    } else if (rating === 4) {
       return (
         <div className='listing-rating-img'>
           <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
@@ -112,7 +164,7 @@ class ListingDetails extends React.Component {
           <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
         </div>
       )
-    } else if (this.props.listing.star_rating === 3) {
+    } else if (rating === 3) {
       return (
         <div className='listing-rating-img'>
           <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
@@ -120,46 +172,50 @@ class ListingDetails extends React.Component {
           <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
         </div>
       )
-    } 
+    } else if (rating === 2) {
+      return (
+        <div className='listing-rating-img'>
+          <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
+          <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
+        </div>
+      )
+    } else {
+      return (
+        <div className='listing-rating-img'>
+          <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
+        </div>
+      )
+    }
   }
 
   render () {
     return (
       <div className='listing-wrapper'>
         <div className='listing-booking'>
-          <Booking listing={listingSampleData} button={true}/>
+          <Booking updateGuests={this.props.updateGuests} handleBookingClick={this.props.handleBookingClick} booking={this.props.booking} listing={this.props.listing} button={true}/>
         </div>
-        <div className='listing-img' >
+        <div className='listing-img'>
           <img src={this.props.listing.image_url}/> 
         </div>
-        {/* <div className='listing-nav'>
-          <a href='#'>Overview</a>
-          <a href='#'>Reviews</a>
-          <a href='#'>The Host</a>
-          <a href='#'>Location</a>
-        </div> */}
         <ListingNav />
-        {/*<Booking listing={listingSampleData}/>*/}
         <div className='line-break1'></div>
         <div className='listing-title'>
           <h1>{this.props.listing.name}</h1>
         </div>
         <div className='listing-type'>
-          <p>{`${this.props.listing.room_type} · ${this.props.listing.city}`}</p>
+          <p>{`${this.props.listing.room_type} · ${this.props.listing.address_city}`}</p>
           <p>{`Hosted by ${this.props.listing.first_name}`}</p>
         </div>
         <div className='listing-space'> 
-          <span className='listing-space-detail'>👯</span> 
-          <span className='listing-space-detail'>{`${this.props.listing.maxGuests} guests`}</span>
-          <span className='listing-space-detail'>🛌 </span> 
-          <span className='listing-space-detail'>{`${this.props.listing.beds} bed`}</span>
-          <span className='listing-space-detail'>🛀 </span> 
-          <span className='listing-space-detail'>{`${this.props.listing.bathrooms} bathrooms`}</span>  
-        </div> 
+          {this.renderGuests()}
+          {this.renderBeds()}
+          {this.renderBathrooms()}
+        </div>
+        
         {this.renderDescription()}
         <div className='line-break2'></div>
         <div className='listing-amenities'>
-          <h3>Amenitiess</h3>
+          <h3>Amenities</h3>
           <ul>
             {this.renderAmenities()}
           </ul>
@@ -178,17 +234,17 @@ class ListingDetails extends React.Component {
         </div>
         <div className='line-break5'></div>
         <div className='listing-rating'>
-          <h2>{`${this.props.listing.reviews_count} Reviews`}</h2>
+          <h2>{`${this.props.listing.review_count} Reviews`}</h2>
         </div>
         {this.renderRating()}
         <div className='line-break6'></div>
         <div className='listing-host'>
           <h2>{`Hosted By ${this.props.listing.first_name}`}</h2>
-          <p>San Francisco, California, United States</p>
-          <p>Joined in May 2012</p>
+          <p>{`${this.props.listing.address_city}, ${this.props.listing.address_region}, United States`}</p>
+          <p>{`Joined in ${moment(this.props.listing.account_created).format('MMM YYYY')}`}</p>
         </div>
         <div className='listing-host-img'>
-          <img src='https://a0.muscache.com/defaults/user_pic-225x225.png?v=3' />
+          <img src={this.props.listing.avatar_url} />
         </div>
       </div>
     )
