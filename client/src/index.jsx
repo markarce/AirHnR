@@ -27,7 +27,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      view: 'trips',
+      view: 'default',
       query: '',
       results: [],
       listing: {},
@@ -101,10 +101,9 @@ class App extends React.Component {
     } else if (currentView === 'listingDetails') {
       showPage = <ListingDetails updateGuests={this.updateGuests.bind(this)} handleBookingClick={this.handleBookingClick.bind(this)} booking={bookingSampleData} listing={this.state.listing} />;
     } else if (currentView === 'checkout') {
-      showPage = <Checkout />;
+      showPage = <Checkout guests={this.state.guests} updateGuests={this.updateGuests.bind(this)} booking={bookingSampleData} listing={this.state.listing} />
     } else if(currentView === 'createAccount') {
       showPage = <CreateAccount triggerView={this._triggerViewChange}/>
-      showPage = <Checkout guests={this.state.guests} updateGuests={this.updateGuests.bind(this)} booking={bookingSampleData} listing={this.state.listing}/>;
     } else if (currentView === 'trips') {
       showPage = <Trips />
     }
