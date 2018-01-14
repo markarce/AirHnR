@@ -53,6 +53,7 @@ class App extends React.Component {
     this.userLogOut = this.userLogOut.bind(this);
     this.login = this.login.bind(this);
     this.handleMapDrag = this.handleMapDrag.bind(this);
+    this.handleDateClick = this.handleDateClick.bind(this);
     this.sendConfirmationEmail = this.sendConfirmationEmail.bind(this);
   };
 
@@ -82,18 +83,15 @@ class App extends React.Component {
 
   handleSearchClick(query) {
     //called from search bar, submits a search request for locations near searched area
-
-    let startDate = this.state.startDate.format('YYYY-MM-DD');
-    let endDate = this.state.endDate.format('YYYY-MM-DD');
-
-    const options = {
-      method: 'GET',
-      contentType: "application/json",
-      mode: 'cors',
-      cache: 'default'
-    }
-
-    fetch(`/api/listings?q=${query}&start=${startDate}&end=${endDate}`, options)
+      let startDate = this.state.startDate.format('YYYY-MM-DD');
+      let endDate = this.state.endDate.format('YYYY-MM-DD');
+      const options = {
+        method: 'GET',
+        contentType: "application/json",
+        mode: 'cors',
+        cache: 'default'
+      };
+      fetch(`/api/listings?q=${query}&start=${startDate}&end=${endDate}`, options)
       .then((response) => response.json())
       .then((json) => {
         this.setState({
@@ -103,11 +101,31 @@ class App extends React.Component {
         });
       }).catch(err => console.log(err));
   };
-  
-  handleMapDrag(latitude, longitude, zoom) {
-    fetch(`/api/markings`, {
-      headers: new Headers({
-        "Content-Type": "application/json"
+
+  handleDateClick(dates) {
+    console.log(arguments)
+    if (this.state.view === 'searchResults') {
+      let startDate = this.state.startDate.format('YYYY-MM-DD');
+      let endDate = this.state.endDate.format('YYYY-MM-DD');
+      fetch(`/api/datesonly?lat=${this.state.mapCenter.latitude}&lon=${this.state.mapCenter.longitude}&start=${startDate}&end=${endDate}`)
+      .then((response) => response.json())
+      .then((json) => {
+        console.log(json)
+        this.setState({
+          results: json.listings
+          // view: 'searchResults'
+        });
+      }).catch(err => console.log(err));
+    }
+    else {
+      console.log('CHANGE NOTHING')
+    }
+  };
+    
+    handleMapDrag(latitude, longitude, zoom) {
+      fetch(`/api/markings`, {
+        headers: new Headers({
+          "Content-Type": "application/json"
       }),
       method: 'POST',
       body: JSON.stringify({
@@ -191,6 +209,7 @@ class App extends React.Component {
       console.log('err', eServiceProvRes);
     });
   }
+  
   render() {
     const currentView = this.state.view;
     let showPage = null;
@@ -207,7 +226,11 @@ class App extends React.Component {
         <ListingDetails
           updateGuests={this.updateGuests.bind(this)}
           handleBookingClick={this.handleBookingClick.bind(this)}
-          booking={bookingSampleData} listing={this.state.listing}
+          booking={bookingSampleData}
+          listing={this.state.listing}
+          startDate={this.state.startDate}
+          endDate={this.state.endDate}
+          guests={this.state.guests}
           login={this.login}
           isUserLoggedIn={this.state.user ? true : false}
         />;
@@ -259,7 +282,7 @@ class App extends React.Component {
             onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })} // PropTypes.func.isRequired,
             focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
             onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired,
-            onClose={this.handleSearchClick}
+            onClose={this.handleDateClick}
           />
         </div>
         <br/>
