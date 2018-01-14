@@ -49,7 +49,11 @@ class SearchResults extends React.Component {
           </Grid>
         </div>
         <div className="map-container" ref={node => this.node = node}>
-          <MapContainer listings={listings} searchedLocation={this.props.mapCenter}/>
+          <MapContainer 
+            listings={listings} 
+            handleMapDrag={this.props.handleMapDrag} 
+            searchedLocation={this.props.mapCenter}
+          />
         </div>
       </div>
     );

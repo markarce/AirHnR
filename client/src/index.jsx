@@ -18,6 +18,7 @@ import Trips from './components/Trips.jsx'
 import NavLogged from './components/NavLogged.jsx';
 import moment from 'moment';
 import FeaturedPlaces from './components/FeaturedPlaces.jsx';
+import MainPage from './components/MainPage.jsx'
 
 let bookingSampleData = {
   start_date: '01/01/2018',
@@ -42,7 +43,7 @@ class App extends React.Component {
       endDate: moment().add(7, 'days'),
       guests: null,
       user: null
-    }
+    };
     this.searchTerm = this.searchTerm.bind(this);
     this.handleSearchClick = this.handleSearchClick.bind(this);
     this.handleListingClick = this.handleListingClick.bind(this);
@@ -51,6 +52,7 @@ class App extends React.Component {
     this.userLogOut = this.userLogOut.bind(this);
     this.getSimpleDate = this.getSimpleDate.bind(this);
     this.login = this.login.bind(this);
+    this.handleMapDrag = this.handleMapDrag.bind(this);
   }
 
   getSimpleDate (dateObj) {
@@ -83,13 +85,13 @@ class App extends React.Component {
 
   searchTerm(term) {
     this.setState({ query: term });
-  }
+  };
 
   updateGuests (guests) {
     this.setState({
       guests: guests
     });
-  }
+  };
 
   handleTripClick () {
     this.setState({
@@ -117,7 +119,6 @@ class App extends React.Component {
       mode: 'cors',
       cache: 'default'
     }
-
     var startDate = null;
     var endDate = null;
     if (this.state.startDate) {
@@ -126,31 +127,52 @@ class App extends React.Component {
     if (this.state.endDate) {
       endDate = this.getSimpleDate(this.state.endDate._d);
     }
-    console.log('startDate', startDate);
-    console.log('endDate', endDate);
     fetch(`/api/listings?q=${q || this.state.query}&start=${startDate}&end=${endDate}`, options)
       .then((response) => response.json())
       .then((json) => {
-        console.log('here', json)
         this.setState({
           results: json.listings,
           mapCenter: json.mapCenter,
           view: 'searchResults'
         });
       }).catch(err => console.log(err));
-  }
+  };
+  
+  handleMapDrag(latitude, longitude, zoom) {
+    fetch(`/api/markings`, {
+      headers: new Headers({
+        "Content-Type": "application/json"
+      }),
+      method: 'POST',
+      body: JSON.stringify({
+        start: '2018-01-14',
+        end: '2018-01-18',
+        latitude: latitude,
+        longitude: longitude,
+        zoom: zoom
+      })
+    }).then(response => response.json())
+      .then(json => {
+        this.setState({
+          results: json.listings,
+          mapCenter: {
+            latitude: latitude,
+            longitude: longitude
+          }
+        });
+      }).catch(err => console.log(err));
+  };
 
-  handleBookingClick () {
+  handleBookingClick() {
     this.setState({
       view: 'checkout'
-    })
-  }
+    });
+  };
 
   userLoggedIn(userData) {
     this.setState({
       user: userData
     });
-    // console.log('user', userData);
   }
   userLogOut() {
     this.setState({
@@ -195,6 +217,7 @@ class App extends React.Component {
           results={this.state.results}
           handleListingClick={this.handleListingClick}
           mapCenter={this.state.mapCenter}
+          handleMapDrag={this.handleMapDrag}
         />;
     } else if (currentView === 'listingDetails') {
       showPage =
@@ -220,8 +243,9 @@ class App extends React.Component {
         />
     } else if (currentView === 'trips') {
       showPage = <Trips user={this.state.user} />
-    } 
-
+    } else {
+      showPage = <MainPage goToLocation={this.handleSearchClick}/>
+    }
     return (
       <div>
         <div>
@@ -253,16 +277,15 @@ class App extends React.Component {
         <div>
           {showPage}
         </div>
-        <FeaturedPlaces goToLocation={this.handleSearchClick}/>
       </div>
     );
-  }
+  };
 
   _triggerViewChange(requestedView) {
     this.setState({
       view: requestedView
     });
-  }
-}
+  };
+};
 
 render(<App />, document.getElementById('app'));

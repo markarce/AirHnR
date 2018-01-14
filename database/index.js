@@ -5,13 +5,7 @@ const knex = require('knex')({
 });
 const bookshelf = require('bookshelf')(knex);
 
-// const getListingsNear = (lat, long, radius = 3000) => {
-//   //lat, long of center of map, and distance radius in meters
-//   //returns a promise of data
-//   let query = `SELECT locations.*, listings.* FROM locations, listings WHERE ST_Distance(ST_SetSRID(ST_MakePoint(${long}, ${lat})::geography, 4326), ST_SetSRID(ST_MakePoint(longitude, latitude), 4326)::geography) <= ${radius} AND listings.location_id = locations.id`;
-//   return bookshelf.knex.raw(query).then(res => res.rows);
-// };
-const getListingsNear = (lat, long, radius = 3000) => {
+const getListingsNear = (lat, long, startDate, endDate, radius = 4000, limit = 25) => {
   //lat, long of center of map, and distance radius in meters
   //returns a promise of data
   let query = `
@@ -21,11 +15,19 @@ const getListingsNear = (lat, long, radius = 3000) => {
     FROM locations loc, listings list WHERE loc.id = list.location_id
     AND ST_Distance(ST_SetSRID(ST_MakePoint(${long}, ${lat})::geography, 4326), 
     ST_SetSRID(ST_MakePoint(longitude, latitude), 4326)::geography) <= ${radius}
+    AND '${startDate}' BETWEEN list.start_date AND list.end_date
+    AND '${endDate}' BETWEEN list.start_date AND list.end_date
+    AND NOT EXISTS (
+      SELECT * FROM bookings WHERE bookings.listing_id = list.id
+      AND bookings.start_date BETWEEN '${startDate}' AND '${endDate}'
+      AND bookings.end_date BETWEEN '${startDate}' AND '${endDate}'
+    )
+    ORDER BY average_stars DESC LIMIT ${limit}
   `;
   return bookshelf.knex.raw(query).then(res => res.rows);
 };
 
-const getLocationsNear = (lat, long, radius = 3000) => {
+const getLocationsNear = (lat, long, radius = 4000) => {
   //lat, long of center of map, and distance radius in meters
   //returns a promise of data
   let query = `SELECT * FROM locations WHERE ST_Distance(ST_SetSRID(ST_MakePoint(${long}, ${lat})::geography, 4326), ST_SetSRID(ST_MakePoint(longitude, latitude), 4326)::geography) <= ${radius}`;

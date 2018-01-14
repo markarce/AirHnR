@@ -10,7 +10,6 @@ app.use(express.json());
 
 app.get('/api/listings/:listingId', (req, res) => {
   db.getListingInfo(parseInt(req.params.listingId)).then(row => {
-    console.log(row);
     res.status(200).json(row);
   }).catch(err => {
     console.log(err);
@@ -20,7 +19,6 @@ app.get('/api/listings/:listingId', (req, res) => {
 
 app.get('/api/bookings/:userId', (req, res) => {
   db.getBookingsByUserId(parseInt(req.params.userId)).then(rows => {
-    console.log('booking', rows);
     res.status(200).json(rows);
   }).catch(err => {
     console.log(err);
@@ -45,6 +43,23 @@ app.get('/api/listings',function(req, res) {
         res.status(503).end();
       });
   });
+});
+
+app.post('/api/markings', function (req, res) {
+  //return all listings near the searched area
+  let radius = -(2000 * req.body.zoom) + 30000;
+  let limit = -(38 * req.body.zoom) + 513;
+  limit = limit < 25 ? 25 : limit;
+  radius = radius < 2000 ? 2000 : radius;
+  db.getListingsNear(req.body.latitude, req.body.longitude, req.body.start, req.body.end, radius, limit)//req.query.start, req.query.end)
+    .then(dbResults => {
+      res.status(200).json({
+        listings: dbResults
+      });
+    }).catch(err => {
+      console.warn(err);
+      res.status(503).end();
+    });
 });
 
 app.post('/api/bookings', (req, res) => {
