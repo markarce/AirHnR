@@ -395,3 +395,8 @@ header {
   border-radius: 50%;
   cursor: pointer;
 }
+
+/*material UI icons */
+.material-icons.blue10 {
+  color: #0d47a1
+}
