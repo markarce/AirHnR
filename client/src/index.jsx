@@ -16,6 +16,7 @@ import Login from './components/Login.jsx';
 import CreateAccount from './components/CreateAccount.jsx';
 import Trips from './components/Trips.jsx'
 import NavLogged from './components/NavLogged.jsx';
+import moment from 'moment';
 import FeaturedPlaces from './components/FeaturedPlaces.jsx';
 
 let bookingSampleData = {
@@ -37,8 +38,8 @@ class App extends React.Component {
         latitude: 37.774929,
         longitude: -122.419416
       },
-      startDate: null,
-      endDate: null,
+      startDate: moment(),
+      endDate: moment().add(7, 'days'),
       guests: null,
       user: null
     }
@@ -48,7 +49,36 @@ class App extends React.Component {
     this._triggerViewChange = this._triggerViewChange.bind(this);
     this.userLoggedIn = this.userLoggedIn.bind(this);
     this.userLogOut = this.userLogOut.bind(this);
+    this.getSimpleDate = this.getSimpleDate.bind(this);
     this.login = this.login.bind(this);
+  }
+
+  getSimpleDate (dateObj) {
+    const date = new Date(dateObj);
+    const year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var day = date.getDate();
+    if (month < 10) {
+      month = '0' + month;
+    }
+    if (day < 10) {
+      day = '0' + date;
+    }
+    return `${year.toString()}-${month.toString()}-${day.toString()}`
+  }
+
+  getSimpleDate (dateObj) {
+    const date = new Date(dateObj);
+    const year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var day = date.getDate();
+    if (month < 10) {
+      month = '0' + month;
+    }
+    if (day < 10) {
+      day = '0' + date;
+    }
+    return `${year.toString()}-${month.toString()}-${day.toString()}`
   }
 
   searchTerm(term) {
@@ -87,7 +117,18 @@ class App extends React.Component {
       mode: 'cors',
       cache: 'default'
     }
-    fetch(`/api/listings?q=${q || this.state.query}`, options)
+
+    var startDate = null;
+    var endDate = null;
+    if (this.state.startDate) {
+      startDate = this.getSimpleDate(this.state.startDate._d);
+    }
+    if (this.state.endDate) {
+      endDate = this.getSimpleDate(this.state.endDate._d);
+    }
+    console.log('startDate', startDate);
+    console.log('endDate', endDate);
+    fetch(`/api/listings?q=${q || this.state.query}&start=${startDate}&end=${endDate}`, options)
       .then((response) => response.json())
       .then((json) => {
         console.log('here', json)
@@ -205,6 +246,7 @@ class App extends React.Component {
             onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })} // PropTypes.func.isRequired,
             focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
             onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired,
+            onClose={this.handleSearchClick}
           />
         </div>
         <br/>

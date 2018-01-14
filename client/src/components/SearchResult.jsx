@@ -9,21 +9,6 @@ import Typography from 'material-ui/Typography';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
 
-// const styles = theme => ({
-//   SearchResult: {
-//   },
-//   SearchResults: {
-//     paddingLeft: '8',
-//   },
-//   card: {
-//     width: 300,
-//     height: 300,
-//   },
-//   media: {
-//     height: 170,
-//   },
-// });
-
 const styles = {
   card: {
     width: 300,
@@ -33,6 +18,27 @@ const styles = {
     height: 170,
   },
 };
+
+const makeStars = (stars, max) => {
+  var decimal = stars - Math.floor(stars)
+  var results = [];
+
+  while (results.length < max) {
+    if (results.length < Math.floor(stars)) {
+      results.push(<i className="material-icons blue10" key={results.length}>star</i>);
+    } else if (decimal > .25 && decimal < .75) {
+      results.push(<i className="material-icons blue10" key={results.length}>star_half</i>);
+      decimal = 0;
+    } else if (decimal > .66) {
+      results.push(<i className="material-icons blue10" key={results.length}>star</i>);
+      decimal = 0;
+    } else {
+      results.push(<i className="material-icons blue10" key={results.length}>star_border</i>);
+    }
+  }
+
+  return results;
+}
 
 function SearchResult (props) {
   const { classes } = props;
@@ -57,7 +63,7 @@ function SearchResult (props) {
             ${props.price} per night
           </Typography>
           <Typography>
-            {props.rating} / 5 star rating
+            {makeStars(props.rating, 5)}
           </Typography>
         </CardContent>
       </Card>

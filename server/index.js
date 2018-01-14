@@ -31,7 +31,7 @@ app.get('/api/bookings/:userId', (req, res) => {
 app.get('/api/listings',function(req, res) {
   //return all listings near the searched area
   lib.getPlaceCoordinates(req.query.q, googleResults => {
-    db.getListingsNear(googleResults.lat, googleResults.lon, 3000)
+    db.getListingsNear(googleResults.lat, googleResults.lon, req.query.start, req.query.end)
     .then(dbResults => {
         res.status(200).json({
           listings: dbResults,
