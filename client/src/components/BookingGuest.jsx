@@ -22,7 +22,7 @@ class BookingGuest extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      guests: 0
+      guests: 1
     };
   }
 
