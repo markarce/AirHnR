@@ -192,7 +192,10 @@ class ListingDetails extends React.Component {
     return (
       <div className='listing-wrapper'>
         <div className='listing-booking'>
-          <Booking updateGuests={this.props.updateGuests} handleBookingClick={this.props.handleBookingClick} booking={this.props.booking} listing={this.props.listing} button={true}/>
+          <Booking updateGuests={this.props.updateGuests} handleBookingClick={this.props.handleBookingClick} 
+          booking={this.props.booking} listing={this.props.listing} button={true} 
+          login={this.props.login}
+          isUserLoggedIn={this.props.isUserLoggedIn}/>
         </div>
         <div className='listing-img'>
           <img src={this.props.listing.image_url}/> 

@@ -6,12 +6,14 @@ import key from '../stripe_key';
 import Booking from './Booking';
 
 const styles = theme => ({
-  button: {
-    margin: theme.spacing.unit,
-  },
   input: {
     display: 'none',
   },
+  signInAlert: {
+    color: 'red',
+    textAlign: 'center',
+    marginTop: '40px'
+  }
 });
 
 class Checkout extends React.Component {
@@ -80,6 +82,20 @@ class Checkout extends React.Component {
   }
 
   render() {
+    let checkoutButton = null;
+    if(this.props.isUserLoggedIn) {
+      checkoutButton = (<StripeCheckout
+        name={this.props.listing.name}
+        description="Payment description"
+        amount={Math.round(1.085 * this.props.listing.price * this.props.booking.nights + this.props.listing.fee_service)*100}
+        token={() => this.onConfirm(this.createBooking())}
+        currency="USD"
+        stripeKey={key}
+      />);
+    } else {
+      checkoutButton = (<h5 style={styles().signInAlert}>Please sign in to confirm your purchase</h5>);
+    }
+
     return (
       <div className="checkout">
         <div className="details">
@@ -92,14 +108,7 @@ class Checkout extends React.Component {
           </div>
           <div className="cancellation-policy">
             {this.renderCancellation()}
-            <StripeCheckout
-                  name={this.props.listing.name}
-                  description="Payment description"
-                  amount={Math.round(1.085 * this.props.listing.price * this.props.booking.nights + this.props.listing.fee_service)*100}
-                  token={() => this.onConfirm(this.createBooking())}
-                  currency="USD"
-                  stripeKey={key}
-              />
+            {checkoutButton}
           </div>
         </div>
         <div className="overview">

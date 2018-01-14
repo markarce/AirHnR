@@ -1,6 +1,7 @@
 import React from 'react';
 import ArrowForward from 'material-ui-icons/ArrowForward'
 import BookingGuest from './BookingGuest';
+import Login from './Login.jsx';
 
 class Booking extends React.Component {
   constructor (props) {
@@ -61,7 +62,10 @@ class Booking extends React.Component {
     if (this.props.button) {
       return (
         <div className='booking-button'>
-          <button onClick={() => this.props.handleBookingClick()}>Book</button>
+          {this.props.isUserLoggedIn ? 
+            <button onClick={() => this.props.handleBookingClick()}>Book</button> : 
+            <Login login={this.props.login} buttonTitle="Book"/>
+          }
         </div>
       )
     }
