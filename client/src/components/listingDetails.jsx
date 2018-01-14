@@ -144,7 +144,7 @@ class ListingDetails extends React.Component {
   }
 
   renderRating () {
-    let rating = Math.round(this.props.listing.average_rating);
+    let rating = Math.round(this.props.listing.average_stars);
     if (rating === 5) {
       return (
         <div className='listing-rating-img'>
@@ -240,7 +240,7 @@ class ListingDetails extends React.Component {
         <div className='line-break6'></div>
         <div className='listing-host'>
           <h2>{`Hosted By ${this.props.listing.first_name}`}</h2>
-          <p>{`${this.props.listing.address_city}, ${this.props.listing.address_region}, United States`}</p>
+          <p>{`${this.props.listing.user_address_city}, ${this.props.listing.user_address_region}, United States`}</p>
           <p>{`Joined in ${moment(this.props.listing.account_created).format('MMM YYYY')}`}</p>
         </div>
         <div className='listing-host-img'>

@@ -79,8 +79,7 @@ class ButtonAppBar extends React.Component{
           <Typography onClick={() => this.props.triggerView('default')} style={{color:"white", font:"Helvetica", width: "100px"}}>
           Air HnR
           </Typography>
-          {this.props.isUserLoggedIn ? <NavLogged logOut={this.props.userLogOut} user={this.props.user}/> : 
-          <NotLoggedIn userLoggedIn={this.props.userLoggedIn} triggerView={this.props.triggerView} login={this.props.login}/>}
+          {this.props.isUserLoggedIn ? <NavLogged triggerView={this.props.triggerView} logOut={this.props.userLogOut} user={this.props.user}/> : <NotLoggedIn userLoggedIn={this.props.userLoggedIn} triggerView={this.props.triggerView}/>}
         </Toolbar>
       </AppBar>
     </div>

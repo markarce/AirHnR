@@ -32,7 +32,7 @@ class Checkout extends React.Component {
       num_guests: this.props.guests,
       listing_id: this.props.listing.id,
       location_id: this.props.listing.location_id,
-      guest_id: this.props.booking.guest_id,
+      guest_id: this.props.user.id,
       host_id: this.props.listing.host_id
     };
 
@@ -53,8 +53,8 @@ class Checkout extends React.Component {
     fetch('/api/bookings', options)
     .then((response) => {
       if(!response.ok) return console.log('ERROR POSTING TO BOOKINGS', response);
-      console.log(options.body);
       console.log('POST TO BOOKINGS SUCCESSFULL');
+      console.log('booking', data);
     })
     .catch((err) => {
       console.log('error: ', err);
