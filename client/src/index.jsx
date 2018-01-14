@@ -18,6 +18,7 @@ import Trips from './components/Trips.jsx'
 import NavLogged from './components/NavLogged.jsx';
 import moment from 'moment';
 import FeaturedPlaces from './components/FeaturedPlaces.jsx';
+import moment from 'moment';
 
 let bookingSampleData = {
   start_date: '01/01/2018',
