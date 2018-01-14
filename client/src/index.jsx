@@ -42,7 +42,7 @@ class App extends React.Component {
       },
       startDate: moment(),
       endDate: moment().add(7, 'days'),
-      guests: null,
+      guests: 1,
       user: null
     };
     this.searchTerm = this.searchTerm.bind(this);

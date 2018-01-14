@@ -41,7 +41,6 @@ class Checkout extends React.Component {
 
     return bookingData;
   }
-
   onConfirm(data) {
     const options = { method: 'POST',
       headers: {      
@@ -52,11 +51,9 @@ class Checkout extends React.Component {
       cache: 'default',
       body: JSON.stringify(data)
     };
-
     fetch('/api/bookings', options)
     .then((response) => {
       if(!response.ok) return console.log('ERROR POSTING TO BOOKINGS', response);
-      console.log('POST TO BOOKINGS SUCCESSFULL');
       console.log('booking', data);
       this.props.triggerView("confirmation");
       let l = this.props.listing;
