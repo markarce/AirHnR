@@ -33,12 +33,21 @@ const getLocationsNear = (lat, long, radius = 3000) => {
 };
 
 const getListingInfo = (listingId) => {
-  let query = `SELECT listings.*, locations.*, users.* FROM listings, locations, users WHERE listings.id=${listingId} AND locations.id=listings.location_id AND users.id=listings.host_id`;
+  let query = `  SELECT listings.*, locations.*, u.first_name, u.avatar_url, u.address_city AS user_address_city, u.address_region AS user_address_region, u.account_created, (SELECT AVG(rev.stars) average_stars FROM location_reviews rev WHERE rev.location_id = locations.id),
+  (SELECT COUNT(rev.*) review_count FROM location_reviews rev WHERE rev.location_id = locations.id)
+  FROM listings, locations, location_reviews, users u WHERE listings.id=${listingId} 
+  AND locations.id=listings.location_id AND u.id=listings.host_id`;
   return bookshelf.knex.raw(query).then(res => res.rows[0]);
 };
 
 const saveUserInDB = (user) => {
   return knex('users').insert(user);
+}
+
+const saveBookingInDB = (booking) => {
+  return knex.insert(booking).into("bookings").then(function (result) {
+    return result;
+  });
 }
 
 const getUserFromDB = (userEmail) => {
@@ -49,10 +58,23 @@ const getUserFromDB = (userEmail) => {
   });
 }
 
+const getAverageStars = () => {
+
+}
+
+const getBookingsByUserId = (userId) => {
+  return knex.select('locations.image_url', 'bookings.num_guests', 'users.avatar_url', 'locations.address_city', 'bookings.start_date', 'bookings.end_date', 'locations.name').from('bookings')
+  .innerJoin('locations', 'locations.id', 'bookings.location_id')
+  .innerJoin('users', 'users.id', 'locations.host_id')
+  .where('guest_id', userId);
+}
+
 module.exports = {
   getListingsNear: getListingsNear,
   getLocationsNear: getLocationsNear,
   getListingInfo: getListingInfo,
   saveUserInDB: saveUserInDB,
-  getUserFromDB: getUserFromDB
+  getUserFromDB: getUserFromDB,
+  saveBookingInDB: saveBookingInDB,
+  getBookingsByUserId: getBookingsByUserId
 };

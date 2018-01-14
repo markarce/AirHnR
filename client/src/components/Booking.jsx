@@ -8,7 +8,7 @@ class Booking extends React.Component {
   }
 
   renderRating () {
-    let rating = Math.round(this.props.listing.star_rating);
+    let rating = Math.round(this.props.listing.average_stars);
     if (rating === 5) {
       return (
         <div className='booking-rating-img'>

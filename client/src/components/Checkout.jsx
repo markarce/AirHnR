@@ -17,7 +17,10 @@ const styles = theme => ({
 class Checkout extends React.Component {
   constructor(props) {
     super(props);
-    this.bookingData = {
+  }
+
+  createBooking () {
+    const bookingData = {
       price: this.props.listing.price,
       fee_service: this.props.listing.fee_service,
       fee_cleaning: this.props.listing.fee_cleaning,
@@ -29,9 +32,11 @@ class Checkout extends React.Component {
       num_guests: this.props.guests,
       listing_id: this.props.listing.id,
       location_id: this.props.listing.location_id,
-      guest_id: this.props.booking.guest_id,
+      guest_id: this.props.user.id,
       host_id: this.props.listing.host_id
     };
+
+    return bookingData;
   }
 
   onConfirm(data) {
@@ -48,8 +53,8 @@ class Checkout extends React.Component {
     fetch('/api/bookings', options)
     .then((response) => {
       if(!response.ok) return console.log('ERROR POSTING TO BOOKINGS', response);
-      console.log(options.body);
       console.log('POST TO BOOKINGS SUCCESSFULL');
+      console.log('booking', data);
     })
     .catch((err) => {
       console.log('error: ', err);
@@ -67,7 +72,7 @@ class Checkout extends React.Component {
     } else {
       return (
         <div>
-          <h5>Cancellation Policy: Flexible</h5>
+          <h5>Cancellation Policy: Strict</h5>
           <p>Cancel up to 7 days before check in and get a 50% refund (minus service fees). Cancel within 7 days of your trip and the reservation is non-refundable. Service fees are refunded when cancellation happens before check in and within 48 hours of booking.</p>
         </div>
       );          
@@ -91,7 +96,7 @@ class Checkout extends React.Component {
                   name={this.props.listing.name}
                   description="Payment description"
                   amount={Math.round(1.085 * this.props.listing.price * this.props.booking.nights + this.props.listing.fee_service)*100}
-                  token={() => this.onConfirm(this.bookingData)}
+                  token={() => this.onConfirm(this.createBooking())}
                   currency="USD"
                   stripeKey={key}
               />

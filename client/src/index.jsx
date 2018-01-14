@@ -59,6 +59,12 @@ class App extends React.Component {
     });
   }
 
+  handleTripClick () {
+    this.setState({
+      view: 'trips'
+    });
+  }
+
   handleListingClick(listingID) {
     // called when a list item is clicked on.
     fetch(`/api/listings/${listingID}`)//, options)
@@ -101,6 +107,7 @@ class App extends React.Component {
     this.setState({
       user: userData
     });
+    // console.log('user', userData);
   }
   userLogOut() {
     this.setState({
@@ -160,6 +167,7 @@ class App extends React.Component {
           updateGuests={this.updateGuests.bind(this)}
           booking={bookingSampleData}
           listing={this.state.listing}
+          user={this.state.user}
         />
     } else if(currentView === 'createAccount') {
       showPage =
@@ -168,8 +176,9 @@ class App extends React.Component {
           login={this.login}
         />
     } else if (currentView === 'trips') {
-      showPage = <Trips />
-    }
+      showPage = <Trips user={this.state.user} />
+    } 
+
     return (
       <div>
         <div>
