@@ -81,7 +81,7 @@ class NavBar extends React.Component{
         <Search handleSearchClick={this.props.handleSearchClick}/>
       </div>
       <div className='nav-bar-login'>
-        {this.props.isUserLoggedIn ? <NavLogged logOut={this.props.userLogOut} user={this.props.user}/> : 
+        {this.props.isUserLoggedIn ? <NavLogged triggerView={this.props.triggerView} logOut={this.props.userLogOut} user={this.props.user} /> : 
         <NotLoggedIn userLoggedIn={this.props.userLoggedIn} triggerView={this.props.triggerView} login={this.props.login}/>}
       </div>
     </div>
