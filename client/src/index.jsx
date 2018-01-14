@@ -245,16 +245,10 @@ class App extends React.Component {
           login={this.login}
         />
     } else if (currentView === 'trips') {
-<<<<<<< HEAD
       showPage = <Trips user={this.state.user} />
-    } 
-
-=======
-      showPage = <Trips />
     } else {
       showPage = <MainPage />
     }
->>>>>>> started work on main page
     return (
       <div>
         <div>
