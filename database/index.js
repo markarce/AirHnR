@@ -22,7 +22,7 @@ const getListingsNear = (lat, long, startDate, endDate, radius = 4000, limit = 2
       AND bookings.start_date BETWEEN '${startDate}' AND '${endDate}'
       AND bookings.end_date BETWEEN '${startDate}' AND '${endDate}'
     )
-    ORDER BY average_stars ASC LIMIT ${limit}
+    ORDER BY average_stars DESC LIMIT ${limit}
   `;
   return bookshelf.knex.raw(query).then(res => res.rows);
 };

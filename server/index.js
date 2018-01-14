@@ -51,7 +51,7 @@ app.post('/api/markings', function (req, res) {
   let limit = -(38 * req.body.zoom) + 513;
   limit = limit < 25 ? 25 : limit;
   radius = radius < 2000 ? 2000 : radius;
-  db.getListingsNear(req.body.latitude, req.body.longitude, req.query.start, req.query.end, radius, limit)//req.query.start, req.query.end)
+  db.getListingsNear(req.body.latitude, req.body.longitude, req.body.start, req.body.end, radius, limit)//req.query.start, req.query.end)
     .then(dbResults => {
       res.status(200).json({
         listings: dbResults

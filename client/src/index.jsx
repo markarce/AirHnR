@@ -119,7 +119,6 @@ class App extends React.Component {
       mode: 'cors',
       cache: 'default'
     }
-
     var startDate = null;
     var endDate = null;
     if (this.state.startDate) {
@@ -146,6 +145,8 @@ class App extends React.Component {
       }),
       method: 'POST',
       body: JSON.stringify({
+        start: '2018-01-14',
+        end: '2018-01-18',
         latitude: latitude,
         longitude: longitude,
         zoom: zoom

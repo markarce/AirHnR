@@ -80,7 +80,7 @@ export class MapContainer extends Component {
           <div>
             <h5>{this.state.locationSelectedOnMap.name}</h5>
             <p>{this.state.locationSelectedOnMap.address_street}</p>
-          <Stars rating={this.state.locationSelectedOnMap.average_stars} total={5} offset={0.25}/>
+            <Stars rating={this.state.locationSelectedOnMap.average_stars} total={5} offset={0.25}/>
           </div>
         </InfoWindow>
       </Map>
