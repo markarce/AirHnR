@@ -89,7 +89,7 @@ class Booking extends React.Component {
         </div>
 
         <div className='booking-guests'>
-          <BookingGuest updateGuests={this.props.updateGuests} maxGuests={this.props.listing.max_guests}/>
+          <BookingGuest guestsSelected={this.props.guests} updateGuests={this.props.updateGuests} maxGuests={this.props.listing.max_guests}/>
         </div>
 
         <div className='booking-subtotal'>

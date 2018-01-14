@@ -42,7 +42,7 @@ class App extends React.Component {
       },
       startDate: moment(),
       endDate: moment().add(7, 'days'),
-      guests: null,
+      guests: 1,
       user: null
     };
     this.searchTerm = this.searchTerm.bind(this);
@@ -54,6 +54,7 @@ class App extends React.Component {
     this.getSimpleDate = this.getSimpleDate.bind(this);
     this.login = this.login.bind(this);
     this.handleMapDrag = this.handleMapDrag.bind(this);
+    this.sendConfirmationEmail = this.sendConfirmationEmail.bind(this);
   }
 
   getSimpleDate (dateObj) {
@@ -209,6 +210,23 @@ class App extends React.Component {
     });
   }
 
+  sendConfirmationEmail(streetAddress, city, region, postalCode, guestNumber, price) {
+    emailjs.send("gmail","confirmation",
+    {
+      guest_email: this.state.user.email,
+      guest_name: this.state.user.first_name + ' ' + this.state.user.last_name,
+      street_address: streetAddress,
+      city: city,
+      region: region,
+      postal_code: postalCode,
+      guest_number: guestNumber,
+      amount: price
+    }).then((eServiceProvRes) => {
+      console.log('email sent');
+    }).catch((eServiceProvRes) => {
+      console.log('err', eServiceProvRes);
+    });
+  }
   render() {
     const currentView = this.state.view;
     let showPage = null;
@@ -239,6 +257,7 @@ class App extends React.Component {
           user={this.state.user}
           isUserLoggedIn={this.state.user ? true : false}
           triggerView={this._triggerViewChange}
+          sendConfirmationEmail={this.sendConfirmationEmail}
         />
     } else if(currentView === 'createAccount') {
       showPage =
