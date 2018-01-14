@@ -19,6 +19,7 @@ import NavLogged from './components/NavLogged.jsx';
 import moment from 'moment';
 import FeaturedPlaces from './components/FeaturedPlaces.jsx';
 import MainPage from './components/MainPage.jsx'
+import Confirmation from './components/Confirmation.jsx'
 
 let bookingSampleData = {
   start_date: '01/01/2018',
@@ -237,6 +238,7 @@ class App extends React.Component {
           listing={this.state.listing}
           user={this.state.user}
           isUserLoggedIn={this.state.user ? true : false}
+          triggerView={this._triggerViewChange}
         />
     } else if(currentView === 'createAccount') {
       showPage =
@@ -246,9 +248,13 @@ class App extends React.Component {
         />
     } else if (currentView === 'trips') {
       showPage = <Trips user={this.state.user} />
+    } else if (currentView === 'confirmation') {
+      showPage = <Confirmation />
     } else {
       showPage = <MainPage goToLocation={this.handleSearchClick}/>
     }
+
+
     return (
       <div>
         <div>

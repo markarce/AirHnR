@@ -4,6 +4,7 @@ import Button from 'material-ui/Button';
 import StripeCheckout from 'react-stripe-checkout';
 import key from '../stripe_key';
 import Booking from './Booking';
+import Confirmation from './Confirmation.jsx'
 
 const styles = theme => ({
   input: {
@@ -52,11 +53,13 @@ class Checkout extends React.Component {
       body: JSON.stringify(data)
     };
 
+    var that = this
     fetch('/api/bookings', options)
     .then((response) => {
       if(!response.ok) return console.log('ERROR POSTING TO BOOKINGS', response);
       console.log('POST TO BOOKINGS SUCCESSFULL');
       console.log('booking', data);
+      that.props.triggerView("confirmation")
     })
     .catch((err) => {
       console.log('error: ', err);
