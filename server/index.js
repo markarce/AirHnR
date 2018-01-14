@@ -109,6 +109,20 @@ app.post('/login', (req, res) => {
   });
 });
 
+app.get('/api/autosuggest/:query', (req, res) => {
+  lib.getGoogleResults(req.params.query)
+    .then(results => {
+      res.status(200).json({
+        results: results
+      });
+    }).catch(err => {
+      console.warn(err);
+      res.status(503).end();
+    });
+});
+
+
+
 app.listen(config.serverPort, () => {
   console.log(`Server listening on port ${config.serverPort}`)
 });
