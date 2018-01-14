@@ -17,15 +17,10 @@ class Search extends React.Component {
       .then(res => res.json()).then(res => console.log(res)).catch(err => console.log(err))
 
   };
-
-
-  handleChange(e) {
-    if (e.keyCode === 13) {this.props.handleSearchClick()}
-    else{
-      this.props.searchTerm(e.target.value)
-      this.getGoogleSuggestions(e.target.value)
-    }
     
+  handleChange(event) {
+    this.props.searchTerm(event.target.value);
+    console.log(event);
   }
 
   handleSearchClick() {
@@ -34,9 +29,9 @@ class Search extends React.Component {
 
   render() {
     return (
-      <div>
-        <input className="col-lg-6 mb-3" type="text" placeholder="Anywhere..." id="place" onKeyUp={this.handleChange} />
-          <button className="btn btn-primary" value={$("#place").val()} onClick={this.handleSearchClick}>Go</button>
+      <div className='search-box'>
+        <input type="text" placeholder="     Anywhere..." id="place" onChange={this.handleChange}/>
+        {/* <button value={$("#place").val()} onClick={this.handleSearchClick}>Go</button> */}
       </div>
     );
   }

@@ -12,25 +12,26 @@ import $ from 'jquery';
 import NotLoggedIn from './NotLoggedIn';
 import Login from './Login.jsx'
 import NavLogged from './NavLogged.jsx';
+import Search from './Search.jsx';
 
-const styles = {
-  root: {
-    width: '100%',
-  },
-  flex: {
-    flex: 1,
-  },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20,
-  },
-  search: {
-    textColor: "white",
-    marginLeft: 50
-  },
-};
+// const styles = {
+//   root: {
+//     width: '100%',
+//   },
+//   flex: {
+//     flex: 1,
+//   },
+//   menuButton: {
+//     marginLeft: -12,
+//     marginRight: 20,
+//   },
+//   search: {
+//     textColor: "white",
+//     marginLeft: 50
+//   },
+// };
 
-class ButtonAppBar extends React.Component{
+class NavBar extends React.Component{
   constructor(props) {
     super(props)
     this.state = {
@@ -58,6 +59,7 @@ class ButtonAppBar extends React.Component{
     $.ajax({
       success:function(req,res){
         console.log("success",req,res)
+        this.props.triggerView('searchResults');
       },
       error: function(req, res){
         console.log("error",req,res)
@@ -71,25 +73,36 @@ class ButtonAppBar extends React.Component{
   render() {
 
   return (
-    <div>
-      <AppBar position="static">
-        <Toolbar>
-          <input type="text" style={{width: 700}}  placeholder="Anywhere..." id="place" onChange={this.handleChange}/>
-          <button value={$("#place").val()} onClick={()=>{this.handleSearchClick()}}>Go</button>
-          <Typography onClick={() => this.props.triggerView('default')} style={{color:"white", font:"Helvetica", width: "100px"}}>
-          Air HnR
-          </Typography>
-          {this.props.isUserLoggedIn ? <NavLogged triggerView={this.props.triggerView} logOut={this.props.userLogOut} user={this.props.user}/> : <NotLoggedIn login={this.props.login} triggerView={this.props.triggerView}/>}
-        </Toolbar>
-      </AppBar>
+    <div className='nav-bar-wrapper'>
+      <div className='nav-bar-logo'>
+        <img src='../assets/logo.png' />
+      </div>
+      <div className='nav-bar-search'>
+        <Search />
+      </div>
     </div>
+    // <div>
+    //   <AppBar position="static">
+    //     <Toolbar>
+    //       <input type="text" style={{width: 700}}  placeholder="Anywhere..." id="place" onChange={this.handleChange}/>
+    //       <button value={$("#place").val()} onClick={()=>{this.handleSearchClick(); this.props.triggerView('searchResults')}}>Go</button>
+    //       <Typography onClick={() => this.props.triggerView('default')} style={{color:"white", font:"Helvetica", width: "100px"}}>
+    //       Air HnR
+    //       </Typography>
+    //       {this.props.isUserLoggedIn ? <NavLogged logOut={this.props.userLogOut} user={this.props.user}/> : 
+    //       <NotLoggedIn userLoggedIn={this.props.userLoggedIn} triggerView={this.props.triggerView} login={this.props.login}/>}
+    //     </Toolbar>
+    //   </AppBar>
+    // </div>
   );
 }
 }
 
-ButtonAppBar.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
+// NavBar.propTypes = {
+//   classes: PropTypes.object.isRequired,
+// };
 
 
-export default withStyles(styles)(ButtonAppBar);
+// export default withStyles(styles)(NavBar);
+
+export default NavBar;

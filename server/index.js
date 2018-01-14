@@ -4,6 +4,7 @@ const express = require('express');
 const app = express();
 const lib = require('../lib')
 
+app.use('/assets', express.static(__dirname + '/../client/src/assets'))
 app.use(express.static(__dirname + '/../client/dist'));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
