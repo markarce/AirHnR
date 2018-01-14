@@ -19,7 +19,6 @@ app.get('/api/listings/:listingId', (req, res) => {
 
 app.get('/api/bookings/:userId', (req, res) => {
   db.getBookingsByUserId(parseInt(req.params.userId)).then(rows => {
-    console.log('booking', rows);
     res.status(200).json(rows);
   }).catch(err => {
     console.log(err);
@@ -31,7 +30,6 @@ app.get('/api/listings',function(req, res) {
   //return all listings near the searched area
   lib.getPlaceCoordinates(req.query.q, googleResults => {
     db.getListingsNear(googleResults.lat, googleResults.lon, req.query.start, req.query.end)
-    // db.getListingsNear(googleResults.lat, googleResults.lon, '2018-02-20', '2018-02-28')//req.query.start, req.query.end)
     .then(dbResults => {
         res.status(200).json({
           listings: dbResults,
@@ -53,7 +51,7 @@ app.post('/api/markings', function (req, res) {
   let limit = -(38 * req.body.zoom) + 513;
   limit = limit < 25 ? 25 : limit;
   radius = radius < 2000 ? 2000 : radius;
-  db.getListingsNear(req.body.latitude, req.body.longitude, '2018-02-20', '2018-02-28', radius, limit)//req.query.start, req.query.end)
+  db.getListingsNear(req.body.latitude, req.body.longitude, req.query.start, req.query.end, radius, limit)//req.query.start, req.query.end)
     .then(dbResults => {
       res.status(200).json({
         listings: dbResults
