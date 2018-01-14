@@ -1,14 +1,13 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import $ from 'jquery';
+// import $ from 'jquery';
 
 
 class Search extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSearchClick = this.handleSearchClick.bind(this);
+    this.state = {
+      query: ''
+    };
     this.getGoogleSuggestions = this.getGoogleSuggestions.bind(this);
   }
 
@@ -17,20 +16,24 @@ class Search extends React.Component {
       .then(res => res.json()).then(res => console.log(res)).catch(err => console.log(err))
 
   };
-    
-  handleChange(event) {
-    this.props.searchTerm(event.target.value);
-    console.log(event);
+
+  updateQuery(e) {
+    this.setState({
+      query: e.target.value
+    })
   }
 
-  handleSearchClick() {
-    this.props.handleSearchClick();
+  handleSearch (e) {
+    if (e.key === 'Enter') {
+      this.props.handleSearchClick(this.state.query);
+      e.target.value = '';
+    }
   }
 
   render() {
     return (
       <div className='search-box'>
-        <input type="text" placeholder="     Anywhere..." id="place" onChange={this.handleChange}/>
+        <input onChange={e => this.updateQuery(e)} onKeyPress={e => this.handleSearch(e)} type="text" placeholder="     Anywhere..." id="place" />
         {/* <button value={$("#place").val()} onClick={this.handleSearchClick}>Go</button> */}
       </div>
     );

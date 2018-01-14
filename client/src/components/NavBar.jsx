@@ -38,37 +38,37 @@ class NavBar extends React.Component{
       searchValue: null,
       showModal: false
     }
-    this.handleSearchClick = this.handleSearchClick.bind(this)
-    this.handleChange = this.handleChange.bind(this)
-  // const { classes } = props;
+    // this.handleSearchClick = this.handleSearchClick.bind(this)
+    // this.handleChange = this.handleChange.bind(this)
+   // const { classes } = props;
   }
 
-  handleChange(event) {
-    console.log(event.target.value)
-    var data = event.target.value;
-    this.setState({
-      searchValue: data
-    })
-    console.log("state",this.state.searchValue)
-  }
+  // handleChange(event){
+  //   console.log(event.target.value)
+  //   var data = event.target.value;
+  //   this.setState({
+  //     searchValue: data
+  //   })
+  //   console.log("state",this.state.searchValue)
+  // }
 
-  handleSearchClick() {
-    var entry = this.state.searchValue;
+  // handleSearchClick(){
+  //   var entry = this.state.searchValue;
 
-    console.log("entry",entry)
-    $.ajax({
-      success:function(req,res){
-        console.log("success",req,res)
-        this.props.triggerView('searchResults');
-      },
-      error: function(req, res){
-        console.log("error",req,res)
-      },
-      contentType: "application/json",
-      type: 'GET',
-      url: `/api/listings?q=${entry}`
-    })
-  }
+  //   console.log("entry",entry)
+  //   $.ajax({
+  //     success:function(req,res){
+  //       console.log("success",req,res)
+  //       this.props.triggerView('searchResults');
+  //     },
+  //     error: function(req, res){
+  //       console.log("error",req,res)
+  //     },
+  //     contentType: "application/json",
+  //     type: 'GET',
+  //     url: `/api/listings?q=${entry}`
+  //   })
+  // }
 
   render() {
 
@@ -78,7 +78,11 @@ class NavBar extends React.Component{
         <img src='../assets/logo.png' />
       </div>
       <div className='nav-bar-search'>
-        <Search />
+        <Search handleSearchClick={this.props.handleSearchClick}/>
+      </div>
+      <div className='nav-bar-login'>
+        {this.props.isUserLoggedIn ? <NavLogged logOut={this.props.userLogOut} user={this.props.user}/> : 
+        <NotLoggedIn userLoggedIn={this.props.userLoggedIn} triggerView={this.props.triggerView} login={this.props.login}/>}
       </div>
     </div>
     // <div>

@@ -44,8 +44,8 @@ class App extends React.Component {
       endDate: moment().add(7, 'days'),
       guests: 1,
       user: null
-    };
-    this.searchTerm = this.searchTerm.bind(this);
+    }
+    // this.searchTerm = this.searchTerm.bind(this);
     this.handleSearchClick = this.handleSearchClick.bind(this);
     this.handleListingClick = this.handleListingClick.bind(this);
     this._triggerViewChange = this._triggerViewChange.bind(this);
@@ -54,10 +54,6 @@ class App extends React.Component {
     this.login = this.login.bind(this);
     this.handleMapDrag = this.handleMapDrag.bind(this);
     this.sendConfirmationEmail = this.sendConfirmationEmail.bind(this);
-  };
-
-  searchTerm(term) {
-    this.setState({ query: term });
   };
 
   updateGuests (guests) {
@@ -84,11 +80,20 @@ class App extends React.Component {
     }).catch(err => console.log(err));
   };
 
-  handleSearchClick(q) {
+  handleSearchClick(query) {
     //called from search bar, submits a search request for locations near searched area
+
     let startDate = this.state.startDate.format('YYYY-MM-DD');
     let endDate = this.state.endDate.format('YYYY-MM-DD');
-    fetch(`/api/listings?q=${q || this.state.query}&start=${startDate}&end=${endDate}`)
+
+    const options = {
+      method: 'GET',
+      contentType: "application/json",
+      mode: 'cors',
+      cache: 'default'
+    }
+
+    fetch(`/api/listings?q=${query}&start=${startDate}&end=${endDate}`, options)
       .then((response) => response.json())
       .then((json) => {
         this.setState({
@@ -242,13 +247,9 @@ class App extends React.Component {
             userLogOut={this.userLogOut}
             user={this.state.user}
             login={this.login}
-          />
-        </div>
-          <Search
-            searchTerm={this.searchTerm}
             handleSearchClick={this.handleSearchClick}
           />
-        <br />
+        </div>
         <div>
           <DateRangePicker
             startDate={this.state.startDate} // momentPropTypes.momentObj or null,

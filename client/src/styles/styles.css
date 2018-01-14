@@ -17,6 +17,7 @@
 }
 
 .nav-bar-search {
+  margin-left: 10px;
   grid-column-start: 2;
   grid-column-end: 3;
   grid-row-start: 1;
@@ -24,9 +25,17 @@
   justify-self: start;
 }
 
+.nav-bar-login {
+  grid-column-start: 3;
+  grid-column-end: 4;
+  grid-row-start: 1;
+  align-self: center;
+  justify-self: end;
+}
+
 #place {
-  height: 45px;
-  width: 420px;
+  height: 50px;
+  width: 500px;
   border-radius: 4px;
   box-shadow: 0px 2px 5px lightgrey;
   border: 1px solid #DBDBDB;
