@@ -18,7 +18,6 @@ import Trips from './components/Trips.jsx'
 import NavLogged from './components/NavLogged.jsx';
 import moment from 'moment';
 import FeaturedPlaces from './components/FeaturedPlaces.jsx';
-import moment from 'moment';
 
 let bookingSampleData = {
   start_date: '01/01/2018',
@@ -52,9 +51,6 @@ class App extends React.Component {
     this.userLogOut = this.userLogOut.bind(this);
     this.getSimpleDate = this.getSimpleDate.bind(this);
     this.login = this.login.bind(this);
-    this.getSimpleDate = this.getSimpleDate.bind(this);
-    this.login = this.login.bind(this);
-    this.getSimpleDate = this.getSimpleDate.bind(this);
   }
 
   getSimpleDate (dateObj) {
@@ -121,6 +117,7 @@ class App extends React.Component {
       mode: 'cors',
       cache: 'default'
     }
+
     var startDate = null;
     var endDate = null;
     if (this.state.startDate) {
@@ -131,8 +128,7 @@ class App extends React.Component {
     }
     console.log('startDate', startDate);
     console.log('endDate', endDate);
-      //&start=${startDate}&end=${endDate}
-    fetch(`/api/listings?q=${q || this.state.query}`, options)
+    fetch(`/api/listings?q=${q || this.state.query}&start=${startDate}&end=${endDate}`, options)
       .then((response) => response.json())
       .then((json) => {
         console.log('here', json)
