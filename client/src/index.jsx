@@ -55,6 +55,8 @@ class App extends React.Component {
     this.handleMapDrag = this.handleMapDrag.bind(this);
     this.handleDateClick = this.handleDateClick.bind(this);
     this.sendConfirmationEmail = this.sendConfirmationEmail.bind(this);
+    this.updateDates = this.updateDates.bind(this);
+    this.updateFocusedInput = this.updateFocusedInput.bind(this);
   };
 
   updateGuests (guests) {
@@ -102,22 +104,26 @@ class App extends React.Component {
       }).catch(err => console.log(err));
   };
 
-  handleDateClick(dates) {
-    console.log(arguments)
+  updateDates({ startDate, endDate }) {
+    this.setState({ startDate, endDate });
+  };
+  updateFocusedInput(focusedInput) {
+    this.setState({ focusedInput })
+  };
+
+  handleDateClick({startDate, endDate}) {
     if (this.state.view === 'searchResults') {
       let startDate = this.state.startDate.format('YYYY-MM-DD');
       let endDate = this.state.endDate.format('YYYY-MM-DD');
       fetch(`/api/datesonly?lat=${this.state.mapCenter.latitude}&lon=${this.state.mapCenter.longitude}&start=${startDate}&end=${endDate}`)
       .then((response) => response.json())
       .then((json) => {
-        console.log(json)
         this.setState({
           results: json.listings
-          // view: 'searchResults'
         });
       }).catch(err => console.log(err));
     }
-    else {
+    else if (this.state.view === 'listingDetails'){
       console.log('CHANGE NOTHING')
     }
   };
@@ -226,6 +232,10 @@ class App extends React.Component {
         <ListingDetails
           updateGuests={this.updateGuests.bind(this)}
           handleBookingClick={this.handleBookingClick.bind(this)}
+          focusedInput={this.state.focusedInput}
+          updateFocusedInput={this.updateFocusedInput}
+          updateDates={this.updateDates}
+          handleDateClick={this.handleDateClick}
           booking={bookingSampleData}
           listing={this.state.listing}
           startDate={this.state.startDate}
@@ -279,9 +289,9 @@ class App extends React.Component {
             startDateId={'1'}
             endDate={this.state.endDate} // momentPropTypes.momentObj or null,
             endDateId={'2'}
-            onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })} // PropTypes.func.isRequired,
+            onDatesChange={this.updateDates} // PropTypes.func.isRequired,
             focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
-            onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired,
+            onFocusChange={this.updateFocusedInput} // PropTypes.func.isRequired,
             onClose={this.handleDateClick}
           />
         </div>

@@ -315,6 +315,12 @@ p {
   font-family: 'Crimson Text', serif;
 }
 
+.booking-cleaning-fee {
+  grid-column-start: mid;
+  grid-row-start: 6;
+  border-bottom: 1px solid #DBDBDB
+}
+
 .icon-arrow-forward {
   margin-left: 10px;
   margin-right: 10px;
@@ -347,13 +353,13 @@ p {
 
 .booking-tax {
   grid-column-start: mid;
-  grid-row-start: 6;
+  grid-row-start: 7;
   border-bottom: 1px solid #DBDBDB
 }
 
 .booking-total {
   grid-column-start: mid;
-  grid-row-start: 7;
+  grid-row-start: 8;
   border-bottom: 1px solid #DBDBDB;
 }
 
@@ -367,7 +373,7 @@ p {
 
 .booking-button {
   grid-column-start: mid;
-  grid-row-start: 8;
+  grid-row-start: 9;
   border-bottom: 1px solid #DBDBDB;
   justify-self: center;
 }

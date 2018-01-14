@@ -192,8 +192,18 @@ class ListingDetails extends React.Component {
     return (
       <div className='listing-wrapper'>
         <div className='listing-booking'>
-          <Booking updateGuests={this.props.updateGuests} handleBookingClick={this.props.handleBookingClick} 
-          booking={this.props.booking} listing={this.props.listing} button={true} 
+          <Booking 
+          updateGuests={this.props.updateGuests} 
+          updateDates={this.props.updateDates} 
+          focusedInput={this.props.focusedInput} 
+          updateFocusedInput={this.props.updateFocusedInput} 
+          handleDateClick={this.props.handleDateClick} 
+          endDate={this.props.endDate} 
+          startDate={this.props.startDate} 
+          handleBookingClick={this.props.handleBookingClick} 
+          booking={this.props.booking} 
+          listing={this.props.listing} 
+          button={true} 
           login={this.props.login}
           isUserLoggedIn={this.props.isUserLoggedIn}/>
         </div>
