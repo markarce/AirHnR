@@ -247,7 +247,7 @@ class App extends React.Component {
     } else if (currentView === 'trips') {
       showPage = <Trips user={this.state.user} />
     } else {
-      showPage = <MainPage />
+      showPage = <MainPage goToLocation={this.handleSearchClick}/>
     }
     return (
       <div>
@@ -280,7 +280,6 @@ class App extends React.Component {
         <div>
           {showPage}
         </div>
-        <FeaturedPlaces goToLocation={this.handleSearchClick}/>
       </div>
     );
   };

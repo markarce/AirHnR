@@ -1,8 +1,8 @@
 import React from 'react';
 import Search from './Search.jsx';
-// import FeaturedPlaces from './FeaturedPlaces.jsx'
+import FeaturedPlaces from './FeaturedPlaces.jsx'
 
-class Something extends React.Component {
+class MainPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -14,10 +14,10 @@ class Something extends React.Component {
         <span>Airhnr</span>
         <div>Book unique homes and experiences all over the world.</div>
         <Search />
-        <FeaturedPlaces />
+        <FeaturedPlaces goToLocation={this.props.goToLocation} />
       </div>
     );
   };
 };
 
-export default Something;
+export default MainPage;
