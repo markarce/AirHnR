@@ -167,6 +167,7 @@ class App extends React.Component {
           updateGuests={this.updateGuests.bind(this)}
           booking={bookingSampleData}
           listing={this.state.listing}
+          user={this.state.user}
         />
     } else if(currentView === 'createAccount') {
       showPage =

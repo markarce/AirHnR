@@ -10,11 +10,11 @@ class Trip extends React.Component {
   renderRating () {
     return (
       <div>
-      <i class="material-icons"><StarBorder /></i>
-      <i class="material-icons"><StarBorder /></i>
-      <i class="material-icons"><StarBorder /></i>
-      <i class="material-icons"><StarBorder /></i>
-      <i class="material-icons"><StarBorder /></i>
+        <StarBorder />
+        <StarBorder />
+        <StarBorder />
+        <StarBorder />
+        <StarBorder />
       </div>
     )
   }
