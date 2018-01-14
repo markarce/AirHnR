@@ -40,7 +40,7 @@ class NavLoggedIn extends Component {
         <List>{this.props.user.first_name + ' ' + this.props.user.last_name}</List>
         <List>{this.props.user.email}</List>
         <Divider />
-        <Button style={styles.links}>My Trips</Button>
+        <Button onClick={() => this.props.triggerView('trips')} style={styles.links}>My Trips</Button>
         <Divider />
         <Button style={styles.links}>Settings</Button>
         <Divider />

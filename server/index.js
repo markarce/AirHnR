@@ -10,8 +10,18 @@ app.use(express.json());
 
 app.get('/api/listings/:listingId', (req, res) => {
   db.getListingInfo(parseInt(req.params.listingId)).then(row => {
-    // console.log(row);
+    console.log(row);
     res.status(200).json(row);
+  }).catch(err => {
+    console.log(err);
+    res.status(503).end();
+  });
+});
+
+app.get('/api/bookings/:userId', (req, res) => {
+  db.getBookingsByUserId(parseInt(req.params.userId)).then(rows => {
+    console.log('booking', rows);
+    res.status(200).json(rows);
   }).catch(err => {
     console.log(err);
     res.status(503).end();
@@ -38,14 +48,11 @@ app.get('/api/listings',function(req, res) {
 });
 
 app.post('/api/bookings', (req, res) => {
-  console.log('req', req.body);
-  console.log('typeof', typeof req.body);
   db.saveBookingInDB(req.body).then(response => {
-    // console.log('res', response);
     res.send('Booking successful');
   }).catch( err => {
     console.log('error from api bookings post', err)
-    // res.send('Booking failed')
+    res.send('Booking failed');
   });
 });
 
