@@ -83,7 +83,7 @@ class Login extends React.Component {
     const { classes } = this.props;
     return (
       <div>
-        <Button onClick={this.handleOpen}>Log In</Button>
+        <button className={this.props.classToButton} onClick={this.handleOpen}>{this.props.buttonTitle}</button>
         <Modal
           aria-labelledby="simple-modal-title"
           aria-describedby="simple-modal-description"

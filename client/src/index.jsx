@@ -225,6 +225,8 @@ class App extends React.Component {
           updateGuests={this.updateGuests.bind(this)}
           handleBookingClick={this.handleBookingClick.bind(this)}
           booking={bookingSampleData} listing={this.state.listing}
+          login={this.login}
+          isUserLoggedIn={this.state.user ? true : false}
         />;
     } else if (currentView === 'checkout') {
       showPage =
@@ -234,6 +236,7 @@ class App extends React.Component {
           booking={bookingSampleData}
           listing={this.state.listing}
           user={this.state.user}
+          isUserLoggedIn={this.state.user ? true : false}
         />
     } else if(currentView === 'createAccount') {
       showPage =
@@ -251,7 +254,6 @@ class App extends React.Component {
         <div>
           <NavBar 
             triggerView={this._triggerViewChange}
-            userLoggedIn={this.userLoggedIn} 
             isUserLoggedIn={this.state.user ? true : false}
             userLogOut={this.userLogOut}
             user={this.state.user}
