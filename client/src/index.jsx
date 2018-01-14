@@ -16,6 +16,8 @@ import Login from './components/Login.jsx';
 import CreateAccount from './components/CreateAccount.jsx';
 import Trips from './components/Trips.jsx'
 import NavLogged from './components/NavLogged.jsx';
+import FeaturedPlaces from './components/FeaturedPlaces.jsx';
+
 let bookingSampleData = {
   start_date: '01/01/2018',
   end_date: '04/01/2018',
@@ -77,7 +79,7 @@ class App extends React.Component {
     }).catch(err => console.log(err));
   };
 
-  handleSearchClick() {
+  handleSearchClick(q) {
     //called from search bar, submits a search request for locations near searched area
     const options = {
       method: 'GET',
@@ -85,7 +87,7 @@ class App extends React.Component {
       mode: 'cors',
       cache: 'default'
     }
-    fetch(`/api/listings?q=${this.state.query}`, options)
+    fetch(`/api/listings?q=${q || this.state.query}`, options)
       .then((response) => response.json())
       .then((json) => {
         console.log('here', json)
@@ -209,6 +211,7 @@ class App extends React.Component {
         <div>
           {showPage}
         </div>
+        <FeaturedPlaces goToLocation={this.handleSearchClick}/>
       </div>
     );
   }
