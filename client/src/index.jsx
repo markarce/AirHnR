@@ -141,7 +141,7 @@ class App extends React.Component {
       }).catch(err => console.log(err));
   };
   
-  handleMapDrag(latitude, longitude) {
+  handleMapDrag(latitude, longitude, zoom) {
     fetch(`/api/markings`, {
       headers: new Headers({
         "Content-Type": "application/json"
@@ -149,7 +149,8 @@ class App extends React.Component {
       method: 'POST',
       body: JSON.stringify({
         latitude: latitude,
-        longitude: longitude
+        longitude: longitude,
+        zoom: zoom
       })
     }).then(response => response.json())
       .then(json => {

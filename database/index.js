@@ -5,7 +5,7 @@ const knex = require('knex')({
 });
 const bookshelf = require('bookshelf')(knex);
 
-const getListingsNear = (lat, long, startDate, endDate, radius = 3000, limit = 25) => {
+const getListingsNear = (lat, long, startDate, endDate, radius = 4000, limit = 25) => {
   //lat, long of center of map, and distance radius in meters
   //returns a promise of data
   let query = `
@@ -27,7 +27,7 @@ const getListingsNear = (lat, long, startDate, endDate, radius = 3000, limit = 2
   return bookshelf.knex.raw(query).then(res => res.rows);
 };
 
-const getLocationsNear = (lat, long, radius = 3000) => {
+const getLocationsNear = (lat, long, radius = 4000) => {
   //lat, long of center of map, and distance radius in meters
   //returns a promise of data
   let query = `SELECT * FROM locations WHERE ST_Distance(ST_SetSRID(ST_MakePoint(${long}, ${lat})::geography, 4326), ST_SetSRID(ST_MakePoint(longitude, latitude), 4326)::geography) <= ${radius}`;

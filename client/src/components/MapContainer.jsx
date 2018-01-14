@@ -17,10 +17,19 @@ export class MapContainer extends Component {
       locationSelectedOnMap: {}
     }
     this.centerMoved = this.centerMoved.bind(this);
+    this.setZoomHandler = this.setZoomHandler.bind(this);
   };
 
   centerMoved(mapProps, map) {
-    this.props.handleMapDrag(map.center.lat(), map.center.lng())
+    this.props.handleMapDrag(map.center.lat(), map.center.lng(), map.zoom)
+  };
+
+  setZoomHandler(mapProps, map) {
+    console.log(mapProps, map)
+    console.log('here',this.props.google)
+    this.props.google.maps.event.addListener(map, 'zoom_changed', () => {
+      this.centerMoved(mapProps, map);
+    });
   };
 
   onMarkerClick(props, marker, e) {
@@ -54,10 +63,11 @@ export class MapContainer extends Component {
     });
     return (
       <Map google={this.props.google} 
-        zoom={12} 
+        zoom={13} 
         style={style} 
         onDragend={this.centerMoved}
         onClick={() => this.setState({showInfo: false})}
+        onReady={this.setZoomHandler}
         initialCenter={{
           lat: this.props.searchedLocation.latitude,
           lng: this.props.searchedLocation.longitude

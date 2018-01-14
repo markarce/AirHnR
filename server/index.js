@@ -10,7 +10,6 @@ app.use(express.json());
 
 app.get('/api/listings/:listingId', (req, res) => {
   db.getListingInfo(parseInt(req.params.listingId)).then(row => {
-    console.log(row);
     res.status(200).json(row);
   }).catch(err => {
     console.log(err);
@@ -33,12 +32,15 @@ app.get('/api/listings',function(req, res) {
   lib.getPlaceCoordinates(req.query.q, googleResults => {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     db.getListingsNear(googleResults.lat, googleResults.lon, req.query.start, req.query.end)
 =======
     db.getListingsNear(googleResults.lat, googleResults.lon, req.query.start, req.query.end, 3000)
 >>>>>>> on listing query, db now filters for date availability
 =======
     console.log(googleResults)
+=======
+>>>>>>> made map update and scale params on zoom change
     db.getListingsNear(googleResults.lat, googleResults.lon, '2018-02-20', '2018-02-28')//req.query.start, req.query.end)
 >>>>>>> fixed big Q
     .then(dbResults => {
@@ -58,7 +60,11 @@ app.get('/api/listings',function(req, res) {
 
 app.post('/api/markings', function (req, res) {
   //return all listings near the searched area
-  db.getListingsNear(req.body.latitude, req.body.longitude, '2018-02-20', '2018-02-28')//req.query.start, req.query.end)
+  let radius = -(2000 * req.body.zoom) + 30000;
+  let limit = -(38 * req.body.zoom) + 513;
+  limit = limit < 25 ? 25 : limit;
+  radius = radius < 2000 ? 2000 : radius;
+  db.getListingsNear(req.body.latitude, req.body.longitude, '2018-02-20', '2018-02-28', radius, limit)//req.query.start, req.query.end)
     .then(dbResults => {
       res.status(200).json({
         listings: dbResults
