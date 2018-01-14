@@ -30,19 +30,8 @@ app.get('/api/bookings/:userId', (req, res) => {
 app.get('/api/listings',function(req, res) {
   //return all listings near the searched area
   lib.getPlaceCoordinates(req.query.q, googleResults => {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
     db.getListingsNear(googleResults.lat, googleResults.lon, req.query.start, req.query.end)
-=======
-    db.getListingsNear(googleResults.lat, googleResults.lon, req.query.start, req.query.end, 3000)
->>>>>>> on listing query, db now filters for date availability
-=======
-    console.log(googleResults)
-=======
->>>>>>> made map update and scale params on zoom change
-    db.getListingsNear(googleResults.lat, googleResults.lon, '2018-02-20', '2018-02-28')//req.query.start, req.query.end)
->>>>>>> fixed big Q
+    // db.getListingsNear(googleResults.lat, googleResults.lon, '2018-02-20', '2018-02-28')//req.query.start, req.query.end)
     .then(dbResults => {
         res.status(200).json({
           listings: dbResults,

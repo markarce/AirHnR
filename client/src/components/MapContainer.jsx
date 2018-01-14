@@ -25,8 +25,6 @@ export class MapContainer extends Component {
   };
 
   setZoomHandler(mapProps, map) {
-    console.log(mapProps, map)
-    console.log('here',this.props.google)
     this.props.google.maps.event.addListener(map, 'zoom_changed', () => {
       this.centerMoved(mapProps, map);
     });

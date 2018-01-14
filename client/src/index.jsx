@@ -128,12 +128,9 @@ class App extends React.Component {
     if (this.state.endDate) {
       endDate = this.getSimpleDate(this.state.endDate._d);
     }
-    console.log('startDate', startDate);
-    console.log('endDate', endDate);
     fetch(`/api/listings?q=${q || this.state.query}&start=${startDate}&end=${endDate}`, options)
       .then((response) => response.json())
       .then((json) => {
-        console.log('here', json)
         this.setState({
           results: json.listings,
           mapCenter: json.mapCenter,
@@ -175,7 +172,6 @@ class App extends React.Component {
     this.setState({
       user: userData
     });
-    // console.log('user', userData);
   }
   userLogOut() {
     this.setState({
