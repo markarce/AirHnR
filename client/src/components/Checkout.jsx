@@ -53,13 +53,16 @@ class Checkout extends React.Component {
       body: JSON.stringify(data)
     };
 
-    var that = this
     fetch('/api/bookings', options)
     .then((response) => {
       if(!response.ok) return console.log('ERROR POSTING TO BOOKINGS', response);
       console.log('POST TO BOOKINGS SUCCESSFULL');
       console.log('booking', data);
-      that.props.triggerView("confirmation")
+      this.props.triggerView("confirmation");
+      let l = this.props.listing;
+      this.props.sendConfirmationEmail(l.address_street, 
+        l.address_city, l.address_region, l.address_postal_code, this.props.guests,
+        Math.round(1.085 * this.props.listing.price * this.props.booking.nights + this.props.listing.fee_service))
     })
     .catch((err) => {
       console.log('error: ', err);
@@ -115,7 +118,7 @@ class Checkout extends React.Component {
           </div>
         </div>
         <div className="overview">
-              <Booking updateGuests={this.props.updateGuests} listing={this.props.listing} booking={this.props.booking} button={false}/>
+              <Booking guests={this.props.guests} updateGuests={this.props.updateGuests} listing={this.props.listing} booking={this.props.booking} button={false}/>
           </div>
       </div>
     );
