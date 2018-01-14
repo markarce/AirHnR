@@ -51,39 +51,10 @@ class App extends React.Component {
     this._triggerViewChange = this._triggerViewChange.bind(this);
     this.userLoggedIn = this.userLoggedIn.bind(this);
     this.userLogOut = this.userLogOut.bind(this);
-    this.getSimpleDate = this.getSimpleDate.bind(this);
     this.login = this.login.bind(this);
     this.handleMapDrag = this.handleMapDrag.bind(this);
     this.sendConfirmationEmail = this.sendConfirmationEmail.bind(this);
-  }
-
-  getSimpleDate (dateObj) {
-    const date = new Date(dateObj);
-    const year = date.getFullYear();
-    var month = date.getMonth() + 1;
-    var day = date.getDate();
-    if (month < 10) {
-      month = '0' + month;
-    }
-    if (day < 10) {
-      day = '0' + date;
-    }
-    return `${year.toString()}-${month.toString()}-${day.toString()}`
-  }
-
-  getSimpleDate (dateObj) {
-    const date = new Date(dateObj);
-    const year = date.getFullYear();
-    var month = date.getMonth() + 1;
-    var day = date.getDate();
-    if (month < 10) {
-      month = '0' + month;
-    }
-    if (day < 10) {
-      day = '0' + date;
-    }
-    return `${year.toString()}-${month.toString()}-${day.toString()}`
-  }
+  };
 
   searchTerm(term) {
     this.setState({ query: term });
@@ -115,21 +86,9 @@ class App extends React.Component {
 
   handleSearchClick(q) {
     //called from search bar, submits a search request for locations near searched area
-    const options = {
-      method: 'GET',
-      contentType: "application/json",
-      mode: 'cors',
-      cache: 'default'
-    }
-    var startDate = null;
-    var endDate = null;
-    if (this.state.startDate) {
-      startDate = this.getSimpleDate(this.state.startDate._d);
-    }
-    if (this.state.endDate) {
-      endDate = this.getSimpleDate(this.state.endDate._d);
-    }
-    fetch(`/api/listings?q=${q || this.state.query}&start=${startDate}&end=${endDate}`, options)
+    let startDate = this.state.startDate.format('YYYY-MM-DD');
+    let endDate = this.state.endDate.format('YYYY-MM-DD');
+    fetch(`/api/listings?q=${q || this.state.query}&start=${startDate}&end=${endDate}`)
       .then((response) => response.json())
       .then((json) => {
         this.setState({
@@ -147,8 +106,8 @@ class App extends React.Component {
       }),
       method: 'POST',
       body: JSON.stringify({
-        start: '2018-01-14',
-        end: '2018-01-18',
+        start: this.state.startDate.format('YYYY-MM-DD'),
+        end: this.state.endDate.format('YYYY-MM-DD'),
         latitude: latitude,
         longitude: longitude,
         zoom: zoom
@@ -175,12 +134,13 @@ class App extends React.Component {
     this.setState({
       user: userData
     });
-  }
+  };
+
   userLogOut() {
     this.setState({
       user: null
     });
-  }
+  };
 
   login(email, password, cb) {
     const options = { method: 'POST',
@@ -192,7 +152,6 @@ class App extends React.Component {
       cache: 'default',
       body: JSON.stringify({user_email: email, user_password: password})
     };
-
     fetch('/login', options)
     .then((response) => {
       if(!response.ok) return console.log('ERROR IN LOGIN', response);
@@ -208,7 +167,7 @@ class App extends React.Component {
     .catch((err) => {
       console.log('error: ', err);
     });
-  }
+  };
 
   sendConfirmationEmail(streetAddress, city, region, postalCode, guestNumber, price) {
     emailjs.send("gmail","confirmation",
@@ -293,7 +252,9 @@ class App extends React.Component {
         <div>
           <DateRangePicker
             startDate={this.state.startDate} // momentPropTypes.momentObj or null,
+            startDateId={'1'}
             endDate={this.state.endDate} // momentPropTypes.momentObj or null,
+            endDateId={'2'}
             onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })} // PropTypes.func.isRequired,
             focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
             onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired,

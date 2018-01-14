@@ -51,7 +51,7 @@ app.post('/api/markings', function (req, res) {
   let limit = -(38 * req.body.zoom) + 513;
   limit = limit < 25 ? 25 : limit;
   radius = radius < 2000 ? 2000 : radius;
-  db.getListingsNear(req.body.latitude, req.body.longitude, req.body.start, req.body.end, radius, limit)//req.query.start, req.query.end)
+  db.getListingsNear(req.body.latitude, req.body.longitude, req.body.start, req.body.end, radius, limit)
     .then(dbResults => {
       res.status(200).json({
         listings: dbResults
@@ -108,6 +108,20 @@ app.post('/login', (req, res) => {
     res.json(results);
   });
 });
+
+app.get('/api/autosuggest/:query', (req, res) => {
+  lib.getGoogleResults(req.params.query)
+    .then(results => {
+      res.status(200).json({
+        results: results
+      });
+    }).catch(err => {
+      console.warn(err);
+      res.status(503).end();
+    });
+});
+
+
 
 app.listen(config.serverPort, () => {
   console.log(`Server listening on port ${config.serverPort}`)
