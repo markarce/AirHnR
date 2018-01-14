@@ -18,6 +18,7 @@ import Trips from './components/Trips.jsx'
 import NavLogged from './components/NavLogged.jsx';
 import moment from 'moment';
 import FeaturedPlaces from './components/FeaturedPlaces.jsx';
+import MainPage from './components/MainPage.jsx'
 
 let bookingSampleData = {
   start_date: '01/01/2018',
@@ -244,9 +245,16 @@ class App extends React.Component {
           login={this.login}
         />
     } else if (currentView === 'trips') {
+<<<<<<< HEAD
       showPage = <Trips user={this.state.user} />
     } 
 
+=======
+      showPage = <Trips />
+    } else {
+      showPage = <MainPage />
+    }
+>>>>>>> started work on main page
     return (
       <div>
         <div>
