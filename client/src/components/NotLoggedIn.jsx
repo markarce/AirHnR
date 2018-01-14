@@ -7,8 +7,8 @@ let NotLoggedIn = (props) => {
   }
   return (
     <div style={styles}>
-      <Login login={props.login} buttonTitle="Log In"/>
-      <Button color="contrast" onClick={() => props.triggerView('createAccount')}>Create Account</Button>
+      <Login login={props.login} buttonTitle='Log In'/>
+      <Button color="contrast" onClick={() => props.triggerView('createAccount')}>Sign Up</Button>
     </div>
   )
 }
