@@ -60,51 +60,25 @@ class Login extends React.Component {
     };
     this.handleOpen = this.handleOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
-    this.login = this.login.bind(this);
+    this.handleLogin = this.handleLogin.bind(this);
   }
 
   handleOpen() {
     this.setState({ open: true });
-    console.log('open?');
   };
 
   handleClose() {
     this.setState({ open: false });
   };
 
-  login(email, password) {
-    const options = { method: 'POST',
-      headers: {      
-        'X-Requested-With': 'XMLHttpRequest',
-        'Content-Type': 'application/json'
-      },
-      mode: 'cors',
-      cache: 'default',
-      body: JSON.stringify({user_email: email, user_password: password})
-    };
-
-    fetch('/login', options)
-    .then((response) => {
-      if(!response.ok) return console.log('ERROR IN LOGIN', response);
-      return response.json();
-    }).then((resObject) => {
-      if(resObject.error) {
-        this.setState({
-          errorMessage: resObject.error
-        });
-      } else {
-        this.setState({
-          open: false,
-          errorMessage: ''
-        });
-        this.props.userLoggedIn(resObject);
-      }
-    })
-    .catch((err) => {
-      console.log('error: ', err);
+  handleLogin(email, password) {
+    this.props.login(email, password, (errMessage, shouldOpen) => {
+      this.setState({
+        errorMessage: errMessage,
+        open: shouldOpen
+      });
     });
   }
-
   render() {
     const { classes } = this.props;
     return (
@@ -157,7 +131,7 @@ class Login extends React.Component {
                 />
               </div>
             </form>
-            <Button style={buttonStyle} color='accent' onClick={() => this.login(this.state.email, this.state.password)}>Log in</Button>
+            <Button style={buttonStyle} color='accent' onClick={() => this.handleLogin(this.state.email, this.state.password)}>Log in</Button>
             {this.state.errorMessage ? <div> {this.state.errorMessage} </div> : null}
             <a>Forgot password?</a>
             <Divider />
