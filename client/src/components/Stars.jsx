@@ -9,6 +9,9 @@ const styles = {};
 
 const Stars = (props) => {
   //converts rating to a string of stars
+  if (props.rating === null) {
+    return (<i className="material-icons gold700" >fiber_new</i>)
+  }
   let custom = props.styles || {};
   _.extend(styles, custom);
   let offset = parseFloat(props.offset) || 0;
@@ -26,9 +29,9 @@ const Stars = (props) => {
 
   return (
     <span>
-      {Array(full).fill(null).map((i, j) => <Star key={'f'+i}/>)}
-      {Array(half).fill(null).map((i, j) => <StarHalf key={'h'+i}/>)}
-      {Array(empty).fill(null).map((i, j) => <StarBorder key={'e'+i}/>)}
+      {Array(full).fill(null).map((i, j) => <i className="material-icons cyan10" key={'f' + j}>star</i>)}
+      {Array(half).fill(null).map((i, j) => <i className="material-icons cyan10" key={'f' + j}>star_half</i>)}
+      {Array(empty).fill(null).map((i, j) => <i className="material-icons cyan10" key={'f' + j}>star_border</i>)}
     </span>
   );
 };

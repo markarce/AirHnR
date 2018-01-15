@@ -25,9 +25,18 @@
   justify-self: start;
 }
 
-.nav-bar-login {
+.nav-bar-dates {
+  margin-left: 10px;
   grid-column-start: 3;
   grid-column-end: 4;
+  grid-row-start: 1;
+  align-self: center;
+  justify-self: start;
+}
+
+.nav-bar-login {
+  grid-column-start: 5;
+  grid-column-end: 6;
   grid-row-start: 1;
   align-self: center;
   justify-self: end;
@@ -304,7 +313,8 @@ p {
 }
 
 .booking-dates {
-  margin-top: 10px;
+  /* margin-top: 10px; */
+  margin: auto;
   grid-column-start: mid;
   grid-row-start: 2;
 }
@@ -313,6 +323,12 @@ p {
   font-size: 18px;
   color: #484848;
   font-family: 'Crimson Text', serif;
+}
+
+.booking-cleaning-fee {
+  grid-column-start: mid;
+  grid-row-start: 6;
+  border-bottom: 1px solid #DBDBDB
 }
 
 .icon-arrow-forward {
@@ -347,13 +363,13 @@ p {
 
 .booking-tax {
   grid-column-start: mid;
-  grid-row-start: 6;
+  grid-row-start: 7;
   border-bottom: 1px solid #DBDBDB
 }
 
 .booking-total {
   grid-column-start: mid;
-  grid-row-start: 7;
+  grid-row-start: 8;
   border-bottom: 1px solid #DBDBDB;
 }
 
@@ -367,7 +383,7 @@ p {
 
 .booking-button {
   grid-column-start: mid;
-  grid-row-start: 8;
+  grid-row-start: 9;
   border-bottom: 1px solid #DBDBDB;
   justify-self: center;
 }
@@ -568,5 +584,12 @@ header {
 
 /*material UI icons */
 .material-icons.blue10 {
-  color: #0d47a1
+  color: #0d47a1;
+}
+
+.material-icons.cyan10 {
+  color: #3dbbd8;
+}
+.material-icons.gold700 {
+  color: #FBC02D;
 }

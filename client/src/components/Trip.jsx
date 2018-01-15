@@ -1,6 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import StarBorder from 'material-ui-icons/StarBorder'
+import Stars from './Stars.jsx';
 
 class Trip extends React.Component {
   constructor(props) {
@@ -40,7 +41,12 @@ class Trip extends React.Component {
           <h5>View Receipt</h5>
         </div>
         <div className='trip-rating'>
-          {this.renderRating()}
+          {/* {this.renderRating()} */}
+          <Stars
+            rating={this.props.booking.average_stars}
+            offset={0.25}
+            total={5}
+          />
           <p>Write a Review</p>
         </div>
         <div className='trip-border' />

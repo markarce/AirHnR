@@ -46,6 +46,22 @@ app.get('/api/listings',function(req, res) {
   });
 });
 
+app.get('/api/datesonly', function (req, res) {
+  //return all listings near the searched area
+  // lib.getPlaceCoordinates(req.query.q, googleResults => {
+  console.log('here',req.query.lat, req.query.lon, req.query.start, req.query.end)
+    db.getListingsNear(req.query.lat, req.query.lon, req.query.start, req.query.end)
+      .then(dbResults => {
+        res.status(200).json({
+          listings: dbResults
+        });
+      }).catch(err => {
+        console.warn(err);
+        res.status(503).end();
+      });
+  // });
+});
+
 app.post('/api/markings', function (req, res) {
   //return all listings near the searched area
   let radius = -(2000 * req.body.zoom) + 30000;

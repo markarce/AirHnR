@@ -1,3 +1,6 @@
+//this file creates a bunch of fake data to be populated into the database
+//other files in data folder are used for data sources
+
 const userdata = require('./users.json');
 const locationdata = require('./locations.json');
 const reviewdata = require('./reviews.json')

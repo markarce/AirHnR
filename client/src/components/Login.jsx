@@ -91,8 +91,8 @@ class Login extends React.Component {
           onClose={this.handleClose}
         >
           <div style={getModalStyle()}>
-            <IconButton aria-label="Delete">
-              <ClearIcon onClick={this.handleClose}/>
+            <IconButton aria-label="Delete" onClick={this.handleClose}>
+              <ClearIcon />
             </IconButton>
             <Button style={buttonStyle} color='primary' onClick={this.handleOpen}>Log in with Facebook</Button>
             <Button style={buttonStyle} onClick={this.handleOpen}>Log in with Google</Button>

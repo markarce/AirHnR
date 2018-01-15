@@ -4,12 +4,13 @@ import Button from 'material-ui/Button';
 import _ from 'lodash';
 import Booking from './Booking.jsx'
 import moment from 'moment';
+import Stars from './Stars.jsx';
 
-let bookingSampleData = {
-  start_date: '01/01/2018',
-  end_date: '04/01/2018',
-  nights: 3,
-};
+// let bookingSampleData = {
+//   start_date: '01/01/2018',
+//   end_date: '04/01/2018',
+//   nights: 3,
+// };
 
 //need star rating, review count, host_name
 
@@ -143,57 +144,67 @@ class ListingDetails extends React.Component {
     }
   }
 
-  renderRating () {
-    let rating = Math.round(this.props.listing.average_stars);
-    if (rating === 5) {
-      return (
-        <div className='listing-rating-img'>
-          <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
-          <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
-          <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
-          <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
-          <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
-        </div>
-      )
-    } else if (rating === 4) {
-      return (
-        <div className='listing-rating-img'>
-          <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
-          <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
-          <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
-          <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
-        </div>
-      )
-    } else if (rating === 3) {
-      return (
-        <div className='listing-rating-img'>
-          <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
-          <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
-          <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
-        </div>
-      )
-    } else if (rating === 2) {
-      return (
-        <div className='listing-rating-img'>
-          <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
-          <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
-        </div>
-      )
-    } else {
-      return (
-        <div className='listing-rating-img'>
-          <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
-        </div>
-      )
-    }
-  }
+  // renderRating () {
+  //   let rating = Math.round(this.props.listing.average_stars);
+  //   if (rating === 5) {
+  //     return (
+  //       <div className='listing-rating-img'>
+  //         <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
+  //         <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
+  //         <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
+  //         <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
+  //         <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
+  //       </div>
+  //     )
+  //   } else if (rating === 4) {
+  //     return (
+  //       <div className='listing-rating-img'>
+  //         <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
+  //         <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
+  //         <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
+  //         <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
+  //       </div>
+  //     )
+  //   } else if (rating === 3) {
+  //     return (
+  //       <div className='listing-rating-img'>
+  //         <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
+  //         <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
+  //         <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
+  //       </div>
+  //     )
+  //   } else if (rating === 2) {
+  //     return (
+  //       <div className='listing-rating-img'>
+  //         <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
+  //         <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
+  //       </div>
+  //     )
+  //   } else {
+  //     return (
+  //       <div className='listing-rating-img'>
+  //         <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
+  //       </div>
+  //     )
+  //   }
+  // }
 
   render () {
     return (
       <div className='listing-wrapper'>
         <div className='listing-booking'>
-          <Booking updateGuests={this.props.updateGuests} handleBookingClick={this.props.handleBookingClick} 
-          booking={this.props.booking} listing={this.props.listing} button={true} 
+          <Booking 
+          updateGuests={this.props.updateGuests} 
+          updateDates={this.props.updateDates} 
+          focusedInput={this.props.focusedInput} 
+          updateFocusedInput={this.props.updateFocusedInput} 
+          handleDateClick={this.props.handleDateClick} 
+          endDate={this.props.endDate} 
+          startDate={this.props.startDate} 
+          handleBookingClick={this.props.handleBookingClick} 
+          // booking={this.props.booking} 
+          listing={this.props.listing} 
+          button={true} 
           login={this.props.login}
           isUserLoggedIn={this.props.isUserLoggedIn}/>
         </div>
@@ -239,7 +250,14 @@ class ListingDetails extends React.Component {
         <div className='listing-rating'>
           <h2>{`${this.props.listing.review_count} Reviews`}</h2>
         </div>
-        {this.renderRating()}
+        {/* {this.renderRating()} */}
+        <div className='listing-rating-img'>
+          <Stars
+            rating={this.props.listing.average_stars}
+            offset={0.25}
+            total={5}
+          />
+        </div>
         <div className='line-break6'></div>
         <div className='listing-host'>
           <h2>{`Hosted By ${this.props.listing.first_name}`}</h2>

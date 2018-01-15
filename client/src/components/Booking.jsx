@@ -2,59 +2,18 @@ import React from 'react';
 import ArrowForward from 'material-ui-icons/ArrowForward'
 import BookingGuest from './BookingGuest';
 import Login from './Login.jsx';
+import Stars from './Stars.jsx';
+
+import 'react-dates/initialize';
+import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'react-dates';
+import 'react-dates/lib/css/_datepicker.css';
 
 class Booking extends React.Component {
   constructor (props) {
     super(props);
-  }
-
-  renderRating () {
-    let rating = Math.round(this.props.listing.average_stars);
-    if (rating === 5) {
-      return (
-        <div className='booking-rating-img'>
-          <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
-          <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
-          <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
-          <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
-          <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
-          <span className='booking-reviewCount'>{this.props.listing.reviews_count}</span>
-        </div>
-      )
-    } else if (rating === 4) {
-      return (
-        <div className='booking-rating-img'>
-          <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
-          <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
-          <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
-          <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
-          <span className='booking-reviewCount'>{this.props.listing.reviews_count}</span>
-        </div>
-      )
-    } else if (rating === 3) {
-      return (
-        <div className='booking-rating-img'>
-          <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
-          <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
-          <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
-          <span className='booking-reviewCount'>{this.props.listing.reviews_count}</span>
-        </div>
-      )
-    } else if (rating === 2) {
-      return (
-        <div className='booking-rating-img'>
-          <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
-          <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
-          <span className='booking-reviewCount'>{this.props.listing.reviews_count}</span>
-        </div>
-      )
-    } else {
-      return (
-        <div className='booking-rating-img'>
-          <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
-          <span className='booking-reviewCount'>{this.props.listing.reviews_count}</span>
-        </div>
-      )
+    console.log(props)
+    this.state = {
+      nights: this.props.endDate.diff(this.props.startDate, 'days') - 1
     }
   }
 
@@ -78,14 +37,32 @@ class Booking extends React.Component {
         <div className='booking-price'>
           <span className='price-perNight'>{`$${this.props.listing.price}`}</span>
           <span className='perNight-text'>per night</span>
-          {this.renderRating()}
+          {/* {this.renderRating()} */}
+          <br/>
+          <Stars
+            rating={this.props.listing.average_stars}
+            offset={0.25}
+            total={5}
+          />
         </div>
 
-        <div className='booking-dates'>
+        {/* <div className='booking-dates'>
           <h5>Dates</h5>
             <span>{this.props.booking.start_date}</span>
             <span className='icon-arrow-forward'><ArrowForward /></span>
             <span>{this.props.booking.end_date}</span>
+        </div> */}
+        <div className='booking-dates'>
+          <DateRangePicker
+            startDate={this.props.startDate} // momentPropTypes.momentObj or null,
+            startDateId={'3'}
+            endDate={this.props.endDate} // momentPropTypes.momentObj or null,
+            endDateId={'4'}
+            onDatesChange={this.props.updateDates} // PropTypes.func.isRequired,
+            focusedInput={this.props.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
+            onFocusChange={this.props.updateFocusedInput} // PropTypes.func.isRequired,
+            onClose={this.props.handleDateClick}
+          />
         </div>
 
         <div className='booking-guests'>
@@ -93,9 +70,20 @@ class Booking extends React.Component {
         </div>
 
         <div className='booking-subtotal'>
-          <span className='booking-item'>{`$${this.props.listing.price} x ${this.props.booking.nights} nights`}</span>
-          <span className='booking-item-price'>{`$${this.props.listing.price * this.props.booking.nights}`}</span>
+          <span className='booking-item'>{`$${this.props.listing.price} x ${this.state.nights} nights`}</span>
+          <span className='booking-item-price'>{`$${this.props.listing.price * this.state.nights}`}</span>
         </div>
+
+        {(() => {
+          if (this.props.listing.fee_cleaning !== 0) {
+            return (
+              <div className='booking-cleaning-fee'>
+              <span className='booking-item'>Cleaning fee</span>
+              <span className='booking-item-price'>{`$${this.props.listing.fee_cleaning}`}</span>
+            </div>
+            )
+          }
+        })()}
 
         <div className='booking-service-fee'>
           <span className='booking-item'>Service fee</span>
@@ -104,12 +92,12 @@ class Booking extends React.Component {
 
         <div className='booking-tax'>
           <span className='booking-item'>Occupancy Taxes</span>
-          <span className='booking-item-price'>{`$${Math.round(0.085 * this.props.listing.price * this.props.booking.nights)}`}</span>
+          <span className='booking-item-price'>{`$${Math.round(0.085 * this.props.listing.price * this.state.nights)}`}</span>
         </div>
 
         <div className='booking-total'>
           <span className='booking-item'>Total</span>
-          <span className='booking-item-price'>{`$${Math.round(1.085 * this.props.listing.price * this.props.booking.nights + this.props.listing.fee_service)}`}</span>
+          <span className='booking-item-price'>{`$${Math.round(1.085 * this.props.listing.price * this.state.nights + this.props.listing.fee_service + this.props.listing.fee_cleaning)}`}</span>
         </div>
   
         {this.renderBookingButton()}

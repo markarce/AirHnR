@@ -21,12 +21,12 @@ import FeaturedPlaces from './components/FeaturedPlaces.jsx';
 import MainPage from './components/MainPage.jsx'
 import Confirmation from './components/Confirmation.jsx'
 
-let bookingSampleData = {
-  start_date: '01/01/2018',
-  end_date: '04/01/2018',
-  nights: 3,
-  guest_id: 61
-};
+// let bookingSampleData = {
+//   start_date: '01/01/2018',
+//   end_date: '04/01/2018',
+//   nights: 3,
+//   guest_id: 61
+// };
 
 class App extends React.Component {
   constructor(props) {
@@ -53,7 +53,10 @@ class App extends React.Component {
     this.userLogOut = this.userLogOut.bind(this);
     this.login = this.login.bind(this);
     this.handleMapDrag = this.handleMapDrag.bind(this);
+    this.handleDateClick = this.handleDateClick.bind(this);
     this.sendConfirmationEmail = this.sendConfirmationEmail.bind(this);
+    this.updateDates = this.updateDates.bind(this);
+    this.updateFocusedInput = this.updateFocusedInput.bind(this);
   };
 
   updateGuests (guests) {
@@ -82,18 +85,15 @@ class App extends React.Component {
 
   handleSearchClick(query) {
     //called from search bar, submits a search request for locations near searched area
-
-    let startDate = this.state.startDate.format('YYYY-MM-DD');
-    let endDate = this.state.endDate.format('YYYY-MM-DD');
-
-    const options = {
-      method: 'GET',
-      contentType: "application/json",
-      mode: 'cors',
-      cache: 'default'
-    }
-
-    fetch(`/api/listings?q=${query}&start=${startDate}&end=${endDate}`, options)
+      let startDate = this.state.startDate.format('YYYY-MM-DD');
+      let endDate = this.state.endDate.format('YYYY-MM-DD');
+      const options = {
+        method: 'GET',
+        contentType: "application/json",
+        mode: 'cors',
+        cache: 'default'
+      };
+      fetch(`/api/listings?q=${query}&start=${startDate}&end=${endDate}`, options)
       .then((response) => response.json())
       .then((json) => {
         this.setState({
@@ -103,11 +103,35 @@ class App extends React.Component {
         });
       }).catch(err => console.log(err));
   };
-  
-  handleMapDrag(latitude, longitude, zoom) {
-    fetch(`/api/markings`, {
-      headers: new Headers({
-        "Content-Type": "application/json"
+
+  updateDates({ startDate, endDate }) {
+    this.setState({ startDate, endDate });
+  };
+  updateFocusedInput(focusedInput) {
+    this.setState({ focusedInput })
+  };
+
+  handleDateClick({startDate, endDate}) {
+    if (this.state.view === 'searchResults') {
+      let startDate = this.state.startDate.format('YYYY-MM-DD');
+      let endDate = this.state.endDate.format('YYYY-MM-DD');
+      fetch(`/api/datesonly?lat=${this.state.mapCenter.latitude}&lon=${this.state.mapCenter.longitude}&start=${startDate}&end=${endDate}`)
+      .then((response) => response.json())
+      .then((json) => {
+        this.setState({
+          results: listings
+        });
+      }).catch(err => console.log(err));
+    }
+    else if (this.state.view === 'listingDetails'){
+      console.log('CHANGE NOTHING')
+    }
+  };
+    
+    handleMapDrag(latitude, longitude, zoom) {
+      fetch(`/api/markings`, {
+        headers: new Headers({
+          "Content-Type": "application/json"
       }),
       method: 'POST',
       body: JSON.stringify({
@@ -191,6 +215,7 @@ class App extends React.Component {
       console.log('err', eServiceProvRes);
     });
   }
+  
   render() {
     const currentView = this.state.view;
     let showPage = null;
@@ -207,7 +232,15 @@ class App extends React.Component {
         <ListingDetails
           updateGuests={this.updateGuests.bind(this)}
           handleBookingClick={this.handleBookingClick.bind(this)}
-          booking={bookingSampleData} listing={this.state.listing}
+          focusedInput={this.state.focusedInput}
+          updateFocusedInput={this.updateFocusedInput}
+          updateDates={this.updateDates}
+          handleDateClick={this.handleDateClick}
+          // booking={bookingSampleData}
+          listing={this.state.listing}
+          startDate={this.state.startDate}
+          endDate={this.state.endDate}
+          guests={this.state.guests}
           login={this.login}
           isUserLoggedIn={this.state.user ? true : false}
         />;
@@ -216,7 +249,9 @@ class App extends React.Component {
         <Checkout
           guests={this.state.guests}
           updateGuests={this.updateGuests.bind(this)}
-          booking={bookingSampleData}
+          startDate={this.state.startDate}
+          endDate={this.state.endDate}
+          // booking={bookingSampleData}
           listing={this.state.listing}
           user={this.state.user}
           isUserLoggedIn={this.state.user ? true : false}
@@ -237,11 +272,11 @@ class App extends React.Component {
       showPage = <MainPage goToLocation={this.handleSearchClick}/>
     }
 
-
     return (
       <div>
         <div>
           <NavBar 
+            view={this.state.view}
             triggerView={this._triggerViewChange}
             isUserLoggedIn={this.state.user ? true : false}
             userLogOut={this.userLogOut}
@@ -256,10 +291,10 @@ class App extends React.Component {
             startDateId={'1'}
             endDate={this.state.endDate} // momentPropTypes.momentObj or null,
             endDateId={'2'}
-            onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })} // PropTypes.func.isRequired,
+            onDatesChange={this.updateDates} // PropTypes.func.isRequired,
             focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
-            onFocusChange={focusedInput => this.setState({ focusedInput })} // PropTypes.func.isRequired,
-            onClose={this.handleSearchClick}
+            onFocusChange={this.updateFocusedInput} // PropTypes.func.isRequired,
+            onClose={this.handleDateClick}
           />
         </div>
         <br/>

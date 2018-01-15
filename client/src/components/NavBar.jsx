@@ -13,6 +13,9 @@ import NotLoggedIn from './NotLoggedIn';
 import Login from './Login.jsx'
 import NavLogged from './NavLogged.jsx';
 import Search from './Search.jsx';
+import 'react-dates/initialize';
+import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'react-dates';
+import 'react-dates/lib/css/_datepicker.css';
 
 // const styles = {
 //   root: {
@@ -38,9 +41,10 @@ class NavBar extends React.Component{
       searchValue: null,
       showModal: false
     }
+    console.log('navbar', props)
     // this.handleSearchClick = this.handleSearchClick.bind(this)
     // this.handleChange = this.handleChange.bind(this)
-   // const { classes } = props;
+    // const { classes } = props;
   }
 
   // handleChange(event){
@@ -75,11 +79,33 @@ class NavBar extends React.Component{
   return (
     <div className='nav-bar-wrapper'>
       <div className='nav-bar-logo'>
-        <img src='../assets/logo.png' />
+        <a href="/">
+          <img src='../assets/logo.png' />
+        </a>
       </div>
-      <div className='nav-bar-search'>
-        <Search handleSearchClick={this.props.handleSearchClick}/>
-      </div>
+      {(() => {
+        if (this.props.view !== 'default') {
+          return (
+            <div>
+              <div className='nav-bar-search'>
+                <Search handleSearchClick={this.props.handleSearchClick}/>
+              </div>
+              {/* <div className='nav-bar-dates'>
+                <DateRangePicker
+                  startDate={this.state.startDate} // momentPropTypes.momentObj or null,
+                  startDateId={'12'}
+                  endDate={this.state.endDate} // momentPropTypes.momentObj or null,
+                  endDateId={'100000000'}
+                  onDatesChange={this.updateDates} // PropTypes.func.isRequired,
+                  focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
+                  onFocusChange={this.updateFocusedInput} // PropTypes.func.isRequired,
+                  onClose={this.handleDateClick}
+                />
+              </div> */}
+            </div>
+          )
+        }
+      })()}
       <div className='nav-bar-login'>
         {this.props.isUserLoggedIn ? <NavLogged triggerView={this.props.triggerView} logOut={this.props.userLogOut} user={this.props.user} /> : 
         <NotLoggedIn userLoggedIn={this.props.userLoggedIn} triggerView={this.props.triggerView} login={this.props.login}/>}
