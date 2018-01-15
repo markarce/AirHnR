@@ -23,6 +23,7 @@
   grid-row-start: 1;
   align-self: center;
   justify-self: start;
+  margin: 2%;
 }
 
 .nav-bar-dates {
@@ -48,6 +49,7 @@
   border-radius: 4px;
   box-shadow: 0px 2px 5px lightgrey;
   border: 1px solid #DBDBDB;
+  padding-left: 20px;
  }
 
 .nav-bar-logo img {
@@ -66,7 +68,7 @@
   grid-row-start: 3;
   grid-row-end: 8; 
   position: sticky; 
-  top: 50px
+  top: 100px
 }
 
 .listing-img {
@@ -271,6 +273,10 @@ p {
   line-height: 25px;
 }
 
+.background {
+  background-color: #FAFAFA;
+}
+
 /* .booking-price {
 
 } */
@@ -282,7 +288,8 @@ p {
   grid-template-columns: 15px [mid] auto [last] 15px;
   grid-auto-rows: auto;
   grid-gap: 10px;
-  border: 1px solid #DBDBDB
+  border: 1px solid #DBDBDB;
+  background-color: white;
 }
 
 .booking-price {
@@ -428,13 +435,14 @@ header {
 
 .listing-details {
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 1.5fr 1fr;
   grid-template-rows: 1fr;
   grid-template-areas: "listings map";
 }
 
 .listings {
   grid-area: "listings";
+  margin: 20px 5%;
 }
 
 .map-container {

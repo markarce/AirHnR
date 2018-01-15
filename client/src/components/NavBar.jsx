@@ -17,7 +17,15 @@ import 'react-dates/initialize';
 import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
 
-
+const styles = {
+  sticky: {
+      position: 'fixed',
+      top: '0',
+      width: '100%',
+      backgroundColor: 'white',
+      zIndex: '10'
+  }
+}
 class NavBar extends React.Component{
   constructor(props) {
     super(props)
@@ -61,7 +69,7 @@ class NavBar extends React.Component{
   render() {
 
   return (
-    <div className='nav-bar-wrapper'>
+    <div className='nav-bar-wrapper' style={styles.sticky}>
       <div className='nav-bar-logo'>
         <a href="/">
           <img src='../assets/logo.png' />

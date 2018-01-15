@@ -5,7 +5,7 @@ import Stars from './Stars';
 const style = {
   height: '1000px',
   width: '100%',
-  position: 'relative'
+  backgroundColor: ''
 };
 
 export class MapContainer extends Component {
