@@ -11,7 +11,6 @@ import 'react-dates/lib/css/_datepicker.css';
 class Booking extends React.Component {
   constructor (props) {
     super(props);
-    console.log(props)
     this.state = {
       nights: this.props.endDate.diff(this.props.startDate, 'days') - 1
     }
@@ -22,9 +21,8 @@ class Booking extends React.Component {
       return (
         <div className='booking-button'>
           {this.props.isUserLoggedIn ? 
-            <button onClick={() => this.props.handleBookingClick()}>Book</button> : 
-            <Login login={this.props.login} buttonTitle="Book"/>
-          }
+            <button onClick={this.props.handleBookingClick}>Book</button> : 
+            <button onClick={this.props.openLogin}>Book</button> }
         </div>
       )
     }
@@ -32,8 +30,8 @@ class Booking extends React.Component {
               
   render () {
     return (
+      
       <div className='booking-container'>
-
         <div className='booking-price'>
           <span className='price-perNight'>{`$${this.props.listing.price}`}</span>
           <span className='perNight-text'>per night</span>
@@ -46,12 +44,6 @@ class Booking extends React.Component {
           />
         </div>
 
-        {/* <div className='booking-dates'>
-          <h5>Dates</h5>
-            <span>{this.props.booking.start_date}</span>
-            <span className='icon-arrow-forward'><ArrowForward /></span>
-            <span>{this.props.booking.end_date}</span>
-        </div> */}
         <div className='booking-dates'>
           <DateRangePicker
             startDate={this.props.startDate} // momentPropTypes.momentObj or null,

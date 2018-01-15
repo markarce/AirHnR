@@ -33,7 +33,6 @@ class NavLoggedIn extends Component {
 
   render() {
     const { classes } = this.props;
-    console.log(this.props.user);
     const sideList = (
       <div className={classes.list}>
         <Avatar/>

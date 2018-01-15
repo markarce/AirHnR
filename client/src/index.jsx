@@ -21,13 +21,6 @@ import FeaturedPlaces from './components/FeaturedPlaces.jsx';
 import MainPage from './components/MainPage.jsx'
 import Confirmation from './components/Confirmation.jsx'
 
-// let bookingSampleData = {
-//   start_date: '01/01/2018',
-//   end_date: '04/01/2018',
-//   nights: 3,
-//   guest_id: 61
-// };
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -43,9 +36,9 @@ class App extends React.Component {
       startDate: moment(),
       endDate: moment().add(7, 'days'),
       guests: 1,
-      user: null
+      user: null,
+      loginOpen: false
     }
-    // this.searchTerm = this.searchTerm.bind(this);
     this.handleSearchClick = this.handleSearchClick.bind(this);
     this.handleListingClick = this.handleListingClick.bind(this);
     this._triggerViewChange = this._triggerViewChange.bind(this);
@@ -57,6 +50,8 @@ class App extends React.Component {
     this.sendConfirmationEmail = this.sendConfirmationEmail.bind(this);
     this.updateDates = this.updateDates.bind(this);
     this.updateFocusedInput = this.updateFocusedInput.bind(this);
+    this.openLogin = this.openLogin.bind(this);
+    this.closeLogin = this.closeLogin.bind(this);
   }
 
   componentDidMount() {
@@ -70,6 +65,18 @@ class App extends React.Component {
     }
   }
 
+  openLogin(open) {
+    this.setState({
+      loginOpen: true
+    });
+  };
+
+  closeLogin(open) {
+    this.setState({
+      loginOpen: false
+    });
+  };
+
   updateGuests (guests) {
     this.setState({
       guests: guests
@@ -80,7 +87,7 @@ class App extends React.Component {
     this.setState({
       view: 'trips'
     });
-  }
+  };
 
   handleListingClick(listingID) {
     // called when a list item is clicked on.
@@ -245,13 +252,13 @@ class App extends React.Component {
     } else if (currentView === 'listingDetails') {
       showPage =
         <ListingDetails
+          openLogin={this.openLogin}
           updateGuests={this.updateGuests.bind(this)}
           handleBookingClick={this.handleBookingClick.bind(this)}
           focusedInput={this.state.focusedInput}
           updateFocusedInput={this.updateFocusedInput}
           updateDates={this.updateDates}
           handleDateClick={this.handleDateClick}
-          // booking={bookingSampleData}
           listing={this.state.listing}
           startDate={this.state.startDate}
           endDate={this.state.endDate}
@@ -266,7 +273,6 @@ class App extends React.Component {
           updateGuests={this.updateGuests.bind(this)}
           startDate={this.state.startDate}
           endDate={this.state.endDate}
-          // booking={bookingSampleData}
           listing={this.state.listing}
           user={this.state.user}
           isUserLoggedIn={this.state.user ? true : false}
@@ -298,6 +304,8 @@ class App extends React.Component {
             user={this.state.user}
             login={this.login}
             handleSearchClick={this.handleSearchClick}
+            openLogin={this.openLogin}
+            closeLogin={this.closeLogin}
           />
         </div>
         <div>
@@ -316,6 +324,12 @@ class App extends React.Component {
         <div style={{'marginTop':'5px'}}>
           {showPage}
         </div>
+        <Login 
+          login={this.login}
+          open={this.state.loginOpen} 
+          openLogin={this.openLogin}
+          closeLogin={this.closeLogin}
+        />
       </div>
     );
   };
