@@ -114,6 +114,7 @@ class App extends React.Component {
       fetch(`/api/listings?q=${query}&start=${startDate}&end=${endDate}`, options)
       .then((response) => response.json())
       .then((json) => {
+        console.log('received listings', json.mapCenter)
         this.setState({
           results: json.listings,
           mapCenter: json.mapCenter,
@@ -146,10 +147,10 @@ class App extends React.Component {
     }
   };
     
-    handleMapDrag(latitude, longitude, zoom) {
-      fetch(`/api/markings`, {
-        headers: new Headers({
-          "Content-Type": "application/json"
+  handleMapDrag(latitude, longitude, zoom) {
+    fetch(`/api/markings`, {
+      headers: new Headers({
+        "Content-Type": "application/json"
       }),
       method: 'POST',
       body: JSON.stringify({
@@ -240,6 +241,7 @@ class App extends React.Component {
   
   render() {
     const currentView = this.state.view;
+    console.log(currentView)
     let showPage = null;
     if (currentView === 'searchResults') {
       showPage = 
@@ -290,20 +292,11 @@ class App extends React.Component {
     } else if (currentView === 'confirmation') {
       showPage = <Confirmation />
     } else {
-      showPage = <MainPage goToLocation={this.handleSearchClick}/>
+      showPage = 
+        <MainPage 
+          handleSearchClick={this.handleSearchClick}
+        />
     }
-
-
-    // <DateRangePicker
-    //   startDate={this.props.startDate} // momentPropTypes.momentObj or null,
-    //   startDateId={'12'}
-    //   endDate={this.props.endDate} // momentPropTypes.momentObj or null,
-    //   endDateId={'100000000'}
-    //   onDatesChange={this.props.updateDates} // PropTypes.func.isRequired,
-    //   focusedInput={this.props.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
-    //   onFocusChange={this.props.updateFocusedInput} // PropTypes.func.isRequired,
-    //   onClose={this.props.handleDateClick}
-    // />
     return (
       <div>
         <div>
@@ -325,18 +318,6 @@ class App extends React.Component {
             closeLogin={this.closeLogin}
           />
         </div>
-        {/* <div>
-          <DateRangePicker
-            startDate={this.state.startDate} // momentPropTypes.momentObj or null,
-            startDateId={'1'}
-            endDate={this.state.endDate} // momentPropTypes.momentObj or null,
-            endDateId={'2'}
-            onDatesChange={this.updateDates} // PropTypes.func.isRequired,
-            focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
-            onFocusChange={this.updateFocusedInput} // PropTypes.func.isRequired,
-            onClose={this.handleDateClick}
-          />
-        </div> */}
         <br/>
         <div>
           {showPage}
@@ -359,25 +340,25 @@ class App extends React.Component {
 
   _storageAvailable(type) {
     try {
-        var storage = window[type],
-            x = '__storage_test__';
-        storage.setItem(x, x);
-        storage.removeItem(x);
-        return true;
+      var storage = window[type],
+        x = '__storage_test__';
+      storage.setItem(x, x);
+      storage.removeItem(x);
+      return true;
     }
     catch(e) {
-        return e instanceof DOMException && (
-            // everything except Firefox
-            e.code === 22 ||
-            // Firefox
-            e.code === 1014 ||
-            // test name field too, because code might not be present
-            // everything except Firefox
-            e.name === 'QuotaExceededError' ||
-            // Firefox
-            e.name === 'NS_ERROR_DOM_QUOTA_REACHED') &&
-            // acknowledge QuotaExceededError only if there's something already stored
-            storage.length !== 0;
+      return e instanceof DOMException && (
+        // everything except Firefox
+        e.code === 22 ||
+        // Firefox
+        e.code === 1014 ||
+        // test name field too, because code might not be present
+        // everything except Firefox
+        e.name === 'QuotaExceededError' ||
+        // Firefox
+        e.name === 'NS_ERROR_DOM_QUOTA_REACHED') &&
+        // acknowledge QuotaExceededError only if there's something already stored
+        storage.length !== 0;
     }
   }
 };

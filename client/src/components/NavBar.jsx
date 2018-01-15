@@ -25,10 +25,6 @@ class NavBar extends React.Component{
       searchValue: null,
       showModal: false
     }
-    console.log('navbar', props)
-    // this.handleSearchClick = this.handleSearchClick.bind(this)
-    // this.handleChange = this.handleChange.bind(this)
-    // const { classes } = props;
   }
 
   // handleChange(event){
@@ -40,23 +36,6 @@ class NavBar extends React.Component{
   //   console.log("state",this.state.searchValue)
   // }
 
-  // handleSearchClick(){
-  //   var entry = this.state.searchValue;
-
-  //   console.log("entry",entry)
-  //   $.ajax({
-  //     success:function(req,res){
-  //       console.log("success",req,res)
-  //       this.props.triggerView('searchResults');
-  //     },
-  //     error: function(req, res){
-  //       console.log("error",req,res)
-  //     },
-  //     contentType: "application/json",
-  //     type: 'GET',
-  //     url: `/api/listings?q=${entry}`
-  //   })
-  // }
 
   render() {
 
@@ -70,11 +49,11 @@ class NavBar extends React.Component{
       {(() => {
         if (this.props.view !== 'default') {
           return (
-            <div>
-              <div className='nav-bar-search'>
+            <div className='nav-bar-search'>
+              {/* <div className='nav-bar-search'> */}
                 <Search handleSearchClick={this.props.handleSearchClick}/>
-              </div>
-              <div className='nav-bar-dates'>
+              {/* </div> */}
+              {/* <div className='nav-bar-dates'> */}
                 <DateRangePicker
                   startDate={this.props.startDate} // momentPropTypes.momentObj or null,
                   startDateId={'12'}
@@ -85,7 +64,7 @@ class NavBar extends React.Component{
                   onFocusChange={this.props.updateFocusedInput} // PropTypes.func.isRequired,
                   onClose={this.props.handleDateClick}
                 />
-              </div>
+              {/* </div> */}
             </div>
           )
         }

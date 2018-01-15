@@ -10,11 +10,11 @@ class MainPage extends React.Component {
 
   render() {
     return (
-      <div>
-        <span>Airhnr</span>
-        <div>Book unique homes and experiences all over the world.</div>
-        <Search />
-        <FeaturedPlaces goToLocation={this.props.goToLocation} />
+      <div className='main-container'>
+        <span className='main-airHnR'>Airhnr</span>
+        <div className='main-slogan'>Book unique homes and experiences all over the world.</div>
+        <Search className='main-search' handleSearchClick={this.props.handleSearchClick}/>
+        <FeaturedPlaces className='main-featured' goToLocation={this.props.handleSearchClick} />
       </div>
     );
   };
