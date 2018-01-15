@@ -288,7 +288,7 @@ class App extends React.Component {
     }
 
     return (
-      <div>
+      <div className="background">
         <div>
           <NavBar 
             view={this.state.view}
@@ -313,7 +313,7 @@ class App extends React.Component {
           />
         </div>
         <br/>
-        <div>
+        <div style={{'marginTop':'5px'}}>
           {showPage}
         </div>
       </div>

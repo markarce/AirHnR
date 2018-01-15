@@ -1,6 +1,13 @@
 import React from 'react';
 // import $ from 'jquery';
 
+const styles = {
+  bar: {
+    width: '60%',
+    height: '60px',
+    marginTop: '20px'
+  }
+}
 
 class Search extends React.Component {
   constructor(props) {
@@ -31,9 +38,10 @@ class Search extends React.Component {
   }
 
   render() {
+    const barStyle = this.props.isMainPage ? styles.bar : {};
     return (
       <div className='search-box'>
-        <input onChange={e => this.updateQuery(e)} onKeyPress={e => this.handleSearch(e)} type="text" placeholder="     Anywhere..." id="place" />
+        <input style={barStyle} onChange={e => this.updateQuery(e)} onKeyPress={e => this.handleSearch(e)} type="text" placeholder="Anywhere..." id="place" />
         {/* <button value={$("#place").val()} onClick={this.handleSearchClick}>Go</button> */}
       </div>
     );

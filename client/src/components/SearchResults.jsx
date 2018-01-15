@@ -40,7 +40,7 @@ class SearchResults extends React.Component {
       return (
         <div className="listing-details">
           <div className="listings">
-            <Grid container spacing={16}>
+            <Grid container spacing={16} style={{justifyContent: 'center'}}>
               { listings.map(listing => (
                 <Grid item key={listing.id}>
                   <SearchResult 
@@ -84,7 +84,8 @@ class SearchResults extends React.Component {
     let divNodes = $(this.node).find('div');
     $(divNodes[0]).css({
       width: '100%',
-      height: '100%'
+      height: '100%',
+      position: 'fixed'
     });
     $(divNodes[1]).css({
       position: 'relative'

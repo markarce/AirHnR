@@ -15,7 +15,8 @@ const styles = {
   },
   destTitle: {
     fontSize: '20px',
-    letterSpacing: '0.2px'
+    letterSpacing: '0.2px',
+    paddingBottom: '100px'
   },
   img: {
     width: '100%',
@@ -65,7 +66,7 @@ let FeaturedPlaces = (props) => {
   })
 
   return (
-    <div style={{marginLeft: '60px', marginRight: '60px', marginBottom: '60px'}}>
+    <div style={{marginLeft: '60px', marginRight: '60px', marginBottom: '60px', marginTop: '150px'}}>
       <h3 style={styles.header}>Featured Destinations</h3>
       <div className="dest-container" style={styles.container}>
         {places}
