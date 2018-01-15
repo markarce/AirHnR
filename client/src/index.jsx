@@ -275,6 +275,7 @@ class App extends React.Component {
       <div>
         <div>
           <NavBar 
+            view={this.state.view}
             triggerView={this._triggerViewChange}
             isUserLoggedIn={this.state.user ? true : false}
             userLogOut={this.userLogOut}

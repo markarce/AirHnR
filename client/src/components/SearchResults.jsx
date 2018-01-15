@@ -15,6 +15,7 @@ class SearchResults extends React.Component {
     this.state = {};
     this.node = '';
     this.handleListingClick = this.handleListingClick.bind(this);
+    console.log(props)
   }
 
   componentDidMount() {

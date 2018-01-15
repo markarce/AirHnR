@@ -38,9 +38,10 @@ class NavBar extends React.Component{
       searchValue: null,
       showModal: false
     }
+    console.log('navbar', props)
     // this.handleSearchClick = this.handleSearchClick.bind(this)
     // this.handleChange = this.handleChange.bind(this)
-   // const { classes } = props;
+    // const { classes } = props;
   }
 
   // handleChange(event){
@@ -75,11 +76,19 @@ class NavBar extends React.Component{
   return (
     <div className='nav-bar-wrapper'>
       <div className='nav-bar-logo'>
-        <img src='../assets/logo.png' />
+        <a href="/">
+          <img src='../assets/logo.png' />
+        </a>
       </div>
-      <div className='nav-bar-search'>
-        <Search handleSearchClick={this.props.handleSearchClick}/>
-      </div>
+      {(() => {
+        if (this.props.view !== 'default') {
+          return (
+            <div className='nav-bar-search'>
+              <Search handleSearchClick={this.props.handleSearchClick}/>
+            </div>
+          )
+        }
+      })()}
       <div className='nav-bar-login'>
         {this.props.isUserLoggedIn ? <NavLogged triggerView={this.props.triggerView} logOut={this.props.userLogOut} user={this.props.user} /> : 
         <NotLoggedIn userLoggedIn={this.props.userLoggedIn} triggerView={this.props.triggerView} login={this.props.login}/>}

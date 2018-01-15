@@ -81,7 +81,6 @@ class Login extends React.Component {
   }
   render() {
     const { classes } = this.props;
-    console.log(this.props)
     return (
       <div>
         <button className={this.props.classToButton} onClick={this.handleOpen}>{this.props.buttonTitle}</button>
