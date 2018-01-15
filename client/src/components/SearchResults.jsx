@@ -13,7 +13,9 @@ import FeaturedPlaces from './FeaturedPlaces';
 class SearchResults extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      searchResultsFound: true
+    };
     this.node = '';
     this.handleListingClick = this.handleListingClick.bind(this);
     console.log(props)
@@ -21,6 +23,11 @@ class SearchResults extends React.Component {
 
   componentDidMount() {
     this._setMapPosition();
+    if(!this.props.results.length) {
+      this.setState({
+        searchResultsFound: false
+      });
+    }
   }
 
   handleListingClick(listingID) {
@@ -29,7 +36,7 @@ class SearchResults extends React.Component {
 
   render() {
     var listings = this.props.results;
-    if(listings.length) {
+    if(this.state.searchResultsFound) {
       return (
         <div className="listing-details">
           <div className="listings">
