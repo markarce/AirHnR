@@ -267,6 +267,7 @@ class App extends React.Component {
           guests={this.state.guests}
           login={this.login}
           isUserLoggedIn={this.state.user ? true : false}
+          triggerView={this._triggerViewChange}
         />;
     } else if (currentView === 'checkout') {
       showPage =
@@ -316,6 +317,18 @@ class App extends React.Component {
             handleSearchClick={this.handleSearchClick}
             openLogin={this.openLogin}
             closeLogin={this.closeLogin}
+          />
+        </div>
+        <div className="date-picker">
+          <DateRangePicker
+            startDate={this.state.startDate} // momentPropTypes.momentObj or null,
+            startDateId={'1'}
+            endDate={this.state.endDate} // momentPropTypes.momentObj or null,
+            endDateId={'2'}
+            onDatesChange={this.updateDates} // PropTypes.func.isRequired,
+            focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
+            onFocusChange={this.updateFocusedInput} // PropTypes.func.isRequired,
+            onClose={this.handleDateClick}
           />
         </div>
         <br/>

@@ -12,15 +12,19 @@ const styles = theme => ({
     marginTop: '10%',
   },
   textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
     width: 200,
   },
   menu: {
     width: 200,
   },
-  progress: {
-    margin: `0 ${theme.spacing.unit * 2}px`,
+  text: {
+    fontSize: 'calc(0.5vw)',
+    lineHeight: 'calc(0.7vw + 48px)',
+  },
+  description: {
+    fontSize: 'calc(0.5vw + 20px)',
+    lineHeight: 'calc(0.7vw + 48px)',
+    width: '45%'
   }
 });
 
@@ -101,7 +105,9 @@ class CreateAccount extends Component {
   render() {
     const { classes } = this.props;
     return (
-      <div>
+      <div style={{margin: '0 60px'}}>
+        <p style={styles().description}>Create your new Airhnr account: </p>
+        <p>- Password must be more than 7 characters long.</p>
         <form className={classes.container} noValidate autoComplete="off">
           <TextField
             required
@@ -215,7 +221,7 @@ class CreateAccount extends Component {
         </form>
         <div className="submission">
           <div>
-            <Button raised className={classes.button} onClick={() => this.createAccount()}>
+            <Button raised className={classes.button} onClick={() => this.createAccount()} style={{marginRight: '10px', marginTop: '10px'}}>
               Create Account
             </Button>
           </div>
