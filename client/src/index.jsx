@@ -293,11 +293,28 @@ class App extends React.Component {
       showPage = <MainPage goToLocation={this.handleSearchClick}/>
     }
 
+
+    // <DateRangePicker
+    //   startDate={this.props.startDate} // momentPropTypes.momentObj or null,
+    //   startDateId={'12'}
+    //   endDate={this.props.endDate} // momentPropTypes.momentObj or null,
+    //   endDateId={'100000000'}
+    //   onDatesChange={this.props.updateDates} // PropTypes.func.isRequired,
+    //   focusedInput={this.props.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
+    //   onFocusChange={this.props.updateFocusedInput} // PropTypes.func.isRequired,
+    //   onClose={this.props.handleDateClick}
+    // />
     return (
       <div>
         <div>
           <NavBar 
+            startDate={this.state.startDate}
+            endDate={this.state.endDate}
             view={this.state.view}
+            updateDates={this.updateDates}
+            handleDateClick={this.handleDateClick}
+            updateFocusedInput={this.updateFocusedInput}
+            focusedInput={this.state.focusedInput}
             triggerView={this._triggerViewChange}
             isUserLoggedIn={this.state.user ? true : false}
             userLogOut={this.userLogOut}
@@ -308,7 +325,7 @@ class App extends React.Component {
             closeLogin={this.closeLogin}
           />
         </div>
-        <div>
+        {/* <div>
           <DateRangePicker
             startDate={this.state.startDate} // momentPropTypes.momentObj or null,
             startDateId={'1'}
@@ -319,7 +336,7 @@ class App extends React.Component {
             onFocusChange={this.updateFocusedInput} // PropTypes.func.isRequired,
             onClose={this.handleDateClick}
           />
-        </div>
+        </div> */}
         <br/>
         <div>
           {showPage}

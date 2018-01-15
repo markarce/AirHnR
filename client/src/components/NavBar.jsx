@@ -76,14 +76,14 @@ class NavBar extends React.Component{
               </div>
               <div className='nav-bar-dates'>
                 <DateRangePicker
-                  startDate={this.state.startDate} // momentPropTypes.momentObj or null,
+                  startDate={this.props.startDate} // momentPropTypes.momentObj or null,
                   startDateId={'12'}
-                  endDate={this.state.endDate} // momentPropTypes.momentObj or null,
+                  endDate={this.props.endDate} // momentPropTypes.momentObj or null,
                   endDateId={'100000000'}
-                  onDatesChange={this.updateDates} // PropTypes.func.isRequired,
-                  focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
-                  onFocusChange={this.updateFocusedInput} // PropTypes.func.isRequired,
-                  onClose={this.handleDateClick}
+                  onDatesChange={this.props.updateDates} // PropTypes.func.isRequired,
+                  focusedInput={this.props.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
+                  onFocusChange={this.props.updateFocusedInput} // PropTypes.func.isRequired,
+                  onClose={this.props.handleDateClick}
                 />
               </div>
             </div>
