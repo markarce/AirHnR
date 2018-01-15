@@ -294,12 +294,12 @@ class App extends React.Component {
     } else {
       showPage = 
         <MainPage 
-          handleSearchClick={this.handleSearchClick}
+          goToLocation={this.handleSearchClick}
         />
     }
     return (
       <div className="background">
-        <div>
+        <div className='waste'>
           <NavBar 
             startDate={this.state.startDate}
             endDate={this.state.endDate}
@@ -319,7 +319,7 @@ class App extends React.Component {
           />
         </div>
         <br/>
-        <div style={{'marginTop':'5px'}}>
+        <div className='content-container' style={{'marginTop':'5px'}}>
           {showPage}
         </div>
         <Login 

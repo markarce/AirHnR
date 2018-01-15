@@ -62,10 +62,10 @@ export class MapContainer extends Component {
       )
     });
     return (
-      <Map google={this.props.google} 
+      <Map 
+        google={this.props.google} 
         zoom={13} 
-        style={style} 
-        // centerAroundCurrentLocation={true}
+        style={style}
         onDragend={this.centerMoved}
         onClick={() => this.setState({showInfo: false})}
         onReady={this.setZoomHandler}
