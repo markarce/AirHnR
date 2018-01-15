@@ -12,34 +12,20 @@ import Stars from './Stars.jsx';
 
 const styles = {
   card: {
-    width: 350,
-    height: 350,
-    cursor: 'pointer'
+    width: 300,
+    height: 300,
+    cursor: 'pointer',
   },
   media: {
-    height: 220,
+    height: 180,
+  },
+  cardContent: {
+    margin: 0,
+    padding: 0,
+    marginLeft: 10,
+    marginRight: 10,
   },
 };
-
-// const makeStars = (stars, max) => {
-//   var decimal = stars - Math.floor(stars)
-//   var results = [];
-
-//   while (results.length < max) {
-//     if (results.length < Math.floor(stars)) {
-//       results.push(<i className="material-icons blue10" key={results.length}>star</i>);
-//     } else if (decimal > .25 && decimal < .75) {
-//       results.push(<i className="material-icons blue10" key={results.length}>star_half</i>);
-//       decimal = 0;
-//     } else if (decimal > .66) {
-//       results.push(<i className="material-icons blue10" key={results.length}>star</i>);
-//       decimal = 0;
-//     } else {
-//       results.push(<i className="material-icons blue10" key={results.length}>star_border</i>);
-//     }
-//   }
-//   return results;
-// }
 
 function SearchResult (props) {
   const { classes } = props;
@@ -53,20 +39,16 @@ function SearchResult (props) {
           image={props.image}
           title={props.name}
         />
-        <CardContent>
-          <Typography type="caption">
-            {props.roomtype} - Beds: {props.beds}
+        <CardContent style={styles.cardContent}>
+          <Typography type="caption" style={{color: "#484848", fontFamily: "Crimson Text"}}>
+            <strong>{props.roomtype.toUpperCase()} - BEDS: {props.beds}</strong>
           </Typography>
-          <Typography type="title">
+          <Typography type="title" style={{color: "#484848", fontFamily: "Crimson Text"}}>
             {props.name}
           </Typography>
-          <Typography type="caption">
+          <Typography type="caption" style={{color: "#737373"}}>
             ${props.price} per night
           </Typography>
-          {/* <Typography>
-            {makeStars(props.rating, 5)}
-
-          </Typography> */}
           <Stars
             rating={props.rating}
             offset={0.25}
