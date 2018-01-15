@@ -17,22 +17,6 @@ import 'react-dates/initialize';
 import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
 
-// const styles = {
-//   root: {
-//     width: '100%',
-//   },
-//   flex: {
-//     flex: 1,
-//   },
-//   menuButton: {
-//     marginLeft: -12,
-//     marginRight: 20,
-//   },
-//   search: {
-//     textColor: "white",
-//     marginLeft: 50
-//   },
-// };
 
 class NavBar extends React.Component{
   constructor(props) {
