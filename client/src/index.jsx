@@ -299,7 +299,7 @@ class App extends React.Component {
     }
     return (
       <div className="background">
-        <div className='waste'>
+        <div>
           <NavBar 
             startDate={this.state.startDate}
             endDate={this.state.endDate}
@@ -319,7 +319,7 @@ class App extends React.Component {
           />
         </div>
         <br/>
-        <div className='content-container' style={{'marginTop':'5px'}}>
+        <div className='' style={{'marginTop':'5px'}}>
           {showPage}
         </div>
         <Login 
