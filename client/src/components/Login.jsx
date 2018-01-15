@@ -81,6 +81,12 @@ class Login extends React.Component {
       this.handleClose();
     });
   }
+
+  createAccount() {
+    this.props.triggerView('createAccount');
+    this.handleClose();
+  }
+
   render() {
     const { classes } = this.props;
     return (
@@ -138,7 +144,7 @@ class Login extends React.Component {
             {this.state.errorMessage ? <div> {this.state.errorMessage} </div> : null}
             <a>Forgot password?</a>
             <Divider />
-            Don’t have an account? <a id='sign-up'>Sign up</a>
+            Don’t have an account? <a id='sign-up'onClick={this.createAccount.bind(this)}>Sign up</a>
           </div>
         </Modal>
       </div>
