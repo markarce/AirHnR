@@ -74,7 +74,7 @@ class NavBar extends React.Component{
               <div className='nav-bar-search'>
                 <Search handleSearchClick={this.props.handleSearchClick}/>
               </div>
-              {/* <div className='nav-bar-dates'>
+              <div className='nav-bar-dates'>
                 <DateRangePicker
                   startDate={this.state.startDate} // momentPropTypes.momentObj or null,
                   startDateId={'12'}
@@ -85,14 +85,33 @@ class NavBar extends React.Component{
                   onFocusChange={this.updateFocusedInput} // PropTypes.func.isRequired,
                   onClose={this.handleDateClick}
                 />
-              </div> */}
+              </div>
             </div>
           )
         }
       })()}
       <div className='nav-bar-login'>
-        {this.props.isUserLoggedIn ? <NavLogged triggerView={this.props.triggerView} logOut={this.props.userLogOut} user={this.props.user} /> : 
-        <NotLoggedIn userLoggedIn={this.props.userLoggedIn} triggerView={this.props.triggerView} login={this.props.login}/>}
+        {(() => {
+          if(this.props.isUserLoggedIn) {
+            return (
+              <NavLogged 
+                triggerView={this.props.triggerView} 
+                logOut={this.props.userLogOut} 
+                user={this.props.user} 
+              />
+            )
+          } else {
+            return (
+              <NotLoggedIn 
+                openLogin={this.props.openLogin}
+                closeLogin={this.props.closeLogin}
+                userLoggedIn={this.props.userLoggedIn} 
+                triggerView={this.props.triggerView} 
+                login={this.props.login}
+              />
+            )
+          }
+        })()}
       </div>
     </div>
     // <div>

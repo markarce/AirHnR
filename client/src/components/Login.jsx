@@ -53,49 +53,52 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: false,
+      open: this.props.open,
       password: '',
       email: '',
       errorMessage: null
     };
-    this.handleOpen = this.handleOpen.bind(this);
+    // this.handleOpen = this.handleOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
   }
 
   handleOpen() {
-    this.setState({ open: true });
+    // this.setState({ open: true });
   };
 
   handleClose() {
-    this.setState({ open: false });
+    // this.setState({ open: false });
+    this.props.closeLogin()
   };
 
   handleLogin(email, password) {
     this.props.login(email, password, (errMessage, shouldOpen) => {
       this.setState({
         errorMessage: errMessage,
-        open: shouldOpen
+        // open: shouldOpen
       });
+      this.handleClose();
     });
   }
   render() {
     const { classes } = this.props;
     return (
       <div>
-        <button className={this.props.classToButton} onClick={this.handleOpen}>{this.props.buttonTitle}</button>
+        {/* <button className={this.props.classToButton} onClick={this.handleOpen}>{this.props.buttonTitle}</button> */}
         <Modal
           aria-labelledby="simple-modal-title"
           aria-describedby="simple-modal-description"
-          open={this.state.open}
+          open={this.props.open}
+          // open={this.state.open}
           onClose={this.handleClose}
         >
           <div style={getModalStyle()}>
             <IconButton aria-label="Delete" onClick={this.handleClose}>
               <ClearIcon />
             </IconButton>
-            <Button style={buttonStyle} color='primary' onClick={this.handleOpen}>Log in with Facebook</Button>
-            <Button style={buttonStyle} onClick={this.handleOpen}>Log in with Google</Button>
+            <Button style={buttonStyle} color='primary' >Log in with Facebook</Button>
+            <Button style={buttonStyle} >Log in with Google</Button>
             <Divider />
             or
             <form className={classes.container} autoComplete="off" noValidate>
