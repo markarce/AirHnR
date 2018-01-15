@@ -75,7 +75,6 @@ class Booking extends React.Component {
         </div>
 
         {(() => {
-          console.log(typeof this.props.listing.fee_cleaning)
           if (this.props.listing.fee_cleaning !== 0) {
             return (
               <div className='booking-cleaning-fee'>

@@ -304,7 +304,8 @@ p {
 }
 
 .booking-dates {
-  margin-top: 10px;
+  /* margin-top: 10px; */
+  margin: auto;
   grid-column-start: mid;
   grid-row-start: 2;
 }
@@ -575,4 +576,8 @@ header {
 /*material UI icons */
 .material-icons.blue10 {
   color: #0d47a1
+}
+
+.material-icons.cyan10 {
+  color: #3dbbd8
 }

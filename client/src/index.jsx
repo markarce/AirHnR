@@ -236,7 +236,7 @@ class App extends React.Component {
           updateFocusedInput={this.updateFocusedInput}
           updateDates={this.updateDates}
           handleDateClick={this.handleDateClick}
-          booking={bookingSampleData}
+          // booking={bookingSampleData}
           listing={this.state.listing}
           startDate={this.state.startDate}
           endDate={this.state.endDate}
