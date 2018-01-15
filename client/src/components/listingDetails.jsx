@@ -144,51 +144,6 @@ class ListingDetails extends React.Component {
     }
   }
 
-  // renderRating () {
-  //   let rating = Math.round(this.props.listing.average_stars);
-  //   if (rating === 5) {
-  //     return (
-  //       <div className='listing-rating-img'>
-  //         <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
-  //         <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
-  //         <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
-  //         <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
-  //         <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
-  //       </div>
-  //     )
-  //   } else if (rating === 4) {
-  //     return (
-  //       <div className='listing-rating-img'>
-  //         <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
-  //         <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
-  //         <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
-  //         <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
-  //       </div>
-  //     )
-  //   } else if (rating === 3) {
-  //     return (
-  //       <div className='listing-rating-img'>
-  //         <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
-  //         <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
-  //         <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
-  //       </div>
-  //     )
-  //   } else if (rating === 2) {
-  //     return (
-  //       <div className='listing-rating-img'>
-  //         <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
-  //         <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
-  //       </div>
-  //     )
-  //   } else {
-  //     return (
-  //       <div className='listing-rating-img'>
-  //         <img src='https://content.mycutegraphics.com/graphics/star/blue-rounded-corner-star.png' />
-  //       </div>
-  //     )
-  //   }
-  // }
-
   render () {
     return (
       <div className='listing-wrapper'>

@@ -10,6 +10,16 @@ import MapContainer from './MapContainer';
 import $ from 'jquery';
 import FeaturedPlaces from './FeaturedPlaces';
 
+const styles = {
+  root: {
+    // flexGrow: 1,
+    // flexShrink: 0,
+    // flexBasis: 'auto',
+    // alignItems: 'stretch',
+    justifyContent: 'center',
+  },
+};
+
 class SearchResults extends React.Component {
   constructor(props) {
     super(props);
@@ -38,8 +48,8 @@ class SearchResults extends React.Component {
     if(this.state.searchResultsFound) {
       return (
         <div className="listing-details">
-          <div className="listings">
-            <Grid container spacing={16} style={{justifyContent: 'center'}}>
+          <div className="listings" style={styles.root}>
+            <Grid container spacing={16} style={styles.root}>
               { listings.map(listing => (
                 <Grid item key={listing.id}>
                   <SearchResult 
@@ -68,7 +78,7 @@ class SearchResults extends React.Component {
       );
     } else {
       return (
-        <div style={{display: 'flex', margin: '0 5%'}}>
+        <div style={{margin: '10% 5%'}}>
           <img src="https://www.bhiner.com/img/noResult.png" alt="No Results"/>
           <div style={{marginLeft: '10%'}}>
             <h4>No results found</h4>

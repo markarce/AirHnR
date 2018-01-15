@@ -3,7 +3,7 @@ import React from 'react';
 
 const styles = {
   bar: {
-    width: '60%',
+    width: '100%',
     height: '60px',
     marginTop: '20px'
   }
@@ -42,7 +42,6 @@ class Search extends React.Component {
     return (
       <div className='search-box'>
         <input style={barStyle} onChange={e => this.updateQuery(e)} onKeyPress={e => this.handleSearch(e)} type="text" placeholder="Anywhere..." id="place" />
-        {/* <button value={$("#place").val()} onClick={this.handleSearchClick}>Go</button> */}
       </div>
     );
   }

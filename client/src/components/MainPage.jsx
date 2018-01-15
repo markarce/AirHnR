@@ -6,15 +6,13 @@ const styles = {
   text: {
     fontSize: 'calc(0.5vw + 42px)',
     lineHeight: 'calc(0.7vw + 48px)',
+    color: '#FF5A5F',
+    fontWeight: 700,
   },
   description: {
     fontSize: 'calc(0.5vw + 42px)',
     lineHeight: 'calc(0.7vw + 48px)',
-    width: '45%'
   },
-  container: {
-    margin: '2% 60px'
-  }
 }
 class MainPage extends React.Component {
   constructor(props) {
@@ -24,13 +22,17 @@ class MainPage extends React.Component {
 
   render() {
     return (
-      <div>
-        <div className="main-page" style={styles.container}>
+      <div className='mainpage-wrapper'>
+        <div className="main-page-text">
           <span style={styles.text}>Airhnr</span>
           <p style={styles.description}>Book unique homes and experiences all over the world.</p>
+        </div>
+        <div className='main-page-search'>
           <Search isMainPage={true} handleSearchClick={this.props.goToLocation}/>
         </div>
-        <FeaturedPlaces goToLocation={this.props.goToLocation} />
+        <div className='mainpage-featured-places'>
+          <FeaturedPlaces goToLocation={this.props.goToLocation} />
+        </div>
       </div>
     );
   };
