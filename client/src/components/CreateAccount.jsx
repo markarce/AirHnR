@@ -9,7 +9,7 @@ const styles = theme => ({
   container: {
     display: 'flex',
     flexWrap: 'wrap',
-    marginTop: '10%',
+    marginTop: '2%%',
   },
   textField: {
     width: 200,
@@ -105,7 +105,7 @@ class CreateAccount extends Component {
   render() {
     const { classes } = this.props;
     return (
-      <div style={{margin: '0 60px'}}>
+      <div style={{margin: '10% 60px'}}>
         <p style={styles().description}>Create your new Airhnr account: </p>
         <p>- Password must be more than 7 characters long.</p>
         <form className={classes.container} noValidate autoComplete="off">

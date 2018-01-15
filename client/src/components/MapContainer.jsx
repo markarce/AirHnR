@@ -3,8 +3,8 @@ import { Map, InfoWindow, Marker, GoogleApiWrapper } from 'google-maps-react';
 import Stars from './Stars';
 
 const style = {
-  height: '1000px',
-  width: '100%',
+  height: '100%',
+  width: '50%',
   backgroundColor: ''
 };
 
@@ -71,6 +71,10 @@ export class MapContainer extends Component {
         onReady={this.setZoomHandler}
         // center={{
         initialCenter={{
+          lat: this.props.searchedLocation.latitude,
+          lng: this.props.searchedLocation.longitude
+        }}
+        center={{
           lat: this.props.searchedLocation.latitude,
           lng: this.props.searchedLocation.longitude
         }}

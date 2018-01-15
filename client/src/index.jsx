@@ -319,18 +319,6 @@ class App extends React.Component {
             closeLogin={this.closeLogin}
           />
         </div>
-        <div className="date-picker">
-          <DateRangePicker
-            startDate={this.state.startDate} // momentPropTypes.momentObj or null,
-            startDateId={'1'}
-            endDate={this.state.endDate} // momentPropTypes.momentObj or null,
-            endDateId={'2'}
-            onDatesChange={this.updateDates} // PropTypes.func.isRequired,
-            focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
-            onFocusChange={this.updateFocusedInput} // PropTypes.func.isRequired,
-            onClose={this.handleDateClick}
-          />
-        </div>
         <br/>
         <div className='' style={{'marginTop':'5px'}}>
           {showPage}
@@ -340,6 +328,7 @@ class App extends React.Component {
           open={this.state.loginOpen} 
           openLogin={this.openLogin}
           closeLogin={this.closeLogin}
+          triggerView={this._triggerViewChange}
         />
       </div>
     );
