@@ -12,8 +12,9 @@ import Stars from './Stars.jsx';
 
 const styles = {
   card: {
-    width: 350,
-    height: 300
+    width: 300,
+    height: 300,
+    cursor: 'pointer'
   },
   media: {
     height: 170,
