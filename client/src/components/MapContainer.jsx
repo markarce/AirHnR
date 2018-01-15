@@ -25,7 +25,6 @@ export class MapContainer extends Component {
   };
 
   setZoomHandler(mapProps, map) {
-    console.log(map, mapProps)
     this.props.google.maps.event.addListener(map, 'zoom_changed', () => {
       this.centerMoved(mapProps, map);
     });
@@ -47,7 +46,6 @@ export class MapContainer extends Component {
   };
 
   render() {
-    console.log(GoogleApiWrapper)
     let markers = this.props.listings.map((listing, i) => {
       return (
         <Marker 
@@ -69,7 +67,6 @@ export class MapContainer extends Component {
         onDragend={this.centerMoved}
         onClick={() => this.setState({showInfo: false})}
         onReady={this.setZoomHandler}
-        // center={{
         initialCenter={{
           lat: this.props.searchedLocation.latitude,
           lng: this.props.searchedLocation.longitude
