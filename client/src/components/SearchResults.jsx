@@ -17,6 +17,7 @@ const styles = {
     // flexBasis: 'auto',
     // alignItems: 'stretch',
     justifyContent: 'center',
+    alignItems: 'stretch',
   },
 };
 
