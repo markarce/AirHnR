@@ -13,6 +13,9 @@ import NotLoggedIn from './NotLoggedIn';
 import Login from './Login.jsx'
 import NavLogged from './NavLogged.jsx';
 import Search from './Search.jsx';
+import 'react-dates/initialize';
+import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'react-dates';
+import 'react-dates/lib/css/_datepicker.css';
 
 // const styles = {
 //   root: {
@@ -83,8 +86,22 @@ class NavBar extends React.Component{
       {(() => {
         if (this.props.view !== 'default') {
           return (
-            <div className='nav-bar-search'>
-              <Search handleSearchClick={this.props.handleSearchClick}/>
+            <div>
+              <div className='nav-bar-search'>
+                <Search handleSearchClick={this.props.handleSearchClick}/>
+              </div>
+              {/* <div className='nav-bar-dates'>
+                <DateRangePicker
+                  startDate={this.state.startDate} // momentPropTypes.momentObj or null,
+                  startDateId={'12'}
+                  endDate={this.state.endDate} // momentPropTypes.momentObj or null,
+                  endDateId={'100000000'}
+                  onDatesChange={this.updateDates} // PropTypes.func.isRequired,
+                  focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
+                  onFocusChange={this.updateFocusedInput} // PropTypes.func.isRequired,
+                  onClose={this.handleDateClick}
+                />
+              </div> */}
             </div>
           )
         }

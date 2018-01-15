@@ -249,7 +249,9 @@ class App extends React.Component {
         <Checkout
           guests={this.state.guests}
           updateGuests={this.updateGuests.bind(this)}
-          booking={bookingSampleData}
+          startDate={this.state.startDate}
+          endDate={this.state.endDate}
+          // booking={bookingSampleData}
           listing={this.state.listing}
           user={this.state.user}
           isUserLoggedIn={this.state.user ? true : false}
@@ -269,7 +271,6 @@ class App extends React.Component {
     } else {
       showPage = <MainPage goToLocation={this.handleSearchClick}/>
     }
-
 
     return (
       <div>

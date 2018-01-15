@@ -20,6 +20,9 @@ const styles = theme => ({
 class Checkout extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      nights: this.props.endDate.diff(this.props.startDate, 'days') - 1
+    }
   }
 
   createBooking () {
@@ -27,11 +30,11 @@ class Checkout extends React.Component {
       price: this.props.listing.price,
       fee_service: this.props.listing.fee_service,
       fee_cleaning: this.props.listing.fee_cleaning,
-      tax: Math.round(0.085 * this.props.listing.price * this.props.booking.nights),
-      total: Math.round(1.085 * this.props.listing.price * this.props.booking.nights + this.props.listing.fee_service),
-      start_date: this.props.booking.start_date,
-      end_date: this.props.booking.end_date,
-      number_of_nights: this.props.booking.nights,
+      tax: Math.round(0.085 * this.props.listing.price * this.state.nights),
+      total: Math.round(1.085 * this.props.listing.price * this.state.nights + this.props.listing.fee_service + this.props.listing.fee_cleaning),
+      start_date: this.props.startDate,
+      end_date: this.props.endDate,
+      number_of_nights: this.state.nights,
       num_guests: this.props.guests,
       listing_id: this.props.listing.id,
       location_id: this.props.listing.location_id,
@@ -59,7 +62,7 @@ class Checkout extends React.Component {
       let l = this.props.listing;
       this.props.sendConfirmationEmail(l.address_street, 
         l.address_city, l.address_region, l.address_postal_code, this.props.guests,
-        Math.round(1.085 * this.props.listing.price * this.props.booking.nights + this.props.listing.fee_service))
+        Math.round(1.085 * this.props.listing.price * this.state.nights + this.props.listing.fee_service + this.props.listing.fee_cleaning))
     })
     .catch((err) => {
       console.log('error: ', err);
@@ -90,7 +93,7 @@ class Checkout extends React.Component {
       checkoutButton = (<StripeCheckout
         name={this.props.listing.name}
         description="Payment description"
-        amount={Math.round(1.085 * this.props.listing.price * this.props.booking.nights + this.props.listing.fee_service)*100}
+        amount={Math.round(1.085 * this.props.listing.price * this.state.nights + this.props.listing.fee_service + this.props.listing.fee_cleaning)*100}
         token={() => this.onConfirm(this.createBooking())}
         currency="USD"
         stripeKey={key}
@@ -115,8 +118,16 @@ class Checkout extends React.Component {
           </div>
         </div>
         <div className="overview">
-              <Booking guests={this.props.guests} updateGuests={this.props.updateGuests} listing={this.props.listing} booking={this.props.booking} button={false}/>
-          </div>
+          <Booking 
+            endDate={this.props.endDate}
+            startDate={this.props.startDate}
+            guests={this.props.guests} 
+            updateGuests={this.props.updateGuests} 
+            listing={this.props.listing} 
+            // booking={this.props.booking} 
+            button={false} 
+          />
+        </div>
       </div>
     );
   }

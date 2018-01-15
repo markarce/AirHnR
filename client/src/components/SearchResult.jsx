@@ -37,7 +37,6 @@ const makeStars = (stars, max) => {
       results.push(<i className="material-icons blue10" key={results.length}>star_border</i>);
     }
   }
-
   return results;
 }
 

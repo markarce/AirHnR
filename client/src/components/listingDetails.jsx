@@ -6,11 +6,11 @@ import Booking from './Booking.jsx'
 import moment from 'moment';
 import Stars from './Stars.jsx';
 
-let bookingSampleData = {
-  start_date: '01/01/2018',
-  end_date: '04/01/2018',
-  nights: 3,
-};
+// let bookingSampleData = {
+//   start_date: '01/01/2018',
+//   end_date: '04/01/2018',
+//   nights: 3,
+// };
 
 //need star rating, review count, host_name
 
