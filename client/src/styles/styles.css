@@ -575,9 +575,12 @@ header {
 
 /*material UI icons */
 .material-icons.blue10 {
-  color: #0d47a1
+  color: #0d47a1;
 }
 
 .material-icons.cyan10 {
-  color: #3dbbd8
+  color: #3dbbd8;
+}
+.material-icons.gold700 {
+  color: #FBC02D;
 }

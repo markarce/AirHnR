@@ -9,6 +9,13 @@ const styles = {};
 
 const Stars = (props) => {
   //converts rating to a string of stars
+  console.log(props.rating)
+  if (props.rating === null) {
+    return (
+      {/* <i className="material-icons gold700" >new_releases</i> */}
+      <i className="material-icons gold700" >fiber_new</i>
+    )
+  }
   let custom = props.styles || {};
   _.extend(styles, custom);
   let offset = parseFloat(props.offset) || 0;

@@ -8,6 +8,7 @@ import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
+import Stars from './Stars.jsx';
 
 const styles = {
   card: {
@@ -62,9 +63,15 @@ function SearchResult (props) {
           <Typography type="caption">
             ${props.price} per night
           </Typography>
-          <Typography>
+          {/* <Typography>
             {makeStars(props.rating, 5)}
-          </Typography>
+
+          </Typography> */}
+          <Stars
+            rating={props.rating}
+            offset={0.25}
+            total={5}
+          />
         </CardContent>
       </Card>
   );

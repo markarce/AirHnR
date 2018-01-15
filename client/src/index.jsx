@@ -21,12 +21,12 @@ import FeaturedPlaces from './components/FeaturedPlaces.jsx';
 import MainPage from './components/MainPage.jsx'
 import Confirmation from './components/Confirmation.jsx'
 
-let bookingSampleData = {
-  start_date: '01/01/2018',
-  end_date: '04/01/2018',
-  nights: 3,
-  guest_id: 61
-};
+// let bookingSampleData = {
+//   start_date: '01/01/2018',
+//   end_date: '04/01/2018',
+//   nights: 3,
+//   guest_id: 61
+// };
 
 class App extends React.Component {
   constructor(props) {
@@ -119,7 +119,7 @@ class App extends React.Component {
       .then((response) => response.json())
       .then((json) => {
         this.setState({
-          results: json.listings
+          results: listings
         });
       }).catch(err => console.log(err));
     }
