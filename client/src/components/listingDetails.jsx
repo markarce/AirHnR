@@ -205,6 +205,7 @@ class ListingDetails extends React.Component {
           // booking={this.props.booking} 
           listing={this.props.listing} 
           button={true} 
+          openLogin={this.props.openLogin}
           login={this.props.login}
           isUserLoggedIn={this.props.isUserLoggedIn}/>
         </div>

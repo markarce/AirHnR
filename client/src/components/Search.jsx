@@ -21,8 +21,7 @@ class Search extends React.Component {
   getGoogleSuggestions(q) {
     fetch(`/api/autosuggest/${q.replace(' ', '+')}`)
       .then(res => res.json()).then(res => console.log(res)).catch(err => console.log(err))
-
-  };
+  }
 
   updateQuery(e) {
     this.setState({
@@ -32,6 +31,7 @@ class Search extends React.Component {
 
   handleSearch (e) {
     if (e.key === 'Enter') {
+      console.log('searching', this.state.query)
       this.props.handleSearchClick(this.state.query);
       e.target.value = '';
     }

@@ -21,13 +21,6 @@ import FeaturedPlaces from './components/FeaturedPlaces.jsx';
 import MainPage from './components/MainPage.jsx'
 import Confirmation from './components/Confirmation.jsx'
 
-// let bookingSampleData = {
-//   start_date: '01/01/2018',
-//   end_date: '04/01/2018',
-//   nights: 3,
-//   guest_id: 61
-// };
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -43,9 +36,9 @@ class App extends React.Component {
       startDate: moment(),
       endDate: moment().add(7, 'days'),
       guests: 1,
-      user: null
+      user: null,
+      loginOpen: false
     }
-    // this.searchTerm = this.searchTerm.bind(this);
     this.handleSearchClick = this.handleSearchClick.bind(this);
     this.handleListingClick = this.handleListingClick.bind(this);
     this._triggerViewChange = this._triggerViewChange.bind(this);
@@ -57,6 +50,8 @@ class App extends React.Component {
     this.sendConfirmationEmail = this.sendConfirmationEmail.bind(this);
     this.updateDates = this.updateDates.bind(this);
     this.updateFocusedInput = this.updateFocusedInput.bind(this);
+    this.openLogin = this.openLogin.bind(this);
+    this.closeLogin = this.closeLogin.bind(this);
   }
 
   componentDidMount() {
@@ -70,6 +65,18 @@ class App extends React.Component {
     }
   }
 
+  openLogin(open) {
+    this.setState({
+      loginOpen: true
+    });
+  };
+
+  closeLogin(open) {
+    this.setState({
+      loginOpen: false
+    });
+  };
+
   updateGuests (guests) {
     this.setState({
       guests: guests
@@ -80,7 +87,7 @@ class App extends React.Component {
     this.setState({
       view: 'trips'
     });
-  }
+  };
 
   handleListingClick(listingID) {
     // called when a list item is clicked on.
@@ -107,6 +114,7 @@ class App extends React.Component {
       fetch(`/api/listings?q=${query}&start=${startDate}&end=${endDate}`, options)
       .then((response) => response.json())
       .then((json) => {
+        console.log('received listings', json.mapCenter)
         this.setState({
           results: json.listings,
           mapCenter: json.mapCenter,
@@ -139,10 +147,10 @@ class App extends React.Component {
     }
   };
     
-    handleMapDrag(latitude, longitude, zoom) {
-      fetch(`/api/markings`, {
-        headers: new Headers({
-          "Content-Type": "application/json"
+  handleMapDrag(latitude, longitude, zoom) {
+    fetch(`/api/markings`, {
+      headers: new Headers({
+        "Content-Type": "application/json"
       }),
       method: 'POST',
       body: JSON.stringify({
@@ -233,6 +241,7 @@ class App extends React.Component {
   
   render() {
     const currentView = this.state.view;
+    console.log(currentView)
     let showPage = null;
     if (currentView === 'searchResults') {
       showPage = 
@@ -245,13 +254,13 @@ class App extends React.Component {
     } else if (currentView === 'listingDetails') {
       showPage =
         <ListingDetails
+          openLogin={this.openLogin}
           updateGuests={this.updateGuests.bind(this)}
           handleBookingClick={this.handleBookingClick.bind(this)}
           focusedInput={this.state.focusedInput}
           updateFocusedInput={this.updateFocusedInput}
           updateDates={this.updateDates}
           handleDateClick={this.handleDateClick}
-          // booking={bookingSampleData}
           listing={this.state.listing}
           startDate={this.state.startDate}
           endDate={this.state.endDate}
@@ -266,7 +275,6 @@ class App extends React.Component {
           updateGuests={this.updateGuests.bind(this)}
           startDate={this.state.startDate}
           endDate={this.state.endDate}
-          // booking={bookingSampleData}
           listing={this.state.listing}
           user={this.state.user}
           isUserLoggedIn={this.state.user ? true : false}
@@ -284,38 +292,42 @@ class App extends React.Component {
     } else if (currentView === 'confirmation') {
       showPage = <Confirmation />
     } else {
-      showPage = <MainPage goToLocation={this.handleSearchClick}/>
+      showPage = 
+        <MainPage 
+          goToLocation={this.handleSearchClick}
+        />
     }
-
     return (
       <div className="background">
         <div>
           <NavBar 
+            startDate={this.state.startDate}
+            endDate={this.state.endDate}
             view={this.state.view}
+            updateDates={this.updateDates}
+            handleDateClick={this.handleDateClick}
+            updateFocusedInput={this.updateFocusedInput}
+            focusedInput={this.state.focusedInput}
             triggerView={this._triggerViewChange}
             isUserLoggedIn={this.state.user ? true : false}
             userLogOut={this.userLogOut}
             user={this.state.user}
             login={this.login}
             handleSearchClick={this.handleSearchClick}
-          />
-        </div>
-        <div>
-          <DateRangePicker
-            startDate={this.state.startDate} // momentPropTypes.momentObj or null,
-            startDateId={'1'}
-            endDate={this.state.endDate} // momentPropTypes.momentObj or null,
-            endDateId={'2'}
-            onDatesChange={this.updateDates} // PropTypes.func.isRequired,
-            focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
-            onFocusChange={this.updateFocusedInput} // PropTypes.func.isRequired,
-            onClose={this.handleDateClick}
+            openLogin={this.openLogin}
+            closeLogin={this.closeLogin}
           />
         </div>
         <br/>
-        <div style={{'marginTop':'5px'}}>
+        <div className='' style={{'marginTop':'5px'}}>
           {showPage}
         </div>
+        <Login 
+          login={this.login}
+          open={this.state.loginOpen} 
+          openLogin={this.openLogin}
+          closeLogin={this.closeLogin}
+        />
       </div>
     );
   };
@@ -328,25 +340,25 @@ class App extends React.Component {
 
   _storageAvailable(type) {
     try {
-        var storage = window[type],
-            x = '__storage_test__';
-        storage.setItem(x, x);
-        storage.removeItem(x);
-        return true;
+      var storage = window[type],
+        x = '__storage_test__';
+      storage.setItem(x, x);
+      storage.removeItem(x);
+      return true;
     }
     catch(e) {
-        return e instanceof DOMException && (
-            // everything except Firefox
-            e.code === 22 ||
-            // Firefox
-            e.code === 1014 ||
-            // test name field too, because code might not be present
-            // everything except Firefox
-            e.name === 'QuotaExceededError' ||
-            // Firefox
-            e.name === 'NS_ERROR_DOM_QUOTA_REACHED') &&
-            // acknowledge QuotaExceededError only if there's something already stored
-            storage.length !== 0;
+      return e instanceof DOMException && (
+        // everything except Firefox
+        e.code === 22 ||
+        // Firefox
+        e.code === 1014 ||
+        // test name field too, because code might not be present
+        // everything except Firefox
+        e.name === 'QuotaExceededError' ||
+        // Firefox
+        e.name === 'NS_ERROR_DOM_QUOTA_REACHED') &&
+        // acknowledge QuotaExceededError only if there's something already stored
+        storage.length !== 0;
     }
   }
 };

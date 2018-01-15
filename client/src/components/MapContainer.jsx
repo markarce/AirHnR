@@ -25,6 +25,7 @@ export class MapContainer extends Component {
   };
 
   setZoomHandler(mapProps, map) {
+    console.log(map, mapProps)
     this.props.google.maps.event.addListener(map, 'zoom_changed', () => {
       this.centerMoved(mapProps, map);
     });
@@ -46,6 +47,7 @@ export class MapContainer extends Component {
   };
 
   render() {
+    console.log(GoogleApiWrapper)
     let markers = this.props.listings.map((listing, i) => {
       return (
         <Marker 
@@ -60,12 +62,14 @@ export class MapContainer extends Component {
       )
     });
     return (
-      <Map google={this.props.google} 
+      <Map 
+        google={this.props.google} 
         zoom={13} 
-        style={style} 
+        style={style}
         onDragend={this.centerMoved}
         onClick={() => this.setState({showInfo: false})}
         onReady={this.setZoomHandler}
+        // center={{
         initialCenter={{
           lat: this.props.searchedLocation.latitude,
           lng: this.props.searchedLocation.longitude
@@ -77,7 +81,7 @@ export class MapContainer extends Component {
           marker={this.state.activeMarker}
           visible={this.state.showInfo}
         >
-          <div  >
+          <div>
             <h5>{this.state.locationSelectedOnMap.name}</h5>
             <p>{this.state.locationSelectedOnMap.address_street}</p>
             <Stars
