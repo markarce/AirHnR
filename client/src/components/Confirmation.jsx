@@ -1,7 +1,8 @@
 import React from 'react';
 const styles = {
   container: {
-    marginLeft: '60px'
+    marginLeft: '60px',
+    marginTop: '10%'
   }
 };
 

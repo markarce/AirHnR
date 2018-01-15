@@ -463,7 +463,7 @@ header {
 .listings {
   grid-column-start: 1;
   grid-row-start: 2;
-  /* margin: 20px 5%; */
+  margin-top: 20px;
 }
 
 .map-container {
