@@ -124,8 +124,14 @@ class App extends React.Component {
   };
 
   updateDates({ startDate, endDate }) {
-    this.setState({ startDate, endDate });
+    if (startDate < endDate) {
+      this.setState({ startDate, endDate });
+    }
+    else {
+      this.setState({ startDate: startDate, endDate: startDate.add(1, 'days') });
+    }
   };
+  
   updateFocusedInput(focusedInput) {
     this.setState({ focusedInput })
   };
@@ -138,7 +144,7 @@ class App extends React.Component {
       .then((response) => response.json())
       .then((json) => {
         this.setState({
-          results: listings
+          results: json.listings
         });
       }).catch(err => console.log(err));
     }
@@ -241,7 +247,6 @@ class App extends React.Component {
   
   render() {
     const currentView = this.state.view;
-    console.log(currentView)
     let showPage = null;
     if (currentView === 'searchResults') {
       showPage = 
@@ -267,7 +272,6 @@ class App extends React.Component {
           guests={this.state.guests}
           login={this.login}
           isUserLoggedIn={this.state.user ? true : false}
-          triggerView={this._triggerViewChange}
         />;
     } else if (currentView === 'checkout') {
       showPage =
@@ -328,7 +332,6 @@ class App extends React.Component {
           open={this.state.loginOpen} 
           openLogin={this.openLogin}
           closeLogin={this.closeLogin}
-          triggerView={this._triggerViewChange}
         />
       </div>
     );
